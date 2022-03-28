@@ -10,6 +10,12 @@ public abstract class Vare {
     private int pant;
     private Varetype varetype;
 
+    public Vare(String navn, int pant, Varetype type) {
+        this.navn = navn;
+        this.pant = pant;
+        this.varetype = type;
+    }
+
     public int getPris(int gruppe){
         return (int)priser.get(gruppe);
     }
