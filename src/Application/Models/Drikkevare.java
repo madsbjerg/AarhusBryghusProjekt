@@ -14,6 +14,6 @@ public class Drikkevare extends Vare {
 
     public double getAlkoholProcent() {
         return alkoholProcent;
-    }
+    } 
 
 }
