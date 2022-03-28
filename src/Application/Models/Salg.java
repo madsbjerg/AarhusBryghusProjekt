@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Salg {
-    // Rabat rabat = null;
+    Rabat rabat = null;
     private double totalBeloeb;
     Map<Vare, Integer> varer;
 
