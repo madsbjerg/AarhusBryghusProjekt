@@ -3,7 +3,7 @@ package Application.Models;
 public class Sampakning extends Vare{
 
     private String æsketype;
-    private int antalOel;
+    private int antalOel; 
     private int antalGlas;
 
 
