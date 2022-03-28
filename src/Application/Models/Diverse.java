@@ -9,8 +9,16 @@ public class Diverse extends Vare {
         this.beskrivelse = beskrivelse;
     }
 
-    public void CreateBeklædning(String navn, int pant, String beskrivelse){
+    public void createBeklædning(String navn, int pant, String beskrivelse){
         new Diverse(navn, pant, Varetype.BEKLÆDNING, beskrivelse);
+    }
+
+    public void createMalt(String navn, int pant, String beskrivelse){
+        new Diverse(navn, pant, Varetype.MALT,beskrivelse);
+    }
+
+    public void createGlas(String navn, int pant, String beskrivelse){
+        new Diverse(navn, pant, Varetype.GLAS,beskrivelse);
     }
 
     public String getBeskrivelse(){
