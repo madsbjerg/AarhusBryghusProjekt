@@ -14,3 +14,4 @@ public class FastRabat implements Rabat {
         return sum - beloeb;
     }
 }
+//

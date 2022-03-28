@@ -12,3 +12,4 @@ public class ProcentRabat implements Rabat {
         return sum * (1+procentSats);
     }
 }
+//
