@@ -21,7 +21,6 @@ public class Diverse extends Vare {
         new Diverse(navn, pant, Varetype.GLAS,beskrivelse);
     }
 
-
     public String getBeskrivelse(){
         return beskrivelse;
     }
