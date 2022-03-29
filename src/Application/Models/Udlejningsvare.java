@@ -21,12 +21,11 @@ public class Udlejningsvare extends Vare{
         new Udlejningsvare(navn, pant, Varetype.FUSTAGE, ude);
     }
 
-    public void createAnlaeg(String navn, int pant, boolean ude){
-        new Udlejningsvare(navn, pant, Varetype.ANLÆG, ude);
+    public void createAnlaeg(String navn, boolean ude){
+        new Udlejningsvare(navn, 0, Varetype.ANLÆG, ude);
     }
 
     public void createKulsyre(String navn, int pant, boolean ude){
         new Udlejningsvare(navn, pant, Varetype.KULSYRE, ude);
     }
-
 }
