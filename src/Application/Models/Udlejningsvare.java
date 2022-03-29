@@ -17,16 +17,16 @@ public class Udlejningsvare extends Vare{
         this.ude = ude;
     }
 
-    public void createFustage (String navn, int pant, boolean ude){
-        new Udlejningsvare(navn, pant, Varetype.FUSTAGE, ude);
+    public Udlejningsvare createFustage (String navn, int pant, boolean ude){
+        return new Udlejningsvare(navn, pant, Varetype.FUSTAGE, ude);
     }
 
-    public void createAnlaeg(String navn, int pant, boolean ude){
-        new Udlejningsvare(navn, pant, Varetype.ANLÆG, ude);
+    public Udlejningsvare createAnlaeg(String navn, int pant, boolean ude){
+        return new Udlejningsvare(navn, pant, Varetype.ANLÆG, ude);
     }
 
-    public void createKulsyre(String navn, int pant, boolean ude){
-        new Udlejningsvare(navn, pant, Varetype.KULSYRE, ude);
+    public Udlejningsvare createKulsyre(String navn, int pant, boolean ude){
+        return new Udlejningsvare(navn, pant, Varetype.KULSYRE, ude);
     }
 
 }
