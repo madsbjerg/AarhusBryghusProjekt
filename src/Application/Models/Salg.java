@@ -1,7 +1,6 @@
 package Application.Models;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class Salg {
@@ -10,7 +9,7 @@ public abstract class Salg {
     Map<Vare, Integer> varer;
 
     Salg(HashMap<Vare, Integer> varer){
-        this.varer = varer;
+        this.varer = varer; // lmao
     }
 
     public double beregnTotal(int prisgruppe){
