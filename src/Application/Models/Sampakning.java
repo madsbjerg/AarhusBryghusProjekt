@@ -36,8 +36,8 @@ public class Sampakning extends Vare{
         return antalGlas;
     }
 
-    public ArrayList<Drikkevare> getDrikkevarer(){
-        return new ArrayList<>(drikkevarer);
+    public Drikkevare[] getDrikkevarer(){
+        return drikkevarer;
     }
 
     public void removeDrikkevare(Drikkevare drikkevare){
