@@ -9,18 +9,12 @@ public class Udlejning extends Salg{
     private LocalDate startDato;
     private LocalDate slutDato;
     private boolean betalt;
-    private List<Udlejningsvare> udlejningsvare;
 
     Udlejning(HashMap<Vare, Integer> varer, ArrayList<Udlejningsvare> udlejningsvare, LocalDate startDato, LocalDate slutDato){
         super(varer);
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.betalt = false;
-        for(Udlejningsvare vare : udlejningsvare){
-            
-        }
     }
-
-
-
+    
 }
