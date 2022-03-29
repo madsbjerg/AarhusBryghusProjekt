@@ -8,7 +8,6 @@ public class FastRabat implements Rabat {
         this.beloeb = beloeb;
     }
 
-
     @Override
     public double beregnRabat(double sum) {
         return sum - beloeb;

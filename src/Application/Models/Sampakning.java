@@ -1,10 +1,14 @@
 package Application.Models;
 
+import java.util.ArrayList;
+
 public class Sampakning extends Vare{
 
     private String æsketype;
     private int antalOel; 
     private int antalGlas;
+
+    private final ArrayList<Drikkevare> drikkevarer = new ArrayList<>();
 
 
     public Sampakning(String navn, int pant, String æsketype, int antalOel, int antalGlas){
@@ -25,5 +29,29 @@ public class Sampakning extends Vare{
     public int getAntalGlas() {
         return antalGlas;
     }
+
+    public ArrayList<Drikkevare> getDrikkevarer(){
+        return new ArrayList<>(drikkevarer);
+    }
+
+    public Drikkevare createDrikkevare(String navn, int pant, Varetype varetype, double alkoholProcent){
+
+        Drikkevare drikkevare = new Drikkevare(navn, pant, varetype, alkoholProcent);
+        drikkevarer.add(drikkevare);
+        return drikkevare;
+    }
+
+    public void removeDrikkevare(Drikkevare drikkevare){
+        if(drikkevarer.contains(drikkevare)){
+            drikkevarer.remove(drikkevare);
+        }
+    }
+
+    public void addDrikkevare(Drikkevare drikkevare){
+        if(!drikkevarer.contains(drikkevare)){
+            drikkevarer.add(drikkevare);
+        }
+    }
+
 
 }
