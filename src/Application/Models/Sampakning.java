@@ -34,13 +34,6 @@ public class Sampakning extends Vare{
         return new ArrayList<>(drikkevarer);
     }
 
-    public Drikkevare createDrikkevare(String navn, int pant, Varetype varetype, double alkoholProcent){
-
-        Drikkevare drikkevare = new Drikkevare(navn, pant, varetype, alkoholProcent);
-        drikkevarer.add(drikkevare);
-        return drikkevare;
-    }
-
     public void removeDrikkevare(Drikkevare drikkevare){
         if(drikkevarer.contains(drikkevare)){
             drikkevarer.remove(drikkevare);
