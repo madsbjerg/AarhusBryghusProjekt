@@ -1,6 +1,7 @@
 package Application.Models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Udlejning extends Salg{
@@ -16,5 +17,4 @@ public class Udlejning extends Salg{
         this.slutDato = slutDato;
         this.betalt = false;
     }
-
 }

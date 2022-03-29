@@ -11,5 +11,6 @@ public enum Varetype {
     ANLÆG,
     GLAS,
     SAMPAKNING,
-    RUNDVISNING
+    RUNDVISNING,
+    KLIPPEKORT
 }

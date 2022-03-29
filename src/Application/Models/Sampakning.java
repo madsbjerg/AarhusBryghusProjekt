@@ -7,8 +7,8 @@ public class Sampakning extends Vare{
     private int antalGlas;
 
 
-    public Sampakning(String navn, int pant, Varetype varetype, String æsketype, int antalOel, int antalGlas){
-        super(navn, pant, varetype);
+    public Sampakning(String navn, int pant, String æsketype, int antalOel, int antalGlas){
+        super(navn, pant, Varetype.SAMPAKNING);
         this.æsketype = æsketype;
         this.antalOel = antalOel;
         this.antalGlas = antalGlas;

@@ -12,6 +12,14 @@ public class Drikkevare extends Vare {
         new Drikkevare(navn, pant, Varetype.FADØL, alkoholProcent);
     }
 
+    public void createFlaske(String navn, int pant, double alkoholProcent){
+        new Drikkevare(navn, pant, Varetype.FLASKE,alkoholProcent);
+    }
+
+    public void createSpiritus(String navn, int pant, double alkoholProcent){
+        new Drikkevare(navn, pant, Varetype.SPIRITUS,alkoholProcent);
+    }
+
     public double getAlkoholProcent() {
         return alkoholProcent;
     } 
