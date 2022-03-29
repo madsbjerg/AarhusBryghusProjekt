@@ -5,7 +5,7 @@ import java.util.Map;
 
 public abstract class Salg {
     Rabat rabat = null;
-
+    Betalingsform betalingsform;
     Map<Vare, Integer> varer;
 
     Salg(HashMap<Vare, Integer> varer){
