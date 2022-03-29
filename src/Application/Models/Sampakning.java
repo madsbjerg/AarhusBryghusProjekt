@@ -8,7 +8,7 @@ public class Sampakning extends Vare{
     private int antalOel; 
     private int antalGlas;
     private Drikkevare[] drikkevarer;
-    private int antalFyldt;
+    private int antalFyldt;                     // Hjælpe attribut til array.
 
     //private final ArrayList<Drikkevare> drikkevarer = new ArrayList<>();
 
