@@ -12,7 +12,7 @@ public abstract class Salg {
         this.varer = varer; // lmao
     }
 
-    public double beregnTotal(int prisgruppe){
+    public double totalPris(int prisgruppe){
       throw new  UnsupportedOperationException();
     }
 

@@ -9,7 +9,7 @@ public class ProduktSalg extends Salg{
         this.Beloeb = beloeb;
     }
 
-    public double beregnTotal(int prisgruppe){
+    public double totalPris(int prisgruppe){
         double sum = 0;
         for(Vare vare : varer.keySet()){
             sum += vare.getPris(prisgruppe) * (int)varer.get(vare);
