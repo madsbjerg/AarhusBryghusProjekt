@@ -127,14 +127,14 @@ public class Controller {
 
         //---- Opret malt objekter ------------------------------
 
-        Controller.createMalt("Malt", "Malt");
+        Controller.createMalt("Malt 25 kg", "Malt 25 kg");
 
 
         //---- Opret glas objekter ------------------------------
 
         Controller.createGlas("Ølglas", "Ølglas");
-
-
+        Controller.createGlas("2 Whiskyglas + brikker", "2 Whiskyglas + brikker");
+        Controller.createGlas("Krus");
 
 
     }
