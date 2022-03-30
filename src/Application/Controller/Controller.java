@@ -39,7 +39,7 @@ public class Controller {
         return new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
     }
 
-    public static Diverse createBeklædning(String navn, int pant, Varetype type, String beskrivelse){
+    public static Diverse createBeklædning(String navn, int pant, String beskrivelse){
         return new Diverse(navn, pant, Varetype.BEKLÆDNING, beskrivelse);
     }
 
@@ -63,6 +63,9 @@ public class Controller {
         Sampakning s1 = new Sampakning("Gaveæske", 0, "Gaveæske", 1, 1, 20);
         Sampakning s2 = new Sampakning("trækasse", 0, "Trækasse", 4, 3, 25);
         Sampakning s3 = new Sampakning("Gavekurv", 0, "Gavekurv", 2, 4, 30);
+
+        Vare bajer = createFadøl("Bajer", 0, 4);
+        Vare tøj = createBeklædning("Høj", 0, "høj");
 
 
         // ---- Opret fadøl objekter ----------------------------
