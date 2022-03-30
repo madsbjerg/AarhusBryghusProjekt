@@ -11,7 +11,7 @@ public class Storage implements Serializable {
     private ArrayList<Vare> varer = new ArrayList<>();
     private ArrayList<Salg> salg = new ArrayList<>();
 
-    public Storage getStorage(){
+    public static Storage getStorage(){
         if(storage == null) storage = new Storage();
         return storage;
     }
