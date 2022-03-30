@@ -30,41 +30,27 @@ public class Controller {
     }
 
     public static Drikkevare createSpiritus(String navn, int pant, double alkoholProcent){
-        Drikkevare d3 = new Drikkevare(navn, pant, Varetype.SPIRITUS,alkoholProcent);
+        Drikkevare d3 = new Drikkevare(navn, 0, Varetype.SPIRITUS,alkoholProcent);
         Storage.getStorage().addVare(d3);
         return d3;
     }
 
     public static Rundvisning createRundvisning(String navn, int antalPersoner, LocalDateTime tidspunkt){
-        Rundvisning r = new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
-        Storage.getStorage().addVare(r);
-        return r;
+        return new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
     }
 
-    public static Diverse createBeklædning(String navn, int pant, String beskrivelse){
-        Diverse div = new Diverse(navn, pant, Varetype.BEKLÆDNING, beskrivelse);
-        Storage.getStorage().addVare(div);
-        return div;
+    public static Diverse createBeklædning(String navn, String beskrivelse){
+        return new Diverse(navn, 0, Varetype.BEKLÆDNING, beskrivelse);
     }
 
-    public static Diverse createMalt(String navn, int pant, String beskrivelse){
-        Diverse div = new Diverse(navn, pant, Varetype.MALT, beskrivelse);
-        Storage.getStorage().addVare(div);
-        return div;
+    public static Diverse createMalt(String navn, String beskrivelse){
+        return new Diverse(navn, 0, Varetype.MALT, beskrivelse);
+
     }
 
-    public static Diverse createGlas(String navn, int pant, String beskrivelse){
-        Diverse div = new Diverse(navn, pant, Varetype.GLAS, beskrivelse);
-        Storage.getStorage().addVare(div);
-        return div;
+    public static Diverse createGlas(String navn, String beskrivelse){
+        return new Diverse(navn, 0, Varetype.GLAS, beskrivelse);
     }
-
-    public static Udlejningsvare createFustage(String navn, int pant, Varetype type, boolean ude){
-        Udlejningsvare u1 = new Udlejningsvare(navn, pant, Varetype.FUSTAGE, ude);
-        Storage.getStorage().addVare(u1);
-        return u1;
-    }
-
 
 
     public static void initStorage(){
@@ -147,6 +133,9 @@ public class Controller {
         //---- Opret glas objekter ------------------------------
 
         Controller.createGlas("Ølglas", "Ølglas");
+        Controller.createGlas("2 Whiskyglas + brikker", "2 Whiskyglas + brikker");
+        Controller.createGlas("Krus");
+
 
     }
 
