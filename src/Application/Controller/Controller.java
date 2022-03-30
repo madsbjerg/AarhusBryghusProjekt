@@ -50,9 +50,19 @@ public class Controller {
         return rl;
     }
 
-    public Rundvisning getRundvisninger(){
-
+    public ArrayList<Vare> getRundvisninger(){
+        Storage s = Storage.getStorage();
+        ArrayList<Vare> rl = new ArrayList<>();
+        for(Vare v : s.getVarer()){
+            if(v.getVaretype() == Varetype.RUNDVISNING){
+                rl.add(v);
+            }
+        }
+        return rl;
     }
 
+    public ArrayList<Vare> getVarer(){
+        return Storage.getStorage().getVarer();
+    }
 
 }
