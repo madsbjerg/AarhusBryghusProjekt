@@ -35,7 +35,7 @@ public class Controller {
         return d3;
     }
 
-    public static Rundvisning createRundvisning(String navn,  Varetype type, int antalPersoner, LocalDateTime tidspunkt){
+    public static Rundvisning createRundvisning(String navn,  int antalPersoner, LocalDateTime tidspunkt){
         return new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
     }
 
