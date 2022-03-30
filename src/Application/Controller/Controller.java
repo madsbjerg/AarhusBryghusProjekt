@@ -59,8 +59,8 @@ public class Controller {
         return div;
     }
 
-    public static Udlejningsvare createFustage(String navn, int pant, Varetype type, boolean ude){
-        Udlejningsvare u1 = new Udlejningsvare(navn, pant, Varetype.FUSTAGE, ude);
+    public static Udlejningsvare createFustage(String navn, int pant, Varetype type){
+        Udlejningsvare u1 = new Udlejningsvare(navn, pant, Varetype.FUSTAGE);
         Storage.getStorage().addVare(u1);
         return u1;
     }
