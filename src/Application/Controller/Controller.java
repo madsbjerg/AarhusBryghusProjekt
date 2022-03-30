@@ -39,7 +39,7 @@ public class Controller {
         return new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
     }
 
-    public static Diverse createBeklædning(String navn, int pant, String beskrivelse){
+    public static Diverse createBeklædning(String navn, int pant, Varetype type, String beskrivelse){
         return new Diverse(navn, pant, Varetype.BEKLÆDNING, beskrivelse);
     }
 
@@ -64,9 +64,6 @@ public class Controller {
         Sampakning s1 = new Sampakning("Gaveæske", 0, "Gaveæske", 1, 1, 20);
         Sampakning s2 = new Sampakning("trækasse", 0, "Trækasse", 4, 3, 25);
         Sampakning s3 = new Sampakning("Gavekurv", 0, "Gavekurv", 2, 4, 30);
-
-        Vare bajer = createFadøl("Bajer", 0, 4);
-        Vare tøj = createBeklædning("Høj", 0, "høj");
 
 
         // ---- Opret fadøl objekter ----------------------------
@@ -98,9 +95,45 @@ public class Controller {
         Controller.createFlaske("Black Monster", 0, 8.40);
 
         //---- Opret spiritus objekter ---------------------------
+        Controller.createSpiritus("Whisky 45% 50cl rør", 0, 45.00);
+        Controller.createSpiritus("Whisky 45% 4 cl", 0, 45.00);
+        Controller.createSpiritus("Whisky 43% 50cl rør", 0, 43.00);
+        Controller.createSpiritus("Whisky med egesplint", 0, 45.00);
+        Controller.createSpiritus("Whisky uden egesplint", 0, 45.00);
+        Controller.createSpiritus("Liquor of Aarhus", 0, 45.00);
+        Controller.createSpiritus("Lyng gin 50 cl", 0, 45.00);
+        Controller.createSpiritus("Lyng gin 4 cl", 0, 45.00);
+
+        //---- Opret fustage objekter ---------------------------
+        Controller.createFustage("Klosterbryg", 200, 6.40, false);
+        Controller.createFustage("Jazz Classic", 200, 6.40, false);
+        Controller.createFustage("Extra Pilsner", 200, 6.40, false);
+        Controller.createFustage("Celebration", 200, 6.40, false);
+        Controller.createFustage("Blondie", 200, 6.40, false);
+        Controller.createFustage("Forårsbryg", 200, 6.40, false);
+        Controller.createFustage("India Pale Ale", 200, 6.40, false);
+        Controller.createFustage("Julebryg", 200, 6.40, false);
+        Controller.createFustage("Imperial Stout", 200, 6.40, false);
+
+        //---- Opret rundvisning objekter -----------------------
+
+        Controller.createRundvisning("Carlsberg spionage", 5, LocalDateTime.of(2022, 4, 8, 12, 30));
+
+        //---- Opret beklædning objekter ------------------------
+
+        Controller.createBeklædning("T-shirt", "T-shirt");
+        Controller.createBeklædning("Polo", "Polo");
+        Controller.createBeklædning("Cap", "Cap");
 
 
+        //---- Opret malt objekter ------------------------------
 
+        Controller.createMalt("Malt", "Malt");
+
+
+        //---- Opret glas objekter ------------------------------
+
+        Controller.createGlas("Ølglas", "Ølglas");
 
     }
 
@@ -154,8 +187,7 @@ public class Controller {
     }
 
     // TODO: Mike brug den her i stedet pls
-    public ArrayList<String> getPrisgrupperByName(){
-        ArrayList<String> rl = new ArrayList<>();
+    public ArrayList<String> getPrisgrupperByName(){        ArrayList<String> rl = new ArrayList<>();
         for(Vare v : Storage.getStorage().getVarer()){
             for(Prisgruppe pg : v.getPrisgrupper()){
                 if(!rl.contains(pg.getNavn())){
@@ -170,8 +202,7 @@ public class Controller {
         Vare v = null;
         for(int i = 0; i < Storage.getStorage().getVarer().size(); i++){
             v = Storage.getStorage().getVarer().get(i);
-            //v.setAktivPrisgruppe(pgNavn);
+            v.setAktivPrisgruppe(pgNavn);
         }
     }
-
 }
