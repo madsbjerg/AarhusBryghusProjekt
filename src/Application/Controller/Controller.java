@@ -59,6 +59,13 @@ public class Controller {
         return div;
     }
 
+    public static Udlejningsvare createFustage(String navn, int pant, Varetype type, boolean ude){
+        Udlejningsvare u1 = new Udlejningsvare(navn, pant, Varetype.FUSTAGE, ude);
+        Storage.getStorage().addVare(u1);
+        return u1;
+    }
+
+
 
     public static void initStorage(){
 
@@ -140,9 +147,6 @@ public class Controller {
         //---- Opret glas objekter ------------------------------
 
         Controller.createGlas("Ølglas", "Ølglas");
-
-
-
 
     }
 
