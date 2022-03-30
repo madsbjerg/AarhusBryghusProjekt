@@ -120,9 +120,15 @@ public class Controller {
 
         //---- Opret beklædning objekter ------------------------
 
-        Controller.createBeklædning("T-shirt", "T-shirt");
-        Controller.createBeklædning("Polo", "Polo");
-        Controller.createBeklædning("Cap", "Cap");
+        Controller.createBeklædning("T-shirt", "Aprikos t-shirt med logo");
+        Controller.createBeklædning("T-shirt", "Kongeblå t-shirt med logo");
+        Controller.createBeklædning("T-shirt", "Basillikum t-shirt med logo");
+        Controller.createBeklædning("Polo", "Gran grøn polo med logo");
+        Controller.createBeklædning("Polo", "Blå polo med logo");
+        Controller.createBeklædning("Polo", "Lilla polo med logo");
+        Controller.createBeklædning("Cap", "Knækket rød cap med logo");
+        Controller.createBeklædning("Cap", "Turkise cap med logo");
+        Controller.createBeklædning("Cap", "Brændt orange cap med logo");
 
 
         //---- Opret malt objekter ------------------------------
