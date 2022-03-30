@@ -3,6 +3,10 @@ package Application.Controller;
 import Application.Models.*;
 import Storage.Storage;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import Storage.Storage;
+
 import java.util.ArrayList;
 
 public class Controller {
@@ -11,6 +15,41 @@ public class Controller {
     public static Controller getController(){
         if(controller == null) controller = new Controller();
         return controller;
+    }
+
+    public static Drikkevare createFadøl(String navn, int pant,double alkoholProcent){
+        Drikkevare d1 = new Drikkevare(navn, pant, Varetype.FADØL, alkoholProcent);
+        Storage.getStorage().addVare(d1);
+        return d1;
+    }
+
+    public static Drikkevare createFlaske(String navn, int pant, double alkoholProcent){
+        Drikkevare d2 = new Drikkevare(navn, pant, Varetype.FLASKE,alkoholProcent);
+        Storage.getStorage().addVare(d2);
+        return d2;
+    }
+
+    public static Drikkevare createSpiritus(String navn, int pant, double alkoholProcent){
+        Drikkevare d3 = new Drikkevare(navn, pant, Varetype.SPIRITUS,alkoholProcent);
+        Storage.getStorage().addVare(d3);
+        return d3;
+    }
+
+    public static Rundvisning createRundvisning(String navn,  Varetype type, int antalPersoner, LocalDateTime tidspunkt){
+        return new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
+    }
+
+    public static Diverse createBeklædning(String navn, int pant, Varetype type, String beskrivelse){
+        return new Diverse(navn, pant, Varetype.BEKLÆDNING, beskrivelse);
+    }
+
+    public static Diverse createMalt(String navn, int pant, Varetype type, String beskrivelse){
+        return new Diverse(navn, pant, Varetype.MALT, beskrivelse);
+
+    }
+
+    public static Diverse createGlas(String navn, int pant,Varetype varetype, String beskrivelse){
+        return new Diverse(navn, pant, Varetype.GLAS, beskrivelse);
     }
 
 
@@ -24,7 +63,7 @@ public class Controller {
         Sampakning s1 = new Sampakning("Gaveæske", 0, "Gaveæske", 1, 1, 20);
         Sampakning s2 = new Sampakning("trækasse", 0, "Trækasse", 4, 3, 25);
         Sampakning s3 = new Sampakning("Gavekurv", 0, "Gavekurv", 2, 4, 30);
-         
+
 
     }
 
