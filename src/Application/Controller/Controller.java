@@ -7,4 +7,8 @@ public class Controller {
         if(controller == null) controller = new Controller();
         return controller;
     }
+
+    public static void initStorage(){
+
+    }
 }
