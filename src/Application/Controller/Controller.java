@@ -71,6 +71,12 @@ public class Controller {
         return u2;
     }
 
+    public static Udlejningsvare createKulsyre(String navn, int pant, Varetype varetype){
+        Udlejningsvare u3 = new Udlejningsvare(navn, pant, Varetype.KULSYRE);
+        Storage.getStorage().addVare(u3);
+        return u3;
+    }
+
 
 
     public static void initStorage(){
@@ -168,8 +174,11 @@ public class Controller {
         Controller.createAnlæg("Krus", 0, Varetype.ANLÆG);
 
 
+        //---- Opret kulsyre objekter ----------------------------
 
-
+        Controller.createFustage("6 kg", 1000, Varetype.KULSYRE);
+        Controller.createFustage("4 kg", 1000, Varetype.KULSYRE);
+        Controller.createFustage("10 kg", 1000, Varetype.KULSYRE);
 
     }
 
