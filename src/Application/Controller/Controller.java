@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Controller {
     private static Controller controller;
 
-    public Controller getController(){
+    public static Controller getController(){
         if(controller == null) controller = new Controller();
         return controller;
     }
