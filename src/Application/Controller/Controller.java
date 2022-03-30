@@ -35,21 +35,28 @@ public class Controller {
         return d3;
     }
 
-    public static Rundvisning createRundvisning(String navn,  Varetype type, int antalPersoner, LocalDateTime tidspunkt){
-        return new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
+    public static Rundvisning createRundvisning(String navn, int antalPersoner, LocalDateTime tidspunkt){
+        Rundvisning r = new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
+        Storage.getStorage().addVare(r);
+        return r;
     }
 
-    public static Diverse createBeklædning(String navn, int pant, Varetype type, String beskrivelse){
-        return new Diverse(navn, pant, Varetype.BEKLÆDNING, beskrivelse);
+    public static Diverse createBeklædning(String navn, int pant, String beskrivelse){
+        Diverse div = new Diverse(navn, pant, Varetype.BEKLÆDNING, beskrivelse);
+        Storage.getStorage().addVare(div);
+        return div;
     }
 
-    public static Diverse createMalt(String navn, int pant, Varetype type, String beskrivelse){
-        return new Diverse(navn, pant, Varetype.MALT, beskrivelse);
-
+    public static Diverse createMalt(String navn, int pant, String beskrivelse){
+        Diverse div = new Diverse(navn, pant, Varetype.MALT, beskrivelse);
+        Storage.getStorage().addVare(div);
+        return div;
     }
 
-    public static Diverse createGlas(String navn, int pant,Varetype varetype, String beskrivelse){
-        return new Diverse(navn, pant, Varetype.GLAS, beskrivelse);
+    public static Diverse createGlas(String navn, int pant, String beskrivelse){
+        Diverse div = new Diverse(navn, pant, Varetype.GLAS, beskrivelse);
+        Storage.getStorage().addVare(div);
+        return div;
     }
 
 
