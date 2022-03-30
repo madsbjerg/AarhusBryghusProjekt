@@ -85,7 +85,7 @@ public class Controller {
         Sampakning s3 = new Sampakning("Gavekurv", 0, "Gavekurv", 2, 4, 30);
 
 
-        // ---- Opret fadøl objekter ----------------------------
+        // ---- Opret fadøl objekter ------ ----------------------
         Controller.createFadøl("Klosterbryg", 0, 8.00);
         Controller.createFadøl("Jazz Classic", 0, 6.00);
         Controller.createFadøl("Extra Pilsner", 0, 6.40);
