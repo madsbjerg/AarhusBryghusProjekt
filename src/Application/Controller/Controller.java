@@ -152,4 +152,25 @@ public class Controller {
         return prisgrupper;
     }
 
+    // TODO: Mike brug den her i stedet pls
+    public ArrayList<String> getPrisgrupperByName(){
+        ArrayList<String> rl = new ArrayList<>();
+        for(Vare v : Storage.getStorage().getVarer()){
+            for(Prisgruppe pg : v.getPrisgrupper()){
+                if(!rl.contains(pg.getNavn())){
+                    rl.add(pg.getNavn());
+                }
+            }
+        }
+        return rl;
+    }
+
+    public void setActivePrisgruppe(String pgNavn){
+        Vare v = null;
+        for(int i = 0; i < Storage.getStorage().getVarer().size(); i++){
+            v = Storage.getStorage().getVarer().get(i);
+            //v.setAktivPrisgruppe(pgNavn);
+        }
+    }
+
 }
