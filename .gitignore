@@ -4,6 +4,9 @@
 # Log file
 *.log
 
+# Fuck XML
+*.xml
+
 # BlueJ files
 *.ctxt
 

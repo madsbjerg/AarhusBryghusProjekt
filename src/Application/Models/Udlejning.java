@@ -22,7 +22,7 @@ public class Udlejning extends Salg{
 
     public void initPant(){
         // for fustage initPant 200 * Fustager.
-        // for kulsyre initPant 1000 * kulsyre.
+        // for kulsyre initPant 1000 * kulsyrer.
 
         double pant = 0;
         if(Varetype.FUSTAGE != null){

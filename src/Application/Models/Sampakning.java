@@ -7,15 +7,21 @@ public class Sampakning extends Vare{
     private String æsketype;
     private int antalOel; 
     private int antalGlas;
+    private Drikkevare[] drikkevarer;
+    private int antalFyldt;                    // Hjælpe attribut til array.
 
-    private final ArrayList<Drikkevare> drikkevarer = new ArrayList<>();
+    //private final ArrayList<Drikkevare> drikkevarer = new ArrayList<>();
 
 
-    public Sampakning(String navn, int pant, String æsketype, int antalOel, int antalGlas){
+    public Sampakning(String navn, int pant, String æsketype, int antalOel, int antalGlas, int størrelse){
         super(navn, pant, Varetype.SAMPAKNING);
         this.æsketype = æsketype;
         this.antalOel = antalOel;
         this.antalGlas = antalGlas;
+        if(størrelse > 12) drikkevarer = new Drikkevare[12];
+        else if (størrelse < 2) drikkevarer = new Drikkevare[2];
+        else drikkevarer = new Drikkevare[størrelse];
+        antalFyldt = 0;
     }
 
     public String getÆsketype() {
@@ -30,26 +36,21 @@ public class Sampakning extends Vare{
         return antalGlas;
     }
 
-    public ArrayList<Drikkevare> getDrikkevarer(){
-        return new ArrayList<>(drikkevarer);
-    }
-
-    public Drikkevare createDrikkevare(String navn, int pant, Varetype varetype, double alkoholProcent){
-
-        Drikkevare drikkevare = new Drikkevare(navn, pant, varetype, alkoholProcent);
-        drikkevarer.add(drikkevare);
-        return drikkevare;
+    public Drikkevare[] getDrikkevarer(){
+        return drikkevarer;
     }
 
     public void removeDrikkevare(Drikkevare drikkevare){
-        if(drikkevarer.contains(drikkevare)){
-            drikkevarer.remove(drikkevare);
+        if(drikkevarer[0] != null){
+            drikkevarer[antalFyldt] = null;
+            antalFyldt--;
         }
     }
 
     public void addDrikkevare(Drikkevare drikkevare){
-        if(!drikkevarer.contains(drikkevare)){
-            drikkevarer.add(drikkevare);
+        if(drikkevarer.length > antalFyldt){
+            drikkevarer[antalFyldt] = drikkevare;
+            antalFyldt++;
         }
     }
 
