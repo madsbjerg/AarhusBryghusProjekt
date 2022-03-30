@@ -127,7 +127,7 @@ public class Controller {
 
         //---- Opret malt objekter ------------------------------
 
-        Controller.createMalt("Malt 25 kg", "Malt 25 kg");
+        Controller.createMalt("Malt", "Malt");
 
 
         //---- Opret glas objekter ------------------------------
@@ -177,4 +177,35 @@ public class Controller {
         return Storage.getStorage().getVarer();
     }
 
+    public ArrayList<Prisgruppe> getPrisgrupper(){
+        ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
+        for(Vare v : Storage.getStorage().getVarer()){
+            for(Prisgruppe pg : v.getPrisgrupper()){
+                if(!prisgrupper.contains(pg)){
+                    prisgrupper.add(pg);
+                }
+            }
+        }
+        return prisgrupper;
+    }
+
+    // TODO: Mike brug den her i stedet pls
+    public ArrayList<String> getPrisgrupperByName(){        ArrayList<String> rl = new ArrayList<>();
+        for(Vare v : Storage.getStorage().getVarer()){
+            for(Prisgruppe pg : v.getPrisgrupper()){
+                if(!rl.contains(pg.getNavn())){
+                    rl.add(pg.getNavn());
+                }
+            }
+        }
+        return rl;
+    }
+
+    public void setActivePrisgruppe(String pgNavn){
+        Vare v = null;
+        for(int i = 0; i < Storage.getStorage().getVarer().size(); i++){
+            v = Storage.getStorage().getVarer().get(i);
+            v.setAktivPrisgruppe(pgNavn);
+        }
+    }
 }
