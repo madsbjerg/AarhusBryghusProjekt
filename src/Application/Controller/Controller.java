@@ -65,6 +65,39 @@ public class Controller {
         Sampakning s3 = new Sampakning("Gavekurv", 0, "Gavekurv", 2, 4, 30);
 
 
+        // ---- Opret fadøl objekter ----------------------------
+        Controller.createFadøl("Klosterbryg", 0, 8.00);
+        Controller.createFadøl("Jazz Classic", 0, 6.00);
+        Controller.createFadøl("Extra Pilsner", 0, 6.40);
+        Controller.createFadøl("Celebration", 0, 5.20);
+        Controller.createFadøl("Blondie", 0, 5.00);
+        Controller.createFadøl("Forårsbryg", 0, 5.50);
+        Controller.createFadøl("India Pale Ale", 0, 7.00);
+        Controller.createFadøl("Julebryg", 0, 6.4);
+        Controller.createFadøl("Imperial Stout", 0, 9.00);
+        Controller.createFadøl("Special", 0, 7.50);
+
+        //---- Opret flaske objekter -----------------------------
+        Controller.createFlaske("Klosterbryg", 0, 6.40);
+        Controller.createFlaske("Sweet Georgia Brown", 0, 7.50);
+        Controller.createFlaske("Extra Pilsner", 0, 8.00);
+        Controller.createFlaske("Celebration", 0, 6.40);
+        Controller.createFlaske("Blondie", 0, 4.80);
+        Controller.createFlaske("Forårsbryg", 0, 5.50);
+        Controller.createFlaske("India Pale Ale", 0, 6.40);
+        Controller.createFlaske("Julebryg", 0, 7.20);
+        Controller.createFlaske("Juletønden", 0, 7.20);
+        Controller.createFlaske("Old Strong Ale", 0, 9.5);
+        Controller.createFlaske("Fregatten Jylland", 0, 6.40);
+        Controller.createFlaske("Imperial Stout", 0, 7.40);
+        Controller.createFlaske("Tribute", 0, 6.40);
+        Controller.createFlaske("Black Monster", 0, 8.40);
+
+        //---- Opret spiritus objekter ---------------------------
+
+
+
+
     }
 
     public ArrayList<Vare> getKlippekort(){
