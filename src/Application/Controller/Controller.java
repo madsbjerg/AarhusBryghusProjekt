@@ -183,9 +183,9 @@ public class Controller {
 
         //---- Opret kulsyre objekter ----------------------------
 
-        Controller.createFustage("6 kg", 1000, Varetype.KULSYRE);
-        Controller.createFustage("4 kg", 1000, Varetype.KULSYRE);
-        Controller.createFustage("10 kg", 1000, Varetype.KULSYRE);
+        Controller.createKulsyre("6 kg", 1000, Varetype.KULSYRE);
+        Controller.createKulsyre("4 kg", 1000, Varetype.KULSYRE);
+        Controller.createKulsyre("10 kg", 1000, Varetype.KULSYRE);
 
     }
 
