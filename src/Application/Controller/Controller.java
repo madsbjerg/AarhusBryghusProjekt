@@ -53,6 +53,7 @@ public class Controller {
     }
 
 
+
     public static void initStorage(){
 
         Klippekort k1 = new Klippekort(1, "Olaf");
