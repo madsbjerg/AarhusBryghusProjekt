@@ -140,4 +140,16 @@ public class Controller {
         return Storage.getStorage().getVarer();
     }
 
+    public ArrayList<Prisgruppe> getPrisgrupper(){
+        ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
+        for(Vare v : Storage.getStorage().getVarer()){
+            for(Prisgruppe pg : v.getPrisgrupper()){
+                if(!prisgrupper.contains(pg)){
+                    prisgrupper.add(pg);
+                }
+            }
+        }
+        return prisgrupper;
+    }
+
 }

@@ -12,4 +12,8 @@ public class Drikkevare extends Vare {
         return alkoholProcent;
     } 
 
+    @Override
+    public String toString(){
+        return this.getNavn();
+    }
 }
