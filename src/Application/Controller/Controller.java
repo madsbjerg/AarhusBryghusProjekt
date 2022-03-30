@@ -169,8 +169,7 @@ public class Controller {
         Vare v = null;
         for(int i = 0; i < Storage.getStorage().getVarer().size(); i++){
             v = Storage.getStorage().getVarer().get(i);
-            //v.setAktivPrisgruppe(pgNavn);
+            v.setAktivPrisgruppe(pgNavn);
         }
     }
-
 }
