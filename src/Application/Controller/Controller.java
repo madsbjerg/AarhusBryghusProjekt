@@ -59,10 +59,16 @@ public class Controller {
         return div;
     }
 
-    public static Udlejningsvare createFustage(String navn, int pant, Varetype type, boolean ude){
-        Udlejningsvare u1 = new Udlejningsvare(navn, pant, Varetype.FUSTAGE, ude);
+    public static Udlejningsvare createFustage(String navn, int pant, Varetype type){
+        Udlejningsvare u1 = new Udlejningsvare(navn, pant, Varetype.FUSTAGE);
         Storage.getStorage().addVare(u1);
         return u1;
+    }
+
+    public static Udlejningsvare createAnlæg(String navn, int pant, Varetype type){
+        Udlejningsvare u2 = new Udlejningsvare(navn, pant, Varetype.ANLÆG);
+        Storage.getStorage().addVare(u2);
+        return u2;
     }
 
 
@@ -147,6 +153,20 @@ public class Controller {
         //---- Opret glas objekter ------------------------------
 
         Controller.createGlas("Ølglas", "Ølglas");
+
+
+
+        //--- Opret anlæg objekter ------------------------------
+
+        Controller.createAnlæg("1-hane",0, Varetype.ANLÆG);
+        Controller.createAnlæg("2-haner", 0, Varetype.ANLÆG);
+        Controller.createAnlæg("Bar med flere haner", 0, Varetype.ANLÆG);
+        Controller.createAnlæg("Levering", 0, Varetype.ANLÆG);
+        Controller.createAnlæg("Krus", 0, Varetype.ANLÆG);
+
+
+
+
 
     }
 
