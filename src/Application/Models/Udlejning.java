@@ -1,11 +1,10 @@
 package Application.Models;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Udlejning extends Salg {
+public class Udlejning extends Salg{
     private double pantBeloeb;
     private double totalBeloeb;
     private LocalDate startDato;

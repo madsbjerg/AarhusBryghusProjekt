@@ -28,5 +28,4 @@ public class Udlejningsvare extends Vare{
     public Udlejningsvare createKulsyre(String navn, int pant, boolean ude){
         return new Udlejningsvare(navn, pant, Varetype.KULSYRE, ude);
     }
-
 }
