@@ -53,6 +53,12 @@ private void initContent(BorderPane pane) {
         Tab tabSalg = new Tab("Salg");
         tabs.getTabs().add(tabSalg);
 
+        Tab tabRundvisning = new Tab("Opret Rundvisning");
+        tabs.getTabs().add(tabRundvisning);
+        RundvisningPane rundvisningPane = new RundvisningPane();
+        tabRundvisning.setContent(rundvisningPane);
+
+
 //        UdlejningsPane udlejningsPane = new UdlejningsPane();
 //        tabTilmeldinger.setContent(udlejningsPane);
 
@@ -72,8 +78,11 @@ private void initContent(BorderPane pane) {
         AnchorPane.setRightAnchor(tabs, 5.0);
         AnchorPane.setTopAnchor(btnAdminAccess, 10.0);
         AnchorPane.setRightAnchor(btnAdminAccess, 10.0);
+
+
         tabs.setStyle("-fx-padding: 2 0 0 50;");
         anchorPane.getChildren().addAll(tabs,btnAdminAccess);
+
 
     }
 
