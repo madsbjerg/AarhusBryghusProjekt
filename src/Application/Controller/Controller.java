@@ -98,9 +98,6 @@ public class Controller {
 
         //---- Opret spiritus objekter ---------------------------
 
-
-
-
     }
 
     public ArrayList<Vare> getKlippekort(){
