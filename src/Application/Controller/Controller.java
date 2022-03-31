@@ -291,15 +291,48 @@ public class Controller {
 
         //---- Opret beklædning objekter ------------------------
 
-        Controller.createBeklædning("T-shirt","Aprikos t-shirt med logo");
-        Controller.createBeklædning("T-shirt", "Kongeblå t-shirt med logo");
-        Controller.createBeklædning("T-shirt", "Basillikum t-shirt med logo");
-        Controller.createBeklædning("Polo", "Gran grøn polo med logo");
-        Controller.createBeklædning("Polo", "Blå polo med logo");
-        Controller.createBeklædning("Polo", "Lilla polo med logo");
-        Controller.createBeklædning("Cap", "Knækket rød cap med logo");
-        Controller.createBeklædning("Cap", "Turkise cap med logo");
-        Controller.createBeklædning("Cap", "Brændt orange cap med logo");
+        Prisgruppe pgFredagsbar70 = new Prisgruppe(70, "Fredagsbar");
+        Prisgruppe pgButik70 = new Prisgruppe(70, "Butik");
+        Prisgruppe pgButik100 = new Prisgruppe(100, "Butik");
+        Prisgruppe pgFredagsbar30 = new Prisgruppe(30, "Fredagsbar");
+        Prisgruppe pgButik30 = new Prisgruppe(30, "Butik");
+
+        Diverse di = Controller.createBeklædning("T-shirt","Aprikos t-shirt med logo");
+        di.addPrisgruppe(pgFredagsBar70);
+        di.addPrisgruppe(pgButik70);
+
+        di = Controller.createBeklædning("T-shirt", "Kongeblå t-shirt med logo");
+        di.addPrisgruppe(pgFredagsBar70);
+        di.addPrisgruppe(pgButik70);
+
+        di = Controller.createBeklædning("T-shirt", "Basillikum t-shirt med logo");
+        di.addPrisgruppe(pgFredagsBar70);
+        di.addPrisgruppe(pgButik70);
+
+        di = Controller.createBeklædning("Polo", "Gran grøn polo med logo");
+        di.addPrisgruppe(pgFredagsbar100);
+        di.addPrisgruppe(pgButik100);
+
+        di = Controller.createBeklædning("Polo", "Blå polo med logo");
+        di.addPrisgruppe(pgFredagsbar100);
+        di.addPrisgruppe(pgButik100);
+
+        di = Controller.createBeklædning("Polo", "Lilla polo med logo");
+        di.addPrisgruppe(pgFredagsbar100);
+        di.addPrisgruppe(pgButik100);
+
+        di = Controller.createBeklædning("Cap", "Knækket rød cap med logo");
+        di.addPrisgruppe(pgFredagsbar30);
+        di.addPrisgruppe(pgButik30);
+
+        di = Controller.createBeklædning("Cap", "Turkise cap med logo");
+        di.addPrisgruppe(pgFredagsbar30);
+        di.addPrisgruppe(pgButik30);
+
+        di = Controller.createBeklædning("Cap", "Brændt orange cap med logo");
+        di.addPrisgruppe(pgFredagsbar30);
+        di.addPrisgruppe(pgButik30);
+
 
         //---- Opret malt objekter ------------------------------
         Controller.createMalt("Malt", "25 kg sæk");
