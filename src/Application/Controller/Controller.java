@@ -91,7 +91,7 @@ public class Controller {
         Sampakning s2 = new Sampakning("6 øl i trækasse ", 0, "Trækasse", 6, 0, 25);
         Sampakning s3 = new Sampakning("6 øl & 2 glas i gavekurv", 0, "Gavekurv", 2, 4, 30);
         Sampakning s6 = new Sampakning("6 øl & 6 glas i trækasse ", 0, "Trækasse", 6, 6, 25);
-        Sampakning s6 = new Sampakning("12 øl i Trækassse", 0, "Trækasse", 12, 0, 25);
+        Sampakning s7 = new Sampakning("12 øl i Trækassse", 0, "Trækasse", 12, 0, 25);
         Sampakning s4 = new Sampakning("12 øl i papkasse", 0, "Papkasse", 12, 0, 30);
 
         // ---- Opret fadøl objekter ------ ----------------------
@@ -244,6 +244,14 @@ public class Controller {
         for(int i = 0; i < Storage.getStorage().getVarer().size(); i++){
             v = Storage.getStorage().getVarer().get(i);
             v.setAktivPrisgruppe(pgNavn);
+        }
+    }
+
+    public void resetPrisgrupper(){
+        Vare v = null;
+        for (int i = 0; i < Storage.getStorage().getVarer().size(); i++){
+            v = Storage.getStorage().getVarer().get(i);
+            v.setAktivPrisgruppe(null);
         }
     }
 }
