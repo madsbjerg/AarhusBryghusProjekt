@@ -92,16 +92,16 @@ public class Controller {
 
 
         // ---- Opret fadøl objekter ------ ----------------------
-        Controller.createFadøl("Klosterbryg", 0, 8.00);
-        Controller.createFadøl("Jazz Classic", 0, 6.00);
-        Controller.createFadøl("Extra Pilsner", 0, 6.40);
-        Controller.createFadøl("Celebration", 0, 5.20);
-        Controller.createFadøl("Blondie", 0, 5.00);
-        Controller.createFadøl("Forårsbryg", 0, 5.50);
-        Controller.createFadøl("India Pale Ale", 0, 7.00);
-        Controller.createFadøl("Julebryg", 0, 6.4);
-        Controller.createFadøl("Imperial Stout", 0, 9.00);
-        Controller.createFadøl("Special", 0, 7.50);
+        Controller.createFadøl("Klosterbryg",  8.00);
+        Controller.createFadøl("Jazz Classic",  6.00);
+        Controller.createFadøl("Extra Pilsner",  6.40);
+        Controller.createFadøl("Celebration",  5.20);
+        Controller.createFadøl("Blondie",  5.00);
+        Controller.createFadøl("Forårsbryg",  5.50);
+        Controller.createFadøl("India Pale Ale",  7.00);
+        Controller.createFadøl("Julebryg",  6.4);
+        Controller.createFadøl("Imperial Stout",  9.00);
+        Controller.createFadøl("Special",  7.50);
 
         //---- Opret flaske objekter -----------------------------
         Controller.createFlaske("Klosterbryg", 0, 6.40);
@@ -183,9 +183,9 @@ public class Controller {
 
         //---- Opret kulsyre objekter ----------------------------
 
-        Controller.createKulsyre("6 kg", 1000, Varetype.KULSYRE);
-        Controller.createKulsyre("4 kg", 1000, Varetype.KULSYRE);
-        Controller.createKulsyre("10 kg", 1000, Varetype.KULSYRE);
+        Controller.createKulsyre("6 kg");
+        Controller.createKulsyre("4 kg");
+        Controller.createKulsyre("10 kg");
 
     }
 
