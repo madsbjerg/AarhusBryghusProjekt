@@ -284,8 +284,21 @@ public class Controller {
         try{
             FileInputStream fs_in = new FileInputStream("bryghus.ser");
             ObjectInputStream os_in = new ObjectInputStream(fs_in);
-            
-        }catch(IOException ex){
+            boolean isNotDone = true;
+            while(isNotDone){
+                Object obj = os_in.readObject();
+                if(obj == null){
+                    isNotDone = false;
+                }
+                else if(obj instanceof Vare){
+                    Storage.getStorage().addVare((Vare)obj);
+                }
+                else if(obj instanceof Salg){
+                    Storage.getStorage().addSalg((Salg)obj);
+                }
+            }
+
+        }catch(IOException | ClassNotFoundException ex){
             System.out.println(ex.getMessage() + " " + ex.getStackTrace());
         }
     }
