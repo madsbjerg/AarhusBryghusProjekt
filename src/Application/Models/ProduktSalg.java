@@ -12,7 +12,8 @@ public class ProduktSalg extends Salg{
     public double totalPris(int prisgruppe){
         double sum = 0;
         for(Vare vare : varer.keySet()){
-            sum += vare.getPris(prisgruppe) * (int)varer.get(vare);
+//            sum += vare.getPris(prisgruppe) * (int)varer.get(vare);
+            //todo
         }
         this.Beloeb = sum;
         return sum;

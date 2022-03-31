@@ -16,13 +16,14 @@ public class SalgsPane extends GridPane {
     private Controller controller = Controller.getController();
     private ToggleGroup groupBetalingsform = new ToggleGroup();
     private ToggleGroup groupRabat = new ToggleGroup();
-    private TextField txfprocentRabat, txfFastRabat,txfTotalPris;
+    private TextField txfprocentRabat, txfFastRabat,txfTotalPris,txfRegning;
     private ComboBox<Varetype> cbbVareType;
 
     private ComboBox<Vare> cbbKlippekort;
     private ComboBox<String> cbbprisgrupper;
     private ListView<Vare> lvwKurv, lvwValgteVare;
     private Button btnTilføj,btnRemove,  btnLavSalg;
+    private VBox vbox;
 
     public SalgsPane(){
         this.setPadding(new Insets(20));
@@ -70,6 +71,10 @@ public class SalgsPane extends GridPane {
           //txfTotalPris.setText();
           setText() - Skal være prisen på varene i kurven kombineret.
          */
+
+        txfRegning = new TextField("Indtast navn til regning");
+        vbox.getChildren().add(txfRegning);
+        disableRegningAction();
 
     }
 
@@ -156,9 +161,11 @@ public class SalgsPane extends GridPane {
             //todo
             //UserData skal på en eller anden måde kobles til ordren.
             if(rb.getUserData().equals(Betalingsform.KLIPPEKORT)){
-                rb.setOnAction(event -> enableKlippekortAction());
-            } else {
-                rb.setOnAction(event -> disableKlippeKortAction());
+                rb.setOnAction(event -> enableKlippekortDisableRegningAction());
+            } else if (rb.getUserData().equals(Betalingsform.REGNING)) {
+                rb.setOnAction(event -> enableRegningDisableKlippekortAction());            }
+            else {
+                rb.setOnAction(event -> disableRegningAndKlippekortAction());
             }
         }
         VBox box1 = new VBox();
@@ -175,6 +182,29 @@ public class SalgsPane extends GridPane {
 
     }
 
+    private void enableRegningDisableKlippekortAction() {
+        txfRegning.clear();
+        txfRegning.setDisable(false);
+        cbbKlippekort.setDisable(true);
+    }
+
+    private void enableKlippekortDisableRegningAction() {
+        cbbKlippekort.setDisable(false);
+        txfRegning.setDisable(true);
+        txfRegning.setText("Indtast navn til regning");
+    }
+
+    private void disableRegningAndKlippekortAction() {
+        txfRegning.setDisable(true);
+        txfRegning.setText("Indtast navn til regning");
+        cbbKlippekort.setDisable(true);
+    }
+
+    private void disableRegningAction() {
+        txfRegning.setDisable(true);
+        txfRegning.setText("Indtast navn til regning");
+    }
+
     private void updateRbFastAction() {
         txfFastRabat.setEditable(true);
         txfFastRabat.clear();
@@ -189,19 +219,14 @@ public class SalgsPane extends GridPane {
         txfFastRabat.setText("Indtast fast rabat:");
     }
 
-    private void disableKlippeKortAction() {
-        cbbKlippekort.setDisable(true);
-    }
-
-    private void enableKlippekortAction() {
-        cbbKlippekort.setDisable(false);
-    }
-
     private void createComboboxKlippekort(SalgsPane salgsPane) {
         cbbKlippekort = new ComboBox<>();
-        this.add(cbbKlippekort, 2, 4);
+        vbox = new VBox();
+        vbox.getChildren().add(cbbKlippekort);
+        this.add(vbox, 2, 4);
         cbbKlippekort.getItems().addAll(controller.getKlippekort());
         cbbKlippekort.setDisable(true);
+        cbbKlippekort.setPromptText("Vælg klippekort");
     }
 
     private void createComboboxVareType(SalgsPane salgsPane) {
