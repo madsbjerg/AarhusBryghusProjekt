@@ -274,7 +274,8 @@ public class Controller {
             for(Salg s : Storage.getStorage().getSalg()){
                 os_out.writeObject(s);
             }
-
+            os_out.close();
+            fs_out.close();
         }catch(IOException ex){
             System.out.println(ex.getMessage() + " " + ex.getStackTrace());
         }
@@ -297,6 +298,8 @@ public class Controller {
                     Storage.getStorage().addSalg((Salg)obj);
                 }
             }
+            os_in.close();
+            fs_in.close();
 
         }catch(IOException | ClassNotFoundException ex){
             System.out.println(ex.getMessage() + " " + ex.getStackTrace());
