@@ -287,6 +287,7 @@ public class Controller {
         Controller.createRundvisning("Carlsberg spionage", 5, LocalDateTime.of(2022, 4, 8, 12, 30));
 
         //---- Opret beklædning objekter ------------------------
+
         Controller.createBeklædning("T-shirt","Aprikos t-shirt med logo");
         Controller.createBeklædning("T-shirt", "Kongeblå t-shirt med logo");
         Controller.createBeklædning("T-shirt", "Basillikum t-shirt med logo");
