@@ -59,19 +59,9 @@ private void initContent(BorderPane pane) {
         tabRundvisning.setContent(rundvisningPane);
 
 
-//        UdlejningsPane udlejningsPane = new UdlejningsPane();
-//        tabTilmeldinger.setContent(udlejningsPane);
 
         SalgsPane salgsPane = new SalgsPane();
         tabSalg.setContent(salgsPane);
-//        Tab tabTilføjBil = new Tab("ADMIN -> opret bil");
-//        tabs.getTabs().add(tabTilføjBil);
-//        tabTilføjBil.setDisable(true);
-//        btnAdminAccess.setOnAction(event -> tabTilføjBil.setDisable(!passwordAction()));
-//
-
-//        TilføjBilPane tilføjBilPane = new TilføjBilPane();
-//        tabTilføjBil.setContent(tilføjBilPane);
 
         AnchorPane.setTopAnchor(tabs, 5.0);
         AnchorPane.setLeftAnchor(tabs, 5.0);
