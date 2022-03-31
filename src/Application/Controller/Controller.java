@@ -252,12 +252,14 @@ public class Controller {
         d=Controller.createSpiritus("Whisky uden egesplint", 45.00);
         d.addPrisgruppe(pgButik300);
         d.addPrisgruppe(pgFredagsbar300);
-
         d=Controller.createSpiritus("Liquor of Aarhus", 30.00);
-        d.addPrisgruppe();
+        d.addPrisgruppe(pgButik175);
+        d.addPrisgruppe(pgFredagsbar175);
         d=Controller.createSpiritus("Lyng gin 50 cl", 45.00);
-
+        d.addPrisgruppe(pgButik175);
+        d.addPrisgruppe(pgFredagsbar175);
         d=Controller.createSpiritus("Lyng gin 4 cl", 45.00);
+        d.addPrisgruppe(pgFredagsbar40);
 
         //---- Opret fustage objekter ---------------------------
 
