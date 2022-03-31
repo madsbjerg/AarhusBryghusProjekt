@@ -103,7 +103,7 @@ public class Controller {
         Controller.createFadøl("Imperial Stout", 0, 9.00);
         Controller.createFadøl("Special", 0, 7.50);
 
-        //---- Opret flaske objekter -----------------------------
+        //---- Opret fl aske objekter -----------------------------
         Controller.createFlaske("Klosterbryg", 0, 6.40);
         Controller.createFlaske("Sweet Georgia Brown", 0, 7.50);
         Controller.createFlaske("Extra Pilsner", 0, 8.00);
