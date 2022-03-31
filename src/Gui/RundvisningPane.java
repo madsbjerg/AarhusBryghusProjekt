@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import java.awt.*;
@@ -30,7 +31,7 @@ import java.util.function.UnaryOperator;
 public class RundvisningPane extends GridPane {
 
 
-    private TextField txfAntalPersoner,txfPrisPrPerson, txfTotalPris, txfDato, txfTidspunkt;
+    private TextField txfAntalPersoner,txfPrisPrPerson, txfTotalPris, txfDato, txfTidspunkt, txfNavn;
     private Button btnValgDato, btnOpret;
 
 
@@ -64,8 +65,16 @@ public class RundvisningPane extends GridPane {
         try{
             LocalDate date = LocalDate.parse(txfDato.getText());
             LocalDateTime time = date.atTime(LocalTime.parse(txfTidspunkt.getText()));
-            if(!Objects.equals(txfTotalPris.getText(), "Total Pris")) {
-                Controller.createRundvisning("hej", Integer.parseInt(txfAntalPersoner.getText()), time);
+            if(!Objects.equals(txfTotalPris.getText(), "Total Pris") && !txfNavn.getText().isEmpty()) {
+                Controller.createRundvisning(txfNavn.getText(), Integer.parseInt(txfAntalPersoner.getText()), time);
+                txfNavn.clear();
+                txfTidspunkt.setText("00:00");
+                txfTotalPris.clear();
+                txfDato.clear();
+                txfAntalPersoner.clear();
+                txfPrisPrPerson.clear();
+                btnValgDato.setDisable(false);
+                doneMessage();
             }
             else {
                 errormessage();
@@ -75,6 +84,20 @@ public class RundvisningPane extends GridPane {
         catch (NumberFormatException e){
             System.out.println("Fejl");
         }
+        catch (DateTimeParseException e){
+            errormessageTid();
+        }
+    }
+
+    private void doneMessage() {
+        String message = "Rundvisningen er oprettet";
+        JOptionPane.showMessageDialog(new JFrame(), message,"Oprettet!",JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
+    private void errormessageTid() {
+        String message = "Du skal vælge en dato";
+        JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
     }
 
     private void errormessage() {
@@ -136,6 +159,9 @@ public class RundvisningPane extends GridPane {
 
         Label lblValgtTidspunkt = new Label("Vælg Tidspunkt:");
         this.add(lblValgtTidspunkt, 4, 2);
+
+        Label lblNavn = new Label("Indtast navn");
+        this.add(lblNavn, 0, 3);
     }
 
     private void createTextFields(RundvisningPane rundvisningPane) {
@@ -175,6 +201,9 @@ public class RundvisningPane extends GridPane {
         txfTidspunkt = new TextField("00:00");
         this.add(txfTidspunkt, 4, 3);
         txfTidspunkt.setEditable(true);
+
+        txfNavn = new TextField();
+        this.add(txfNavn, 0, 4);
 
     }
 
