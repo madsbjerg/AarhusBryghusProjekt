@@ -188,6 +188,9 @@ public class Controller {
         Controller.createSpiritus("Lyng gin 4 cl", 45.00);
 
         //---- Opret fustage objekter ---------------------------
+
+        Prisgruppe pgFustageButik = new Prisgruppe(775, )
+
         Controller.createFustage("Klosterbryg");
         Controller.createFustage("Jazz Classic");
         Controller.createFustage("Extra Pilsner");
