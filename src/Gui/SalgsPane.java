@@ -2,6 +2,7 @@ package Gui;
 
 import Application.Controller.Controller;
 import Application.Models.*;
+import com.sun.source.tree.CatchTree;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -10,19 +11,22 @@ import javafx.scene.layout.VBox;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class SalgsPane extends GridPane {
 
     private Controller controller = Controller.getController();
     private ToggleGroup groupBetalingsform = new ToggleGroup();
     private ToggleGroup groupRabat = new ToggleGroup();
-    private TextField txfprocentRabat, txfFastRabat,txfTotalPris;
+    private TextField txfprocentRabat, txfFastRabat,txfTotalPris,txfRegning;
     private ComboBox<Varetype> cbbVareType;
 
     private ComboBox<Vare> cbbKlippekort;
     private ComboBox<String> cbbprisgrupper;
     private ListView<Vare> lvwKurv, lvwValgteVare;
     private Button btnTilføj,btnRemove,  btnLavSalg;
+    private VBox vbox;
 
     public SalgsPane(){
         this.setPadding(new Insets(20));
@@ -71,14 +75,17 @@ public class SalgsPane extends GridPane {
           setText() - Skal være prisen på varene i kurven kombineret.
          */
 
+        txfRegning = new TextField("Indtast navn til regning");
+        vbox.getChildren().add(txfRegning);
+        disableRegningAction();
+
     }
 
     private void createComboboxPrisgruppe(SalgsPane salgsPane) {
         cbbprisgrupper = new ComboBox<>();
         this.add(cbbprisgrupper,0,1 );
-//        cbbprisgrupper.getItems().add(controller.getPrisgrupper);
         cbbprisgrupper.setOnAction(event -> enableVareTypeAction());
-        cbbprisgrupper.getItems().add("Hej");
+        cbbprisgrupper.getItems().addAll(controller.getPrisgrupperByName());
     }
 
     private void enableVareTypeAction() {
@@ -96,10 +103,15 @@ public class SalgsPane extends GridPane {
 
         btnLavSalg = new Button("Lav salg");
         this.add(btnLavSalg, 5, 5);
+        btnLavSalg.setOnAction(event -> lavSalgAction());
         //todo
         /*
         skal have en action som sætter salget ind i systemet or something
          */
+    }
+
+    private void lavSalgAction() {
+
     }
 
     private void removeKurvAction() {
@@ -116,13 +128,24 @@ public class SalgsPane extends GridPane {
     }
 
     private void updateKurvAction() {
-        //try og catch, hvis der ikke er valgt nogen vare i Listviewet.
 
             Vare ValgtVare = lvwValgteVare.getSelectionModel().getSelectedItem();
             if(ValgtVare ==null) {
                 errorMessageTilføj();
             }
             lvwKurv.getItems().add(ValgtVare);
+
+            //Hashmap af alle vores vare.
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        for(int i =0;i<lvwKurv.getItems().size();i++){
+            if(varer.containsKey(lvwKurv.getItems().get(i))){
+                varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i))+1);
+            } else {
+                varer.put(lvwKurv.getItems().get(i), 1);
+            }
+        }
+//            opdatere totalPris.
+            txfTotalPris.setText(String.valueOf(controller.totalPris(cbbprisgrupper.getSelectionModel().getSelectedItem(),varer)));
 
     }
 
@@ -156,9 +179,11 @@ public class SalgsPane extends GridPane {
             //todo
             //UserData skal på en eller anden måde kobles til ordren.
             if(rb.getUserData().equals(Betalingsform.KLIPPEKORT)){
-                rb.setOnAction(event -> enableKlippekortAction());
-            } else {
-                rb.setOnAction(event -> disableKlippeKortAction());
+                rb.setOnAction(event -> enableKlippekortDisableRegningAction());
+            } else if (rb.getUserData().equals(Betalingsform.REGNING)) {
+                rb.setOnAction(event -> enableRegningDisableKlippekortAction());            }
+            else {
+                rb.setOnAction(event -> disableRegningAndKlippekortAction());
             }
         }
         VBox box1 = new VBox();
@@ -175,6 +200,29 @@ public class SalgsPane extends GridPane {
 
     }
 
+    private void enableRegningDisableKlippekortAction() {
+        txfRegning.clear();
+        txfRegning.setDisable(false);
+        cbbKlippekort.setDisable(true);
+    }
+
+    private void enableKlippekortDisableRegningAction() {
+        cbbKlippekort.setDisable(false);
+        txfRegning.setDisable(true);
+        txfRegning.setText("Indtast navn til regning");
+    }
+
+    private void disableRegningAndKlippekortAction() {
+        txfRegning.setDisable(true);
+        txfRegning.setText("Indtast navn til regning");
+        cbbKlippekort.setDisable(true);
+    }
+
+    private void disableRegningAction() {
+        txfRegning.setDisable(true);
+        txfRegning.setText("Indtast navn til regning");
+    }
+
     private void updateRbFastAction() {
         txfFastRabat.setEditable(true);
         txfFastRabat.clear();
@@ -189,19 +237,14 @@ public class SalgsPane extends GridPane {
         txfFastRabat.setText("Indtast fast rabat:");
     }
 
-    private void disableKlippeKortAction() {
-        cbbKlippekort.setDisable(true);
-    }
-
-    private void enableKlippekortAction() {
-        cbbKlippekort.setDisable(false);
-    }
-
     private void createComboboxKlippekort(SalgsPane salgsPane) {
         cbbKlippekort = new ComboBox<>();
-        this.add(cbbKlippekort, 2, 4);
+        vbox = new VBox();
+        vbox.getChildren().add(cbbKlippekort);
+        this.add(vbox, 2, 4);
         cbbKlippekort.getItems().addAll(controller.getKlippekort());
         cbbKlippekort.setDisable(true);
+        cbbKlippekort.setPromptText("Vælg klippekort");
     }
 
     private void createComboboxVareType(SalgsPane salgsPane) {
@@ -209,20 +252,25 @@ public class SalgsPane extends GridPane {
         this.add(cbbVareType, 1, 1);
         cbbVareType.getItems().addAll(Varetype.values());
         cbbVareType.setOnAction(event -> UpdateVagteVareAction());
-        cbbVareType.setDisable(true);
+//        cbbVareType.setDisable(true);
+        //todo
+        //fjern kommentar når prisgrupper fungere.
     }
 
     private void UpdateVagteVareAction() {
         //Nulstiller listen
         lvwValgteVare.getItems().remove(0, lvwValgteVare.getItems().size());
 
+
         ArrayList<Vare> valgteVare = new ArrayList<>();
         ArrayList<Vare> alleVare = new ArrayList<>(controller.getVarer());
-        for(int i =0;i< alleVare.size();i++){
-            if(alleVare.get(i).getVaretype() == cbbVareType.getValue()){
-                valgteVare.add(alleVare.get(i));
-            }
+        controller.setActivePrisgruppe(cbbprisgrupper.getSelectionModel().getSelectedItem());
+        for(int i =0;i< alleVare.size();i++) {
+                if (alleVare.get(i).getVaretype() == cbbVareType.getValue() && !alleVare.get(i).toString().contains("NaN")) {
+                    valgteVare.add(alleVare.get(i));
+                }
         }
+
         lvwValgteVare.getItems().addAll(valgteVare);
     }
 
@@ -245,7 +293,4 @@ public class SalgsPane extends GridPane {
         Label lblTotalPris = new Label("Total Pris:");
         this.add(lblTotalPris, 4, 0);
     }
-
-
-
 }

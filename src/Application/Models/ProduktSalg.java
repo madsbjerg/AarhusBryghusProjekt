@@ -4,20 +4,20 @@ import java.util.HashMap;
 
 public class ProduktSalg extends Salg{
     private double Beloeb;
-    ProduktSalg(HashMap<Vare, Integer> varer, double beloeb) {
-        super(varer);
+    public ProduktSalg(HashMap<Vare, Integer> varer, double beloeb, Betalingsform betalingsform,Rabat rabat) {
+        super(varer,betalingsform,rabat);
         this.Beloeb = beloeb;
     }
-/*
-    public double totalPris(int prisgruppe){
+
+    public double totalPris(String pgnavn){
         double sum = 0;
         for(Vare vare : varer.keySet()){
-            sum += vare.getPris(prisgruppe) * (int)varer.get(vare);
+            sum += vare.getPris(pgnavn) * varer.get(vare);
         }
         this.Beloeb = sum;
         return sum;
     }
-*/
+
     public double getBeloeb() {
         try {
             return Beloeb;
