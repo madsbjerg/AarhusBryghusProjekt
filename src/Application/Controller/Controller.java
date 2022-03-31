@@ -336,8 +336,8 @@ public class Controller {
         //---- Opret malt objekter ------------------------------
 
         Prisgruppe pgMaltButik = new Prisgruppe(300, "Butik");
-        Diverse d = Controller.createMalt("Malt", "25 kg sæk");
-        d.addPrisgruppe(pgMaltButik);
+        Diverse div = Controller.createMalt("Malt", "25 kg sæk");
+        div.addPrisgruppe(pgMaltButik);
 
 
         //---- Opret glas objekter ------------------------------
