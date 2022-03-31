@@ -1,5 +1,7 @@
 package Gui;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,17 +17,22 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.awt.*;
+import java.util.Calendar;
+import java.util.InputMismatchException;
 
 public class RundvisningPane extends GridPane {
 
 
     private TextField txfAntalPersoner,txfPrisPrPerson, txfTotalPris, txfDato, txfTidspunkt;
-    private Button btnValgDato, btnTidspunkt;
+    private Button btnValgDato, btnOpret;
 
 
     public RundvisningPane(){
@@ -49,9 +56,34 @@ public class RundvisningPane extends GridPane {
         this.add(btnValgDato, 3, 4);
         btnValgDato.setOnAction(event -> datePickerAction());
 
-        btnTidspunkt = new Button("Vælg tidspunkt");
-        this.add(btnTidspunkt, 4, 4);
+        btnOpret = new Button("Opret Rundvisning");
+        this.add(btnOpret, 5, 4);
+        btnOpret.setOnAction(event -> createRundvisningAction());
     }
+
+    private void createRundvisningAction() {
+        try{
+
+            LocalDate date = LocalDate.parse(txfDato.getText());
+
+            LocalDateTime time = date.atTime(LocalTime.parse(txfTidspunkt.getText()));
+            System.out.println(time);
+
+            LocalDateTime time2 = LocalDateTime.of(2202,12,1,00,00 );
+            System.out.println(time2);
+            Controller.createRundvisning("hej", Integer.parseInt(txfAntalPersoner.getText()),time);
+        }
+
+        catch (NumberFormatException e){
+            System.out.println("Fejl");
+        }
+    }
+
+    private int subString(String string, int start, int slut){
+        String ny = string;
+        return Integer.parseInt(string.substring(start, slut));
+    }
+
 
     private void datePickerAction() {
         Stage stage = new Stage();
@@ -104,24 +136,41 @@ public class RundvisningPane extends GridPane {
     }
 
     private void createTextFields(RundvisningPane rundvisningPane) {
-        txfAntalPersoner = new TextField("Indtast antal personer");
+        txfAntalPersoner = new TextField();
         this.add(txfAntalPersoner, 0, 1);
 
+        txfAntalPersoner.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    txfAntalPersoner.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
 
-        txfPrisPrPerson = new TextField("Indtast Pris Pr. Person");
+
+        txfPrisPrPerson = new TextField();
         this.add(txfPrisPrPerson, 1, 1);
+        txfPrisPrPerson.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    txfPrisPrPerson.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
 
         txfTotalPris = new TextField("Total Pris");
         this.add(txfTotalPris, 2, 1);
         txfTotalPris.setEditable(false);
 
-        txfDato = new TextField("00-00-00-00-00");
+        txfDato = new TextField();
         this.add(txfDato, 3, 3);
         txfDato.setEditable(false);
 
-        txfTidspunkt = new TextField();
+        txfTidspunkt = new TextField("00:00");
         this.add(txfTidspunkt, 4, 3);
-        txfTidspunkt.setEditable(false);
+        txfTidspunkt.setEditable(true);
 
     }
 

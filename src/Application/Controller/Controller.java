@@ -17,20 +17,20 @@ public class Controller {
         return controller;
     }
 
-    public static Drikkevare createFadøl(String navn, int pant,double alkoholProcent){
-        Drikkevare d1 = new Drikkevare(navn, pant, Varetype.FADØL, alkoholProcent);
+    public static Drikkevare createFadøl(String navn,double alkoholProcent){
+        Drikkevare d1 = new Drikkevare(navn, 0, Varetype.FADØL, alkoholProcent);
         Storage.getStorage().addVare(d1);
         return d1;
     }
 
-    public static Drikkevare createFlaske(String navn, int pant, double alkoholProcent){
-        Drikkevare d2 = new Drikkevare(navn, pant, Varetype.FLASKE,alkoholProcent);
+    public static Drikkevare createFlaske(String navn, double alkoholProcent){
+        Drikkevare d2 = new Drikkevare(navn, 0, Varetype.FLASKE,alkoholProcent);
         Storage.getStorage().addVare(d2);
         return d2;
     }
 
-    public static Drikkevare createSpiritus(String navn, int pant, double alkoholProcent){
-        Drikkevare d3 = new Drikkevare(navn, pant, Varetype.SPIRITUS,alkoholProcent);
+    public static Drikkevare createSpiritus(String navn, double alkoholProcent){
+        Drikkevare d3 = new Drikkevare(navn, 0, Varetype.SPIRITUS,alkoholProcent);
         Storage.getStorage().addVare(d3);
         return d3;
     }
@@ -41,38 +41,38 @@ public class Controller {
         return r;
     }
 
-    public static Diverse createBeklædning(String navn, int pant, String beskrivelse){
-        Diverse div = new Diverse(navn, pant, Varetype.BEKLÆDNING, beskrivelse);
+    public static Diverse createBeklædning(String navn, String beskrivelse){
+        Diverse div = new Diverse(navn, 0, Varetype.BEKLÆDNING, beskrivelse);
         Storage.getStorage().addVare(div);
         return div;
     }
 
-    public static Diverse createMalt(String navn, int pant, String beskrivelse){
-        Diverse div = new Diverse(navn, pant, Varetype.MALT, beskrivelse);
+    public static Diverse createMalt(String navn, String beskrivelse){
+        Diverse div = new Diverse(navn, 0, Varetype.MALT, beskrivelse);
         Storage.getStorage().addVare(div);
         return div;
     }
 
-    public static Diverse createGlas(String navn, int pant, String beskrivelse){
-        Diverse div = new Diverse(navn, pant, Varetype.GLAS, beskrivelse);
+    public static Diverse createGlas(String navn, String beskrivelse){
+        Diverse div = new Diverse(navn, 0, Varetype.GLAS, beskrivelse);
         Storage.getStorage().addVare(div);
         return div;
     }
 
-    public static Udlejningsvare createFustage(String navn, int pant, Varetype type){
-        Udlejningsvare u1 = new Udlejningsvare(navn, pant, Varetype.FUSTAGE);
+    public static Udlejningsvare createFustage(String navn){
+        Udlejningsvare u1 = new Udlejningsvare(navn, 200, Varetype.FUSTAGE);
         Storage.getStorage().addVare(u1);
         return u1;
     }
 
-    public static Udlejningsvare createAnlæg(String navn, int pant, Varetype type){
-        Udlejningsvare u2 = new Udlejningsvare(navn, pant, Varetype.ANLÆG);
+    public static Udlejningsvare createAnlæg(String navn){
+        Udlejningsvare u2 = new Udlejningsvare(navn, 0, Varetype.ANLÆG);
         Storage.getStorage().addVare(u2);
         return u2;
     }
 
-    public static Udlejningsvare createKulsyre(String navn, int pant, Varetype varetype){
-        Udlejningsvare u3 = new Udlejningsvare(navn, pant, Varetype.KULSYRE);
+    public static Udlejningsvare createKulsyre(String navn){
+        Udlejningsvare u3 = new Udlejningsvare(navn, 1000, Varetype.KULSYRE);
         Storage.getStorage().addVare(u3);
         return u3;
     }
@@ -104,49 +104,48 @@ public class Controller {
         Controller.createFadøl("Special",  7.50);
 
         //---- Opret flaske objekter -----------------------------
-        Controller.createFlaske("Klosterbryg", 0, 6.40);
-        Controller.createFlaske("Sweet Georgia Brown", 0, 7.50);
-        Controller.createFlaske("Extra Pilsner", 0, 8.00);
-        Controller.createFlaske("Celebration", 0, 6.40);
-        Controller.createFlaske("Blondie", 0, 4.80);
-        Controller.createFlaske("Forårsbryg", 0, 5.50);
-        Controller.createFlaske("India Pale Ale", 0, 6.40);
-        Controller.createFlaske("Julebryg", 0, 7.20);
-        Controller.createFlaske("Juletønden", 0, 7.20);
-        Controller.createFlaske("Old Strong Ale", 0, 9.5);
-        Controller.createFlaske("Fregatten Jylland", 0, 6.40);
-        Controller.createFlaske("Imperial Stout", 0, 7.40);
-        Controller.createFlaske("Tribute", 0, 6.40);
-        Controller.createFlaske("Black Monster", 0, 8.40);
+        Controller.createFlaske("Klosterbryg", 6.40);
+        Controller.createFlaske("Sweet Georgia Brown", 7.50);
+        Controller.createFlaske("Extra Pilsner", 8.00);
+        Controller.createFlaske("Celebration", 6.40);
+        Controller.createFlaske("Blondie", 4.80);
+        Controller.createFlaske("Forårsbryg", 5.50);
+        Controller.createFlaske("India Pale Ale", 6.40);
+        Controller.createFlaske("Julebryg", 7.20);
+        Controller.createFlaske("Juletønden", 7.20);
+        Controller.createFlaske("Old Strong Ale", 9.5);
+        Controller.createFlaske("Fregatten Jylland", 6.40);
+        Controller.createFlaske("Imperial Stout", 7.40);
+        Controller.createFlaske("Tribute", 6.40);
+        Controller.createFlaske("Black Monster", 8.40);
 
         //---- Opret spiritus objekter ---------------------------
-        Controller.createSpiritus("Whisky 45% 50cl rør", 0, 45.00);
-        Controller.createSpiritus("Whisky 45% 4 cl", 0, 45.00);
-        Controller.createSpiritus("Whisky 43% 50cl rør", 0, 43.00);
-        Controller.createSpiritus("Whisky med egesplint", 0, 45.00);
-        Controller.createSpiritus("Whisky uden egesplint", 0, 45.00);
-        Controller.createSpiritus("Liquor of Aarhus", 0, 45.00);
-        Controller.createSpiritus("Lyng gin 50 cl", 0, 45.00);
-        Controller.createSpiritus("Lyng gin 4 cl", 0, 45.00);
+        Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
+        Controller.createSpiritus("Whisky 45% 4 cl", 45.00);
+        Controller.createSpiritus("Whisky 43% 50cl rør", 43.00);
+        Controller.createSpiritus("Whisky med egesplint", 45.00);
+        Controller.createSpiritus("Whisky uden egesplint", 45.00);
+        Controller.createSpiritus("Liquor of Aarhus", 30.00);
+        Controller.createSpiritus("Lyng gin 50 cl", 45.00);
+        Controller.createSpiritus("Lyng gin 4 cl", 45.00);
 
         //---- Opret fustage objekter ---------------------------
-        Controller.createFustage("Klosterbryg", 200, 6.40, false);
-        Controller.createFustage("Jazz Classic", 200, 6.40, false);
-        Controller.createFustage("Extra Pilsner", 200, 6.40, false);
-        Controller.createFustage("Celebration", 200, 6.40, false);
-        Controller.createFustage("Blondie", 200, 6.40, false);
-        Controller.createFustage("Forårsbryg", 200, 6.40, false);
-        Controller.createFustage("India Pale Ale", 200, 6.40, false);
-        Controller.createFustage("Julebryg", 200, 6.40, false);
-        Controller.createFustage("Imperial Stout", 200, 6.40, false);
+        Controller.createFustage("Klosterbryg");
+        Controller.createFustage("Jazz Classic");
+        Controller.createFustage("Extra Pilsner");
+        Controller.createFustage("Celebration");
+        Controller.createFustage("Blondie");
+        Controller.createFustage("Forårsbryg");
+        Controller.createFustage("India Pale Ale");
+        Controller.createFustage("Julebryg");
+        Controller.createFustage("Imperial Stout");
 
         //---- Opret rundvisning objekter -----------------------
 
         Controller.createRundvisning("Carlsberg spionage", 5, LocalDateTime.of(2022, 4, 8, 12, 30));
 
         //---- Opret beklædning objekter ------------------------
-
-        Controller.createBeklædning("T-shirt", "Aprikos t-shirt med logo");
+        Controller.createBeklædning("T-shirt","Aprikos t-shirt med logo");
         Controller.createBeklædning("T-shirt", "Kongeblå t-shirt med logo");
         Controller.createBeklædning("T-shirt", "Basillikum t-shirt med logo");
         Controller.createBeklædning("Polo", "Gran grøn polo med logo");
@@ -158,28 +157,18 @@ public class Controller {
 
 
         //---- Opret malt objekter ------------------------------
-
-        Controller.createMalt("Malt", "Malt");
-
+        Controller.createMalt("Malt", "25 kg sæk");
 
         //---- Opret glas objekter ------------------------------
-
-        Controller.createGlas("Ølglas", "Ølglas");
-        Controller.createGlas("2 Whiskyglas + brikker", "2 Whiskyglas + brikker");
-        Controller.createGlas("Krus");
-
-        
-
-
+        Controller.createGlas("1 glas", "1 glas");
+        Controller.createGlas("2 whiskyglas + 2 brikker", "2 whiskyglas + 2 brikker");
 
         //--- Opret anlæg objekter ------------------------------
-
-        Controller.createAnlæg("1-hane",0, Varetype.ANLÆG);
-        Controller.createAnlæg("2-haner", 0, Varetype.ANLÆG);
-        Controller.createAnlæg("Bar med flere haner", 0, Varetype.ANLÆG);
-        Controller.createAnlæg("Levering", 0, Varetype.ANLÆG);
-        Controller.createAnlæg("Krus", 0, Varetype.ANLÆG);
-
+        Controller.createAnlæg("1-hane");
+        Controller.createAnlæg("2-haner");
+        Controller.createAnlæg("Bar med flere haner");
+        Controller.createAnlæg("Levering");
+        Controller.createAnlæg("Krus");
 
         //---- Opret kulsyre objekter ----------------------------
 
