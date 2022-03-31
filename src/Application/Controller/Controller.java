@@ -189,17 +189,29 @@ public class Controller {
 
         //---- Opret fustage objekter ---------------------------
 
-        Prisgruppe pgFustageButik = new Prisgruppe(775, )
+        Prisgruppe pgFustageButik775 = new Prisgruppe(775, "Butik");
+        Prisgruppe pgFustageButik625 = new Prisgruppe(625, "Butik");
+        Prisgruppe pgFustageButik575 = new Prisgruppe(575, "Butik");
+        Prisgruppe pgFustageButik700 = new Prisgruppe(700, "Butik");
 
-        Controller.createFustage("Klosterbryg");
-        Controller.createFustage("Jazz Classic");
-        Controller.createFustage("Extra Pilsner");
-        Controller.createFustage("Celebration");
-        Controller.createFustage("Blondie");
-        Controller.createFustage("Forårsbryg");
-        Controller.createFustage("India Pale Ale");
-        Controller.createFustage("Julebryg");
-        Controller.createFustage("Imperial Stout");
+        Udlejningsvare f = new Udlejningsvare(Controller.createFustage("Klosterbryg"););
+        f.addPrisgruppe(pgFustageButik775);
+        f = Controller.createFustage("Jazz Classic");
+        f.addPrisgruppe(pgFustageButik625);
+        f = Controller.createFustage("Extra Pilsner");
+        f.addPrisgruppe(pgFustageButik575);
+        f = Controller.createFustage("Celebration");
+        f.addPrisgruppe(pgFustageButik775);
+        f = Controller.createFustage("Blondie");
+        f.addPrisgruppe(pgFustageButik700);
+        f = Controller.createFustage("Forårsbryg");
+        f.addPrisgruppe(pgFustageButik775);
+        f = Controller.createFustage("India Pale Ale");
+        f.addPrisgruppe(pgFustageButik775);
+        f = Controller.createFustage("Julebryg");
+        f.addPrisgruppe(pgFustageButik775);
+        f = Controller.createFustage("Imperial Stout");
+        f.addPrisgruppe(pgFustageButik775);
 
         //---- Opret rundvisning objekter -----------------------
         Controller.createRundvisning("Carlsberg spionage", 5, LocalDateTime.of(2022, 4, 8, 12, 30));
