@@ -257,7 +257,7 @@ public class Controller {
         d.addPrisgruppe(pgButik175);
         d.addPrisgruppe(pgFredagsbar175);
         d=Controller.createSpiritus("Lyng gin 50 cl", 45.00);
-        d.addPrisgruppe();
+//        d.addPrisgruppe();
         d=Controller.createSpiritus("Lyng gin 4 cl", 45.00);
 
         //---- Opret fustage objekter ---------------------------
