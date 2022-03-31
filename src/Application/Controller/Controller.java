@@ -341,12 +341,26 @@ public class Controller {
         Controller.createGlas("1 glas", "1 glas");
         Controller.createGlas("2 whiskyglas + 2 brikker", "2 whiskyglas + 2 brikker");
 
-        //--- Opret anlæg objekter ------------------------------
-        Controller.createAnlæg("1-hane");
-        Controller.createAnlæg("2-haner");
-        Controller.createAnlæg("Bar med flere haner");
-        Controller.createAnlæg("Levering");
-        Controller.createAnlæg("Krus");
+        //--- Opret anlæg objekter
+        Prisgruppe pgButik250 = new Prisgruppe(250, "Butik");
+        Prisgruppe pgButik400 = new Prisgruppe(400, "Butik");
+        Prisgruppe pgButik500 = new Prisgruppe(500, "Butik");
+        Prisgruppe pgButik60 = new Prisgruppe(60, "Butik");
+
+        Udlejningsvare ud = Controller.createAnlæg("1-hane");
+        ud.addPrisgruppe(pgButik250);
+
+        ud = Controller.createAnlæg("2-haner");
+        ud.addPrisgruppe(pgButik400);
+
+        ud = Controller.createAnlæg("Bar med flere haner");
+        ud.addPrisgruppe(pgButik500);
+
+        ud = Controller.createAnlæg("Levering");
+        ud.addPrisgruppe(pgButik500);
+
+        ud = Controller.createAnlæg("Krus");
+        ud.addPrisgruppe(pgButik60);
 
         //---- Opret kulsyre objekter ----------------------------
         Prisgruppe pgKulsyreFredagsbar400 = new Prisgruppe(400, "Fredagsbar");
