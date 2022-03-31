@@ -114,11 +114,14 @@ public class Controller {
 
         Prisgruppe pgFredagsbar38 = new Prisgruppe(38, "Fredagsbar");
         Prisgruppe pgFredagsbar1Klip = new Prisgruppe(1, "FredagsbarKlip");
-        Controller.createFadøl("Klosterbryg",  8.00);
 
         Drikkevare d =  Controller.createFadøl("Jazz Classic",  6.00);
         d.addPrisgruppe(pgFredagsbar38);
         d.addPrisgruppe(pgFredagsbar1Klip);
+
+        d = Controller.createFadøl("Klosterbryg",  8.00);
+        d.addPrisgruppe(pgFredagsbar1Klip);
+        d.addPrisgruppe(pgFredagsbar38);
 
         d = Controller.createFadøl("Extra Pilsner",  6.40);
         d.addPrisgruppe(pgFredagsbar38);

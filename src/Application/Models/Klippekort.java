@@ -23,5 +23,9 @@ public class Klippekort extends Vare{
         return antalKlip;
     }
 
+    public String toString (){
+        return navnKunde + " \n Antal klip tilbage: " + getAntalKlip();
+    }
+
 
 }
