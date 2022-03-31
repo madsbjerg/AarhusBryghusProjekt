@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ProduktSalg extends Salg{
     private double Beloeb;
-    ProduktSalg(HashMap<Vare, Integer> varer, double beloeb) {
+    public ProduktSalg(HashMap<Vare, Integer> varer, double beloeb) {
         super(varer);
         this.Beloeb = beloeb;
     }

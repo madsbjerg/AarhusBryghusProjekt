@@ -30,7 +30,7 @@ public abstract class Vare {
         }
     }
 
-    /*public Prisgruppe getPris(String pgNavn){
+    public Prisgruppe getPris(String pgNavn){
         Prisgruppe retPg = null;
         for(Prisgruppe pg : prisgrupper){
             if(pg.getNavn().equalsIgnoreCase(pgNavn)){
@@ -38,7 +38,7 @@ public abstract class Vare {
             }
         }
         return retPg;
-    }*/
+    }
 
     public void removePrisgruppe(Prisgruppe prisgruppe){
         if(!prisgrupper.contains(prisgruppe)){
@@ -93,4 +93,6 @@ public abstract class Vare {
         }
         return retStr;
     }
+
+    public abstract double getPris(int prisgruppe);
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import Storage.Storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Controller {
     private static Controller controller;
@@ -76,6 +77,14 @@ public class Controller {
         Storage.getStorage().addVare(u3);
         return u3;
     }
+
+    public static ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, double beloeb){
+        ProduktSalg p1 = new ProduktSalg(varer, beloeb);
+        Storage.getStorage().addSalg(p1);
+        return p1;
+    }
+
+
 
 
 
@@ -175,6 +184,7 @@ public class Controller {
         Controller.createKulsyre("6 kg");
         Controller.createKulsyre("4 kg");
         Controller.createKulsyre("10 kg");
+
 
     }
 
