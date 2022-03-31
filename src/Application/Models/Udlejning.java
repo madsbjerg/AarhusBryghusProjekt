@@ -20,9 +20,7 @@ public class Udlejning extends Salg{
     }
 
 
-    public void initPant(){
 
-    }
 
 
 

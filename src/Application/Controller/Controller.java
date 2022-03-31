@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import Storage.Storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Controller {
     private static Controller controller;
@@ -77,6 +78,11 @@ public class Controller {
         return u3;
     }
 
+    public static ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, double beloeb){
+        ProduktSalg p1 = new ProduktSalg(varer, beloeb);
+        Storage.getStorage().addSalg(p1);
+        return p1;
+    }
 
 
     public static void initStorage(){
@@ -95,16 +101,16 @@ public class Controller {
         Sampakning s4 = new Sampakning("12 øl i papkasse", 0, "Papkasse", 12, 0, 30);
 
         // ---- Opret fadøl objekter ------ ----------------------
-        Controller.createFadøl("Klosterbryg", 8.00);
-        Controller.createFadøl("Jazz Classic", 6.00);
-        Controller.createFadøl("Extra Pilsner", 6.40);
-        Controller.createFadøl("Celebration", 5.20);
-        Controller.createFadøl("Blondie",5.00);
-        Controller.createFadøl("Forårsbryg",5.50);
-        Controller.createFadøl("India Pale Ale",7.00);
-        Controller.createFadøl("Julebryg", 6.4);
-        Controller.createFadøl("Imperial Stout", 9.00);
-        Controller.createFadøl("Special", 7.50);
+        Controller.createFadøl("Klosterbryg",  8.00);
+        Controller.createFadøl("Jazz Classic",  6.00);
+        Controller.createFadøl("Extra Pilsner",  6.40);
+        Controller.createFadøl("Celebration",  5.20);
+        Controller.createFadøl("Blondie",  5.00);
+        Controller.createFadøl("Forårsbryg",  5.50);
+        Controller.createFadøl("India Pale Ale",  7.00);
+        Controller.createFadøl("Julebryg",  6.4);
+        Controller.createFadøl("Imperial Stout",  9.00);
+        Controller.createFadøl("Special",  7.50);
 
         //---- Opret flaske objekter -----------------------------
         Controller.createFlaske("Klosterbryg", 6.40);
@@ -175,6 +181,7 @@ public class Controller {
         Controller.createKulsyre("6 kg");
         Controller.createKulsyre("4 kg");
         Controller.createKulsyre("10 kg");
+
 
     }
 
