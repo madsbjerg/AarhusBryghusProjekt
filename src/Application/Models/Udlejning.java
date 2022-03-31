@@ -13,7 +13,7 @@ public class Udlejning extends Salg{
     private boolean betalt;
 
     Udlejning(HashMap<Vare, Integer> varer, ArrayList<Udlejningsvare> udlejningsvare, LocalDate startDato, LocalDate slutDato){
-        super(varer);
+        super(varer,null, null);
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.betalt = false;

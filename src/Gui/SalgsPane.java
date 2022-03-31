@@ -81,9 +81,8 @@ public class SalgsPane extends GridPane {
     private void createComboboxPrisgruppe(SalgsPane salgsPane) {
         cbbprisgrupper = new ComboBox<>();
         this.add(cbbprisgrupper,0,1 );
-//        cbbprisgrupper.getItems().add(controller.getPrisgrupper);
         cbbprisgrupper.setOnAction(event -> enableVareTypeAction());
-        cbbprisgrupper.getItems().add("Hej");
+        cbbprisgrupper.getItems().addAll(controller.getPrisgrupperByName());
     }
 
     private void enableVareTypeAction() {

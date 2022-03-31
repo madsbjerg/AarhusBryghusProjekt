@@ -85,6 +85,12 @@ public class Controller {
         return k;
     }
 
+    public static ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, Betalingsform bform, double beloeb, Rabat rabat){
+
+        ProduktSalg p1 = new ProduktSalg(varer, beloeb, bform, rabat);
+        Storage.getStorage().addSalg(p1);
+        return p1;
+    }
 
 
     public static void initStorage(){
@@ -175,6 +181,9 @@ public class Controller {
         d.addPrisgruppe(pgFredagsbar100);
 
         //---- Opret spiritus objekter ---------------------------
+        Prisgruppe pgButik599 = new Prisgruppe(599,"Butik");
+        Prisgruppe pgFredagsbar599 = new Prisgruppe(599, "Fredagsbar");
+        Prisgruppe pgFredagsbar50 = new Prisgruppe(50, "Fredagsbar");
         Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
         Controller.createSpiritus("Whisky 45% 4 cl", 45.00);
         Controller.createSpiritus("Whisky 43% 50cl rør", 43.00);
@@ -186,10 +195,7 @@ public class Controller {
 
         //---- Opret fustage objekter ---------------------------
 
-        Prisgruppe pgFustageButik775 = new Prisgruppe(775, "Butik");
-        Prisgruppe pgFustageButik625 = new Prisgruppe(625, "Butik");
-        Prisgruppe pgFustageButik575 = new Prisgruppe(575, "Butik");
-        Prisgruppe pgFustageButik700 = new Prisgruppe(700, "Butik");
+        Prisgruppe pgFustageButik = new Prisgruppe(775, )
 
         Udlejningsvare f = new Udlejningsvare(Controller.createFustage("Klosterbryg"););
         f.addPrisgruppe(pgFustageButik775);
