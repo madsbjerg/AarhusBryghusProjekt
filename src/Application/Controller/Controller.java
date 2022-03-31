@@ -215,14 +215,36 @@ public class Controller {
         Prisgruppe pgButik599 = new Prisgruppe(599,"Butik");
         Prisgruppe pgFredagsbar599 = new Prisgruppe(599, "Fredagsbar");
         Prisgruppe pgFredagsbar50 = new Prisgruppe(50, "Fredagsbar");
-        Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
-        Controller.createSpiritus("Whisky 45% 4 cl", 45.00);
-        Controller.createSpiritus("Whisky 43% 50cl rør", 43.00);
-        Controller.createSpiritus("Whisky med egesplint", 45.00);
-        Controller.createSpiritus("Whisky uden egesplint", 45.00);
-        Controller.createSpiritus("Liquor of Aarhus", 30.00);
-        Controller.createSpiritus("Lyng gin 50 cl", 45.00);
-        Controller.createSpiritus("Lyng gin 4 cl", 45.00);
+        Prisgruppe pgButik499 = new Prisgruppe(499, "Butik");
+        Prisgruppe pgFredagsbar499 = new Prisgruppe(499, "Fredagsbar");
+        Prisgruppe pgButik300 = new Prisgruppe(300, "Butik");
+        Prisgruppe pgFredagsbar300 = new Prisgruppe(300, "Fredagsbar");
+        Prisgruppe pgButik350 = new Prisgruppe(350, "Butik");
+        Prisgruppe pgFredagsbar350 = new Prisgruppe(350, "Fredagsbar");
+        Prisgruppe pgButik80 = new Prisgruppe(80, "Butik");
+        Prisgruppe pgFredagsbar80 = new Prisgruppe(80, "Fredagsbar");
+        Prisgruppe pgButik175 = new Prisgruppe(175, "Butik");
+        Prisgruppe pgFredagsbar175 = new Prisgruppe(175, "Fredagsbar");
+        Prisgruppe pgFredagsbar40 = new Prisgruppe(40, "Fredagsbar");
+        d = Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
+        d.addPrisgruppe(pgButik599);
+        d.addPrisgruppe(pgFredagsbar599);
+        d = Controller.createSpiritus("Whisky 45% 4 cl", 45.00);
+        d.addPrisgruppe(pgFredagsbar50);
+        d=Controller.createSpiritus("Whisky 43% 50cl rør", 43.00);
+        d.addPrisgruppe(pgButik499);
+        d.addPrisgruppe(pgFredagsbar499);
+        d=Controller.createSpiritus("Whisky med egesplint", 45.00);
+        d.addPrisgruppe(pgButik350);
+        d.addPrisgruppe(pgFredagsbar350);
+        d=Controller.createSpiritus("Whisky uden egesplint", 45.00);
+        d.addPrisgruppe(pgButik300);
+        d.addPrisgruppe(pgFredagsbar300);
+        d=Controller.createSpiritus("Liquor of Aarhus", 30.00);
+        d.addPrisgruppe();
+        d=Controller.createSpiritus("Lyng gin 50 cl", 45.00);
+
+        d=Controller.createSpiritus("Lyng gin 4 cl", 45.00);
 
         //---- Opret fustage objekter ---------------------------
 
