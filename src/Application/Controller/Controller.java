@@ -277,7 +277,7 @@ public class Controller {
         try{
             FileInputStream fs_in = new FileInputStream("bryghus.ser");
             ObjectInputStream os_in = new ObjectInputStream(fs_in);
-
+            
         }catch(IOException ex){
             System.out.println(ex.getMessage() + " " + ex.getStackTrace());
         }
