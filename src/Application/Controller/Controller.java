@@ -392,6 +392,14 @@ public class Controller {
         }
     }
 
+    public double totalPris(String pgnavn, HashMap<Vare, Integer> varer){
+        double sum = 0;
+        for(Vare vare : varer.keySet()){
+            sum += vare.getPris(pgnavn) * varer.get(vare);
+        }
+        return sum;
+    }
+
     public static void saveStorageToFile(){
         try{
             FileOutputStream fs_out = new FileOutputStream("bryghus.ser");
