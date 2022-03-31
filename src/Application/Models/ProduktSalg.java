@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class ProduktSalg extends Salg{
     private double Beloeb;
-    ProduktSalg(HashMap<Vare, Integer> varer, double beloeb) {
-        super(varer);
+    ProduktSalg(HashMap<Vare, Integer> varer, double beloeb, Betalingsform betalingsform,Rabat rabat) {
+        super(varer,betalingsform,rabat);
         this.Beloeb = beloeb;
     }
 
