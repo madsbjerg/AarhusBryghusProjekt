@@ -197,6 +197,7 @@ public class Controller {
 
         Prisgruppe pgFustageButik = new Prisgruppe(775, )
 
+
         Udlejningsvare f = new Udlejningsvare(Controller.createFustage("Klosterbryg"););
         f.addPrisgruppe(pgFustageButik775);
         f = Controller.createFustage("Jazz Classic");
