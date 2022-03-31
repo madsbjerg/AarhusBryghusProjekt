@@ -15,18 +15,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import java.awt.*;
-import java.util.Calendar;
-import java.util.InputMismatchException;
+import java.util.function.UnaryOperator;
 
 public class RundvisningPane extends GridPane {
 
@@ -63,21 +62,25 @@ public class RundvisningPane extends GridPane {
 
     private void createRundvisningAction() {
         try{
-
             LocalDate date = LocalDate.parse(txfDato.getText());
-
             LocalDateTime time = date.atTime(LocalTime.parse(txfTidspunkt.getText()));
-            System.out.println(time);
-
-            LocalDateTime time2 = LocalDateTime.of(2202,12,1,00,00 );
-            System.out.println(time2);
-            Controller.createRundvisning("hej", Integer.parseInt(txfAntalPersoner.getText()),time);
+            if(!Objects.equals(txfTotalPris.getText(), "Total Pris")) {
+                Controller.createRundvisning("hej", Integer.parseInt(txfAntalPersoner.getText()), time);
+            }
+            else {
+                errormessage();
+            }
         }
 
         catch (NumberFormatException e){
             System.out.println("Fejl");
         }
     }
+
+    private void errormessage() {
+        String message = "Indtast hvor mange personer der skal deltage og prisPrPerson";
+        JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
+}
 
     private int subString(String string, int start, int slut){
         String ny = string;
@@ -147,7 +150,7 @@ public class RundvisningPane extends GridPane {
                 }
             }
         });
-
+        txfAntalPersoner.setOnKeyReleased(event -> updateTotalPrisAction());
 
         txfPrisPrPerson = new TextField();
         this.add(txfPrisPrPerson, 1, 1);
@@ -159,6 +162,7 @@ public class RundvisningPane extends GridPane {
                 }
             }
         });
+        txfPrisPrPerson.setOnKeyReleased(event -> updateTotalPrisAction());
 
         txfTotalPris = new TextField("Total Pris");
         this.add(txfTotalPris, 2, 1);
@@ -174,7 +178,21 @@ public class RundvisningPane extends GridPane {
 
     }
 
+    private void updateTotalPrisAction() {
+        if(!txfAntalPersoner.getText().isEmpty() && !txfPrisPrPerson.getText().isEmpty()){
+
+            try {
+                int prisPrPerson = Integer.parseInt(txfPrisPrPerson.getText());
+                int antalPersoner = Integer.parseInt(txfAntalPersoner.getText());
+                txfTotalPris.setText(String.valueOf(prisPrPerson * antalPersoner));
+            }
+            catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+                System.out.println("fejl i updateTotalPrisAction Metoden i RundvisningPane");
+            }
 
 
+        }
+    }
 
 }
