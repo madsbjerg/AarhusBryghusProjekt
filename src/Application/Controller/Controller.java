@@ -311,11 +311,18 @@ public class Controller {
         Prisgruppe pgKulsyreFredagsbar400 = new Prisgruppe(400, "Fredagsbar");
         Prisgruppe pgKulsyreButik400 = new Prisgruppe(400, "Butik");
 
-        d = Controller.createKulsyre("6 kg");
-        d.addPrisgruppe(pgKulsyreFredagsbar400);
+        Udlejningsvare u = Controller.createKulsyre("6 kg ");
+        u.addPrisgruppe(pgKulsyreFredagsbar400);
+        u.addPrisgruppe(pgKulsyreButik400);
 
-        Controller.createKulsyre("4 kg");
-        Controller.createKulsyre("10 kg");
+        u = Controller.createKulsyre("4 kg");
+        u.addPrisgruppe(pgKulsyreFredagsbar400);
+        u.addPrisgruppe(pgKulsyreButik400);
+
+       u = Controller.createKulsyre("10 kg");
+       u.addPrisgruppe(pgKulsyreFredagsbar400);
+       u.addPrisgruppe(pgKulsyreButik400);
+
 
         //---- Opret klippekort --------------------------------
         Controller.createKlippekort("hans");
