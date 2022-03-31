@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class SalgsPane extends GridPane {
 
@@ -100,10 +101,15 @@ public class SalgsPane extends GridPane {
 
         btnLavSalg = new Button("Lav salg");
         this.add(btnLavSalg, 5, 5);
+        btnLavSalg.setOnAction(event -> lavSalgAction());
         //todo
         /*
         skal have en action som sætter salget ind i systemet or something
          */
+    }
+
+    private void lavSalgAction() {
+
     }
 
     private void removeKurvAction() {
@@ -127,6 +133,18 @@ public class SalgsPane extends GridPane {
                 errorMessageTilføj();
             }
             lvwKurv.getItems().add(ValgtVare);
+
+            //Hashmap af alle vores vare.
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        for(int i =0;i<lvwKurv.getItems().size();i++){
+            if(varer.containsKey(lvwKurv.getItems().get(i))){
+                varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i))+1);
+            } else {
+                varer.put(lvwKurv.getItems().get(i), 1);
+            }
+        }
+            //opdatere totalPris.
+//            txfTotalPris.setText(controller.getPris());
 
     }
 
@@ -233,7 +251,9 @@ public class SalgsPane extends GridPane {
         this.add(cbbVareType, 1, 1);
         cbbVareType.getItems().addAll(Varetype.values());
         cbbVareType.setOnAction(event -> UpdateVagteVareAction());
-        cbbVareType.setDisable(true);
+//        cbbVareType.setDisable(true);
+        //todo
+        //fjern kommentar når prisgrupper fungere.
     }
 
     private void UpdateVagteVareAction() {
