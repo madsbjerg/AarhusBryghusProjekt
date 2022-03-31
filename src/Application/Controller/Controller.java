@@ -112,7 +112,7 @@ public class Controller {
 
         // ---- Opret fadøl objekter ------ ----------------------
 
-        Prisgruppe pgFredagsbar38 = new Prisgruppe(38, "fredagsbar");
+        Prisgruppe pgFredagsbar38 = new Prisgruppe(38, "Fredagsbar");
         Prisgruppe pgFredagsbar1Klip = new Prisgruppe(1, "FredagsbarKlip");
 
         Drikkevare d =  Controller.createFadøl("Jazz Classic",  6.00);
@@ -254,9 +254,10 @@ public class Controller {
         d.addPrisgruppe(pgFredagsbar300);
 
         d=Controller.createSpiritus("Liquor of Aarhus", 30.00);
-        d.addPrisgruppe();
+        d.addPrisgruppe(pgButik175);
+        d.addPrisgruppe(pgFredagsbar175);
         d=Controller.createSpiritus("Lyng gin 50 cl", 45.00);
-
+        d.addPrisgruppe();
         d=Controller.createSpiritus("Lyng gin 4 cl", 45.00);
 
         //---- Opret fustage objekter ---------------------------
@@ -300,11 +301,25 @@ public class Controller {
         Controller.createBeklædning("Cap", "Brændt orange cap med logo");
 
         //---- Opret malt objekter ------------------------------
-        Controller.createMalt("Malt", "25 kg sæk");
+
+        Prisgruppe pgMaltButik = new Prisgruppe(300, "Butik");
+        Diverse d = Controller.createMalt("Malt", "25 kg sæk");
+        d.addPrisgruppe(pgMaltButik);
+
 
         //---- Opret glas objekter ------------------------------
-        Controller.createGlas("1 glas", "1 glas");
-        Controller.createGlas("2 whiskyglas + 2 brikker", "2 whiskyglas + 2 brikker");
+
+        Prisgruppe pgGlas1Butik = new Prisgruppe(15, "Butik");
+        Prisgruppe pgWhiskyOgBrikkerButik = new Prisgruppe(80, "Butik");
+        Prisgruppe pgWhiskyOgBrikkerFredagsbar = new Prisgruppe(80, "Fredagsbar");
+
+        d = Controller.createGlas("1 glas", "1 glas");
+        d.addPrisgruppe(pgGlas1Butik);
+        d = Controller.createGlas("2 whiskyglas + 2 brikker", "2 whiskyglas + 2 brikker");
+        d.addPrisgruppe(pgWhiskyOgBrikkerButik);
+        d.addPrisgruppe(pgWhiskyOgBrikkerFredagsbar);
+
+
 
         //--- Opret anlæg objekter ------------------------------
         Controller.createAnlæg("1-hane");
