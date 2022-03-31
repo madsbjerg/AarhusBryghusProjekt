@@ -59,7 +59,7 @@ public class Controller {
         return div;
     }
 
-    public static Udlejningsvare createFustage(String navn, int pant, Varetype type){
+    public static Udlejningsvare createFustage(String navn, int pant){
         Udlejningsvare u1 = new Udlejningsvare(navn, pant, Varetype.FUSTAGE);
         Storage.getStorage().addVare(u1);
         return u1;
@@ -124,8 +124,8 @@ public class Controller {
         Controller.createSpiritus("Lyng gin 4 cl", 0, 45.00);
 
         //---- Opret fustage objekter ---------------------------
-        Controller.createFustage("Klosterbryg", 200, 6.40, false);
-        Controller.createFustage("Jazz Classic", 200, 6.40, false);
+        Controller.createFustage("Klosterbryg", 200, 6.40);
+        Controller.createFustage("Jazz Classic", 200, 6.40);
         Controller.createFustage("Extra Pilsner", 200, 6.40, false);
         Controller.createFustage("Celebration", 200, 6.40, false);
         Controller.createFustage("Blondie", 200, 6.40, false);
