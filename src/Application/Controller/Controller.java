@@ -234,17 +234,22 @@ public class Controller {
         d = Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
         d.addPrisgruppe(pgButik599);
         d.addPrisgruppe(pgFredagsbar599);
+
         d = Controller.createSpiritus("Whisky 45% 4 cl", 45.00);
         d.addPrisgruppe(pgFredagsbar50);
+
         d=Controller.createSpiritus("Whisky 43% 50cl rør", 43.00);
         d.addPrisgruppe(pgButik499);
         d.addPrisgruppe(pgFredagsbar499);
+
         d=Controller.createSpiritus("Whisky med egesplint", 45.00);
         d.addPrisgruppe(pgButik350);
         d.addPrisgruppe(pgFredagsbar350);
+
         d=Controller.createSpiritus("Whisky uden egesplint", 45.00);
         d.addPrisgruppe(pgButik300);
         d.addPrisgruppe(pgFredagsbar300);
+
         d=Controller.createSpiritus("Liquor of Aarhus", 30.00);
         d.addPrisgruppe();
         d=Controller.createSpiritus("Lyng gin 50 cl", 45.00);
@@ -303,7 +308,12 @@ public class Controller {
         Controller.createAnlæg("Krus");
 
         //---- Opret kulsyre objekter ----------------------------
-        Controller.createKulsyre("6 kg");
+        Prisgruppe pgKulsyreFredagsbar400 = new Prisgruppe(400, "Fredagsbar");
+        Prisgruppe pgKulsyreButik400 = new Prisgruppe(400, "Butik");
+
+        d = Controller.createKulsyre("6 kg");
+        d.addPrisgruppe(pgKulsyreFredagsbar400);
+
         Controller.createKulsyre("4 kg");
         Controller.createKulsyre("10 kg");
 
