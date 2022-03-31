@@ -171,9 +171,10 @@ public class Controller {
         Controller.createAnlæg("Krus");
 
         //---- Opret kulsyre objekter ----------------------------
-        Controller.createKulsyre("6 kg");
-        Controller.createKulsyre("4 kg");
-        Controller.createKulsyre("10 kg");
+
+        Controller.createKulsyre("6 kg", 1000, Varetype.KULSYRE);
+        Controller.createKulsyre("4 kg", 1000, Varetype.KULSYRE);
+        Controller.createKulsyre("10 kg", 1000, Varetype.KULSYRE);
 
     }
 
