@@ -3,6 +3,7 @@ package Application.Controller;
 import Application.Models.*;
 import Storage.Storage;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import Storage.Storage;
@@ -228,7 +229,8 @@ public class Controller {
     }
 
     // TODO: Mike brug den her i stedet pls
-    public ArrayList<String> getPrisgrupperByName(){        ArrayList<String> rl = new ArrayList<>();
+    public ArrayList<String> getPrisgrupperByName(){
+        ArrayList<String> rl = new ArrayList<>();
         for(Vare v : Storage.getStorage().getVarer()){
             for(Prisgruppe pg : v.getPrisgrupper()){
                 if(!rl.contains(pg.getNavn())){
@@ -252,6 +254,32 @@ public class Controller {
         for (int i = 0; i < Storage.getStorage().getVarer().size(); i++){
             v = Storage.getStorage().getVarer().get(i);
             v.setAktivPrisgruppe(null);
+        }
+    }
+
+    public void saveStorageToFile(){
+        try{
+            FileOutputStream fs_out = new FileOutputStream("bryghus.ser");
+            ObjectOutputStream os_out = new ObjectOutputStream(fs_out);
+            for(Vare v : Storage.getStorage().getVarer()){
+                os_out.writeObject(v);
+            }
+            for(Salg s : Storage.getStorage().getSalg()){
+                os_out.writeObject(s);
+            }
+
+        }catch(IOException ex){
+            System.out.println(ex.getMessage() + " " + ex.getStackTrace());
+        }
+    }
+
+    public void loadStorageFromFile(){
+        try{
+            FileInputStream fs_in = new FileInputStream("bryghus.ser");
+            ObjectInputStream os_in = new ObjectInputStream(fs_in);
+
+        }catch(IOException ex){
+            System.out.println(ex.getMessage() + " " + ex.getStackTrace());
         }
     }
 }
