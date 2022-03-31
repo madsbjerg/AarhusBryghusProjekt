@@ -195,10 +195,12 @@ public class Controller {
 
         //---- Opret fustage objekter ---------------------------
 
-        Prisgruppe pgFustageButik = new Prisgruppe(775, )
+        Prisgruppe pgFustageButik775 = new Prisgruppe(775, "Butik");
+        Prisgruppe pgFustageButik625 = new Prisgruppe(625, "Butik");
+        Prisgruppe pgFustageButik575 = new Prisgruppe(575, "Butik");
+        Prisgruppe pgFustageButik700 = new Prisgruppe(700, "Butik");
 
-
-        Udlejningsvare f = new Udlejningsvare(Controller.createFustage("Klosterbryg"););
+        Udlejningsvare f = Controller.createFustage("Klosterbryg");
         f.addPrisgruppe(pgFustageButik775);
         f = Controller.createFustage("Jazz Classic");
         f.addPrisgruppe(pgFustageButik625);
