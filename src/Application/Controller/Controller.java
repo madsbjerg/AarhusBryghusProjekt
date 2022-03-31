@@ -144,7 +144,8 @@ public class Controller {
         d.addPrisgruppe(pgFredagsbar1Klip);
 
         d = Controller.createFadøl("Special",  7.50);
-        d.addPrisgruppe();
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
 
         //---- Opret flaske objekter -----------------------------
         Prisgruppe pgFredagsBar70 = new Prisgruppe(70, "Fredagsbar");
