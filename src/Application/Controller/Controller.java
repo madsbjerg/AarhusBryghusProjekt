@@ -80,6 +80,7 @@ public class Controller {
     }
 
     public static ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, double beloeb){
+        
         ProduktSalg p1 = new ProduktSalg(varer, beloeb);
         Storage.getStorage().addSalg(p1);
         return p1;
