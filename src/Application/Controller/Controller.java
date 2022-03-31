@@ -79,19 +79,16 @@ public class Controller {
         return u3;
     }
 
-    public static ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, double beloeb){
-        ProduktSalg p1 = new ProduktSalg(varer, beloeb);
-        Storage.getStorage().addSalg(p1);
-        return p1;
+    public static Klippekort createKlippekort(String navnKunde){
+        Klippekort k = new Klippekort("hans");
+        Storage.getStorage().addVare(k);
+        return k;
     }
+
 
 
     public static void initStorage(){
 
-        Klippekort k1 = new Klippekort(1, "Omar");
-        Klippekort k2 = new Klippekort(2, "Mads");
-        Klippekort k3 = new Klippekort(3, "Jens");
-        Klippekort k4 = new Klippekort(4, "Mike");
 
         Sampakning s1 = new Sampakning("2 øl & 2 glas i gaveæske", 0, "Gaveæske", 2, 2, 20);
         Sampakning s5 = new Sampakning("4 øl i gaveæske", 0, "Gaveæske", 4, 0, 20);
@@ -205,7 +202,6 @@ public class Controller {
         Controller.createRundvisning("Carlsberg spionage", 5, LocalDateTime.of(2022, 4, 8, 12, 30));
 
         //---- Opret beklædning objekter ------------------------
-        Prisgruppe pg = new Prisgruppe(100, "Butik");
         Controller.createBeklædning("T-shirt","Aprikos t-shirt med logo");
         Controller.createBeklædning("T-shirt", "Kongeblå t-shirt med logo");
         Controller.createBeklædning("T-shirt", "Basillikum t-shirt med logo");
@@ -235,7 +231,12 @@ public class Controller {
         Controller.createKulsyre("4 kg");
         Controller.createKulsyre("10 kg");
 
-        saveStorageToFile();
+        //----
+        Controller.createKlippekort("hans");
+        Controller.createKlippekort("gert");
+        Controller.createKlippekort("Jens");
+        Controller.createKlippekort("Mads");
+
     }
 
     public ArrayList<Vare> getKlippekort(){
@@ -288,8 +289,7 @@ public class Controller {
     }
 
     // TODO: Mike brug den her i stedet pls
-    public ArrayList<String> getPrisgrupperByName(){
-        ArrayList<String> rl = new ArrayList<>();
+    public ArrayList<String> getPrisgrupperByName(){        ArrayList<String> rl = new ArrayList<>();
         for(Vare v : Storage.getStorage().getVarer()){
             for(Prisgruppe pg : v.getPrisgrupper()){
                 if(!rl.contains(pg.getNavn())){

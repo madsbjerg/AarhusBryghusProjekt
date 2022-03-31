@@ -227,7 +227,6 @@ public class SalgsPane extends GridPane {
         cbbKlippekort.getItems().addAll(controller.getKlippekort());
         cbbKlippekort.setDisable(true);
         cbbKlippekort.setPromptText("Vælg klippekort");
-        cbbKlippekort.getItems().addAll(controller.getKlippekort());
     }
 
     private void createComboboxVareType(SalgsPane salgsPane) {
@@ -271,7 +270,4 @@ public class SalgsPane extends GridPane {
         Label lblTotalPris = new Label("Total Pris:");
         this.add(lblTotalPris, 4, 0);
     }
-
-
-
 }
