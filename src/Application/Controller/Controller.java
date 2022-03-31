@@ -85,20 +85,20 @@ public class Controller {
     }
 
 
-
-
-
     public static void initStorage(){
 
-        Klippekort k1 = new Klippekort(1, "Olaf");
+        Klippekort k1 = new Klippekort(1, "Omar");
         Klippekort k2 = new Klippekort(2, "Mads");
         Klippekort k3 = new Klippekort(3, "Jens");
         Klippekort k4 = new Klippekort(4, "Mike");
 
-        Sampakning s1 = new Sampakning("Gaveæske", 0, "Gaveæske", 1, 1, 20);
-        Sampakning s2 = new Sampakning("trækasse", 0, "Trækasse", 4, 3, 25);
-        Sampakning s3 = new Sampakning("Gavekurv", 0, "Gavekurv", 2, 4, 30);
-
+        Sampakning s1 = new Sampakning("2 øl & 2 glas i gaveæske", 0, "Gaveæske", 2, 2, 20);
+        Sampakning s5 = new Sampakning("4 øl i gaveæske", 0, "Gaveæske", 4, 0, 20);
+        Sampakning s2 = new Sampakning("6 øl i trækasse ", 0, "Trækasse", 6, 0, 25);
+        Sampakning s3 = new Sampakning("6 øl & 2 glas i gavekurv", 0, "Gavekurv", 2, 4, 30);
+        Sampakning s6 = new Sampakning("6 øl & 6 glas i trækasse ", 0, "Trækasse", 6, 6, 25);
+        Sampakning s7 = new Sampakning("12 øl i Trækassse", 0, "Trækasse", 12, 0, 25);
+        Sampakning s4 = new Sampakning("12 øl i papkasse", 0, "Papkasse", 12, 0, 30);
 
         // ---- Opret fadøl objekter ------ ----------------------
         Controller.createFadøl("Klosterbryg",  8.00);
@@ -150,7 +150,6 @@ public class Controller {
         Controller.createFustage("Imperial Stout");
 
         //---- Opret rundvisning objekter -----------------------
-
         Controller.createRundvisning("Carlsberg spionage", 5, LocalDateTime.of(2022, 4, 8, 12, 30));
 
         //---- Opret beklædning objekter ------------------------
@@ -163,7 +162,6 @@ public class Controller {
         Controller.createBeklædning("Cap", "Knækket rød cap med logo");
         Controller.createBeklædning("Cap", "Turkise cap med logo");
         Controller.createBeklædning("Cap", "Brændt orange cap med logo");
-
 
         //---- Opret malt objekter ------------------------------
         Controller.createMalt("Malt", "25 kg sæk");
@@ -180,7 +178,6 @@ public class Controller {
         Controller.createAnlæg("Krus");
 
         //---- Opret kulsyre objekter ----------------------------
-
         Controller.createKulsyre("6 kg");
         Controller.createKulsyre("4 kg");
         Controller.createKulsyre("10 kg");
@@ -254,6 +251,14 @@ public class Controller {
         for(int i = 0; i < Storage.getStorage().getVarer().size(); i++){
             v = Storage.getStorage().getVarer().get(i);
             v.setAktivPrisgruppe(pgNavn);
+        }
+    }
+
+    public void resetPrisgrupper(){
+        Vare v = null;
+        for (int i = 0; i < Storage.getStorage().getVarer().size(); i++){
+            v = Storage.getStorage().getVarer().get(i);
+            v.setAktivPrisgruppe(null);
         }
     }
 }

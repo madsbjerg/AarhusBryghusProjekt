@@ -38,7 +38,7 @@ public abstract class Vare {
             }
         }
         return retPg;
-    }
+    }*/
 
     public void removePrisgruppe(Prisgruppe prisgruppe){
         if(!prisgrupper.contains(prisgruppe)){
