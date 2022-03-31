@@ -114,20 +114,68 @@ public class Controller {
         Controller.createFadøl("Special",  7.50);
 
         //---- Opret flaske objekter -----------------------------
-        Controller.createFlaske("Klosterbryg", 6.40);
-        Controller.createFlaske("Sweet Georgia Brown", 7.50);
-        Controller.createFlaske("Extra Pilsner", 8.00);
-        Controller.createFlaske("Celebration", 6.40);
-        Controller.createFlaske("Blondie", 4.80);
-        Controller.createFlaske("Forårsbryg", 5.50);
-        Controller.createFlaske("India Pale Ale", 6.40);
-        Controller.createFlaske("Julebryg", 7.20);
-        Controller.createFlaske("Juletønden", 7.20);
-        Controller.createFlaske("Old Strong Ale", 9.5);
-        Controller.createFlaske("Fregatten Jylland", 6.40);
-        Controller.createFlaske("Imperial Stout", 7.40);
-        Controller.createFlaske("Tribute", 6.40);
-        Controller.createFlaske("Black Monster", 8.40);
+        Prisgruppe pgFredagsBar70 = new Prisgruppe(70, "Fredagsbar");
+        Prisgruppe pgFredagsbar2Klip = new Prisgruppe(2, "FredagsbarKlip");
+        Prisgruppe pgButikPris36 = new Prisgruppe(36, "Butik");
+        Prisgruppe pgButikPris60 = new Prisgruppe(60, "Butik");
+        Prisgruppe pgFredagsbar100 = new Prisgruppe(100, "Fredagsbar");
+        Prisgruppe pgFredagsbar3Klip = new Prisgruppe(3, "FredagsbarKlip");
+        Drikkevare d = Controller.createFlaske("Klosterbryg", 6.40);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Sweet Georgia Brown", 7.50);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Extra Pilsner", 8.00);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Celebration", 6.40);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Blondie", 4.80);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Forårsbryg", 5.50);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("India Pale Ale", 6.40);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Julebryg", 7.20);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Juletønden", 7.20);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Old Strong Ale", 9.5);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Fregatten Jylland", 6.40);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Imperial Stout", 7.40);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Tribute", 6.40);
+        d.addPrisgruppe(pgButikPris36);
+        d.addPrisgruppe(pgFredagsbar2Klip);
+        d.addPrisgruppe(pgFredagsBar70);
+        d = Controller.createFlaske("Black Monster", 8.40);
+        d.addPrisgruppe(pgButikPris60);
+        d.addPrisgruppe(pgFredagsbar3Klip);
+        d.addPrisgruppe(pgFredagsbar100);
 
         //---- Opret spiritus objekter ---------------------------
         Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
@@ -154,6 +202,7 @@ public class Controller {
         Controller.createRundvisning("Carlsberg spionage", 5, LocalDateTime.of(2022, 4, 8, 12, 30));
 
         //---- Opret beklædning objekter ------------------------
+        Prisgruppe pg = new Prisgruppe(100, "Butik");
         Controller.createBeklædning("T-shirt","Aprikos t-shirt med logo");
         Controller.createBeklædning("T-shirt", "Kongeblå t-shirt med logo");
         Controller.createBeklædning("T-shirt", "Basillikum t-shirt med logo");
@@ -183,7 +232,7 @@ public class Controller {
         Controller.createKulsyre("4 kg");
         Controller.createKulsyre("10 kg");
 
-
+        saveStorageToFile();
     }
 
     public ArrayList<Vare> getKlippekort(){
@@ -264,7 +313,7 @@ public class Controller {
         }
     }
 
-    public void saveStorageToFile(){
+    public static void saveStorageToFile(){
         try{
             FileOutputStream fs_out = new FileOutputStream("bryghus.ser");
             ObjectOutputStream os_out = new ObjectOutputStream(fs_out);
@@ -274,13 +323,14 @@ public class Controller {
             for(Salg s : Storage.getStorage().getSalg()){
                 os_out.writeObject(s);
             }
-
+            os_out.close();
+            fs_out.close();
         }catch(IOException ex){
             System.out.println(ex.getMessage() + " " + ex.getStackTrace());
         }
     }
 
-    public void loadStorageFromFile(){
+    public static void loadStorageFromFile(){
         try{
             FileInputStream fs_in = new FileInputStream("bryghus.ser");
             ObjectInputStream os_in = new ObjectInputStream(fs_in);
@@ -297,6 +347,8 @@ public class Controller {
                     Storage.getStorage().addSalg((Salg)obj);
                 }
             }
+            os_in.close();
+            fs_in.close();
 
         }catch(IOException | ClassNotFoundException ex){
             System.out.println(ex.getMessage() + " " + ex.getStackTrace());
