@@ -227,6 +227,7 @@ public class SalgsPane extends GridPane {
         cbbKlippekort.getItems().addAll(controller.getKlippekort());
         cbbKlippekort.setDisable(true);
         cbbKlippekort.setPromptText("Vælg klippekort");
+        cbbKlippekort.getItems().addAll(controller.getKlippekort());
     }
 
     private void createComboboxVareType(SalgsPane salgsPane) {
