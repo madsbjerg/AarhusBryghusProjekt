@@ -112,6 +112,9 @@ public class RundvisningPane extends GridPane {
 
 
     private void datePickerAction() {
+
+
+
         Stage stage = new Stage();
         stage.setTitle("Vælg en dato");
 
