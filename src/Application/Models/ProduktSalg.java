@@ -8,7 +8,7 @@ public class ProduktSalg extends Salg{
         super(varer);
         this.Beloeb = beloeb;
     }
-
+/*
     public double totalPris(int prisgruppe){
         double sum = 0;
         for(Vare vare : varer.keySet()){
@@ -17,7 +17,7 @@ public class ProduktSalg extends Salg{
         this.Beloeb = sum;
         return sum;
     }
-
+*/
     public double getBeloeb() {
         try {
             return Beloeb;
