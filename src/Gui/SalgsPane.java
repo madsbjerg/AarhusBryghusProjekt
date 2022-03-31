@@ -2,6 +2,7 @@ package Gui;
 
 import Application.Controller.Controller;
 import Application.Models.*;
+import com.sun.source.tree.CatchTree;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -11,6 +12,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class SalgsPane extends GridPane {
 
@@ -263,11 +265,12 @@ public class SalgsPane extends GridPane {
         ArrayList<Vare> valgteVare = new ArrayList<>();
         ArrayList<Vare> alleVare = new ArrayList<>(controller.getVarer());
         controller.setActivePrisgruppe(cbbprisgrupper.getSelectionModel().getSelectedItem());
-        for(int i =0;i< alleVare.size();i++){
-            if(alleVare.get(i).getVaretype() == cbbVareType.getValue()){
-                valgteVare.add(alleVare.get(i));
-            }
+        for(int i =0;i< alleVare.size();i++) {
+                if (alleVare.get(i).getVaretype() == cbbVareType.getValue() && !alleVare.get(i).toString().contains("NaN")) {
+                    valgteVare.add(alleVare.get(i));
+                }
         }
+
         lvwValgteVare.getItems().addAll(valgteVare);
     }
 
