@@ -30,15 +30,15 @@ public abstract class Vare {
         }
     }
 
-    /*public Prisgruppe getPris(String pgNavn){
+    public double getPris(String pgNavn){
         Prisgruppe retPg = null;
         for(Prisgruppe pg : prisgrupper){
             if(pg.getNavn().equalsIgnoreCase(pgNavn)){
                 retPg = pg;
             }
         }
-        return retPg;
-    }*/
+        return retPg.getPris();
+    }
 
     public void removePrisgruppe(Prisgruppe prisgruppe){
         if(!prisgrupper.contains(prisgruppe)){
