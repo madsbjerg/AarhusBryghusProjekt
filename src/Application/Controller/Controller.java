@@ -348,11 +348,11 @@ public class Controller {
         Prisgruppe pgWhiskyOgBrikkerButik = new Prisgruppe(80, "Butik");
         Prisgruppe pgWhiskyOgBrikkerFredagsbar = new Prisgruppe(80, "Fredagsbar");
 
-        d = Controller.createGlas("1 glas", "1 glas");
-        d.addPrisgruppe(pgGlas1Butik);
-        d = Controller.createGlas("2 whiskyglas + 2 brikker", "2 whiskyglas + 2 brikker");
-        d.addPrisgruppe(pgWhiskyOgBrikkerButik);
-        d.addPrisgruppe(pgWhiskyOgBrikkerFredagsbar);
+        div = Controller.createGlas("1 glas", "1 glas");
+        div.addPrisgruppe(pgGlas1Butik);
+        div = Controller.createGlas("2 whiskyglas + 2 brikker", "2 whiskyglas + 2 brikker");
+        div.addPrisgruppe(pgWhiskyOgBrikkerButik);
+        div.addPrisgruppe(pgWhiskyOgBrikkerFredagsbar);
 
 
 
