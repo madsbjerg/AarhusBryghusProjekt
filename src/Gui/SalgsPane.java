@@ -270,7 +270,4 @@ public class SalgsPane extends GridPane {
         Label lblTotalPris = new Label("Total Pris:");
         this.add(lblTotalPris, 4, 0);
     }
-
-
-
 }

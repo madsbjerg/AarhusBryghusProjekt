@@ -79,6 +79,12 @@ public class Controller {
         return u3;
     }
 
+    public static Klippekort createKlippekort(String navnKunde){
+        Klippekort k = new Klippekort("hans");
+        Storage.getStorage().addVare(k);
+        return k;
+    }
+
 
 
     public static void initStorage(){
@@ -280,8 +286,7 @@ public class Controller {
     }
 
     // TODO: Mike brug den her i stedet pls
-    public ArrayList<String> getPrisgrupperByName(){
-        ArrayList<String> rl = new ArrayList<>();
+    public ArrayList<String> getPrisgrupperByName(){        ArrayList<String> rl = new ArrayList<>();
         for(Vare v : Storage.getStorage().getVarer()){
             for(Prisgruppe pg : v.getPrisgrupper()){
                 if(!rl.contains(pg.getNavn())){
