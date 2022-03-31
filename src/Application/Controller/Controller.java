@@ -112,7 +112,7 @@ public class Controller {
 
         // ---- Opret fadøl objekter ------ ----------------------
 
-        Prisgruppe pgFredagsbar38 = new Prisgruppe(38, "fredagsbar");
+        Prisgruppe pgFredagsbar38 = new Prisgruppe(38, "Fredagsbar");
         Prisgruppe pgFredagsbar1Klip = new Prisgruppe(1, "FredagsbarKlip");
         Controller.createFadøl("Klosterbryg",  8.00);
 
@@ -246,9 +246,10 @@ public class Controller {
         d.addPrisgruppe(pgButik300);
         d.addPrisgruppe(pgFredagsbar300);
         d=Controller.createSpiritus("Liquor of Aarhus", 30.00);
-        d.addPrisgruppe();
+        d.addPrisgruppe(pgButik175);
+        d.addPrisgruppe(pgFredagsbar175);
         d=Controller.createSpiritus("Lyng gin 50 cl", 45.00);
-
+        d.addPrisgruppe();
         d=Controller.createSpiritus("Lyng gin 4 cl", 45.00);
 
         //---- Opret fustage objekter ---------------------------
