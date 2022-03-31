@@ -211,6 +211,7 @@ public class SalgsPane extends GridPane {
         cbbVareType.setOnAction(event -> UpdateVagteVareAction());
         cbbVareType.setDisable(true);
     }
+
     private void UpdateVagteVareAction() {
         //Nulstiller listen
         lvwValgteVare.getItems().remove(0, lvwValgteVare.getItems().size());
