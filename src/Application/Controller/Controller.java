@@ -79,12 +79,18 @@ public class Controller {
         return u3;
     }
 
-    public static Klippekort createKlippekort(String navnKunde){
+    public static Klippekort createKlippekort(String navnKunde) {
         Klippekort k = new Klippekort("hans");
         Storage.getStorage().addVare(k);
         return k;
     }
 
+    public static ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, Betalingsform bform, double beloeb, Rabat rabat){
+        
+        ProduktSalg p1 = new ProduktSalg(varer, beloeb, bform, rabat);
+        Storage.getStorage().addSalg(p1);
+        return p1;
+    }
 
 
 
@@ -176,6 +182,9 @@ public class Controller {
         d.addPrisgruppe(pgFredagsbar100);
 
         //---- Opret spiritus objekter ---------------------------
+        Prisgruppe pgButik599 = new Prisgruppe(599,"Butik");
+        Prisgruppe pgFredagsbar599 = new Prisgruppe(599, "Fredagsbar");
+        Prisgruppe pgFredagsbar50 = new Prisgruppe(50, "Fredagsbar");
         Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
         Controller.createSpiritus("Whisky 45% 4 cl", 45.00);
         Controller.createSpiritus("Whisky 43% 50cl rør", 43.00);
@@ -186,6 +195,9 @@ public class Controller {
         Controller.createSpiritus("Lyng gin 4 cl", 45.00);
 
         //---- Opret fustage objekter ---------------------------
+
+        Prisgruppe pgFustageButik = new Prisgruppe(775, "Butik");
+
         Controller.createFustage("Klosterbryg");
         Controller.createFustage("Jazz Classic");
         Controller.createFustage("Extra Pilsner");
