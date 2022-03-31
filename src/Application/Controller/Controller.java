@@ -178,6 +178,9 @@ public class Controller {
         d.addPrisgruppe(pgFredagsbar100);
 
         //---- Opret spiritus objekter ---------------------------
+        Prisgruppe pgButik599 = new Prisgruppe(599,"Butik");
+        Prisgruppe pgFredagsbar599 = new Prisgruppe(599, "Fredagsbar");
+        Prisgruppe pgFredagsbar50 = new Prisgruppe(50, "Fredagsbar");
         Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
         Controller.createSpiritus("Whisky 45% 4 cl", 45.00);
         Controller.createSpiritus("Whisky 43% 50cl rør", 43.00);
