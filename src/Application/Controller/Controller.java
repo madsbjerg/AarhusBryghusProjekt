@@ -77,14 +77,16 @@ public class Controller {
         return u3;
     }
 
+    public static Klippekort createKlippekort(String navnKunde){
+        Klippekort k = new Klippekort("hans");
+        Storage.getStorage().addVare(k);
+        return k;
+    }
+
 
 
     public static void initStorage(){
 
-        Klippekort k1 = new Klippekort(1, "Omar");
-        Klippekort k2 = new Klippekort(2, "Mads");
-        Klippekort k3 = new Klippekort(3, "Jens");
-        Klippekort k4 = new Klippekort(4, "Mike");
 
         Sampakning s1 = new Sampakning("2 øl & 2 glas i gaveæske", 0, "Gaveæske", 2, 2, 20);
         Sampakning s5 = new Sampakning("4 øl i gaveæske", 0, "Gaveæske", 4, 0, 20);
@@ -175,6 +177,12 @@ public class Controller {
         Controller.createKulsyre("6 kg");
         Controller.createKulsyre("4 kg");
         Controller.createKulsyre("10 kg");
+
+        //----
+        Controller.createKlippekort("hans");
+        Controller.createKlippekort("gert");
+        Controller.createKlippekort("Jens");
+        Controller.createKlippekort("Mads");
 
     }
 
