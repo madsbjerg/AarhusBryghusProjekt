@@ -259,8 +259,10 @@ public class SalgsPane extends GridPane {
         //Nulstiller listen
         lvwValgteVare.getItems().remove(0, lvwValgteVare.getItems().size());
 
+
         ArrayList<Vare> valgteVare = new ArrayList<>();
         ArrayList<Vare> alleVare = new ArrayList<>(controller.getVarer());
+        controller.setActivePrisgruppe(cbbprisgrupper.getSelectionModel().getSelectedItem());
         for(int i =0;i< alleVare.size();i++){
             if(alleVare.get(i).getVaretype() == cbbVareType.getValue()){
                 valgteVare.add(alleVare.get(i));
