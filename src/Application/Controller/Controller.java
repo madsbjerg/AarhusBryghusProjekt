@@ -369,7 +369,8 @@ public class Controller {
     }
 
     // TODO: Mike brug den her i stedet pls
-    public ArrayList<String> getPrisgrupperByName(){        ArrayList<String> rl = new ArrayList<>();
+    public ArrayList<String> getPrisgrupperByName(){
+        ArrayList<String> rl = new ArrayList<>();
         for(Vare v : Storage.getStorage().getVarer()){
             for(Prisgruppe pg : v.getPrisgrupper()){
                 if(!rl.contains(pg.getNavn())){
