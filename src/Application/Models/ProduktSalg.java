@@ -9,11 +9,10 @@ public class ProduktSalg extends Salg{
         this.Beloeb = beloeb;
     }
 
-    public double totalPris(int prisgruppe){
+    public double totalPris(String pgnavn){
         double sum = 0;
         for(Vare vare : varer.keySet()){
-//            sum += vare.getPris(prisgruppe) * (int)varer.get(vare);
-            //todo
+            sum += vare.getPris(pgnavn) * varer.get(vare);
         }
         this.Beloeb = sum;
         return sum;

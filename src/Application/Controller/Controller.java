@@ -84,6 +84,11 @@ public class Controller {
         Storage.getStorage().addVare(k);
         return k;
     }
+    public static ProduktSalg createProduktsalg(HashMap<Vare, Integer> varer, double beloeb, Betalingsform betalingsform, Rabat rabat){
+        ProduktSalg produktSalg = new ProduktSalg(varer,beloeb,betalingsform,rabat);
+        Storage.getStorage().addSalg(produktSalg);
+        return produktSalg;
+    }
 
     public static ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, Betalingsform bform, double beloeb, Rabat rabat){
 
@@ -91,6 +96,7 @@ public class Controller {
         Storage.getStorage().addSalg(p1);
         return p1;
     }
+
 
 
     public static void initStorage(){
@@ -105,16 +111,46 @@ public class Controller {
         Sampakning s4 = new Sampakning("12 øl i papkasse", 0, "Papkasse", 12, 0, 30);
 
         // ---- Opret fadøl objekter ------ ----------------------
+
+        Prisgruppe pgFredagsbar38 = new Prisgruppe(38, "fredagsbar");
+        Prisgruppe pgFredagsbar1Klip = new Prisgruppe(1, "FredagsbarKlip");
         Controller.createFadøl("Klosterbryg",  8.00);
-        Controller.createFadøl("Jazz Classic",  6.00);
-        Controller.createFadøl("Extra Pilsner",  6.40);
-        Controller.createFadøl("Celebration",  5.20);
-        Controller.createFadøl("Blondie",  5.00);
-        Controller.createFadøl("Forårsbryg",  5.50);
-        Controller.createFadøl("India Pale Ale",  7.00);
-        Controller.createFadøl("Julebryg",  6.4);
-        Controller.createFadøl("Imperial Stout",  9.00);
-        Controller.createFadøl("Special",  7.50);
+
+        Drikkevare d =  Controller.createFadøl("Jazz Classic",  6.00);
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
+
+        d = Controller.createFadøl("Extra Pilsner",  6.40);
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
+
+        d = Controller.createFadøl("Celebration",  5.20);
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
+
+        d = Controller.createFadøl("Blondie",  5.00);
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
+
+        d = Controller.createFadøl("Forårsbryg",  5.50);
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
+
+        d = Controller.createFadøl("India Pale Ale",  7.00);
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
+
+        d = Controller.createFadøl("Julebryg",  6.4);
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
+
+        d = Controller.createFadøl("Imperial Stout",  9.00);
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
+
+        d = Controller.createFadøl("Special",  7.50);
+        d.addPrisgruppe(pgFredagsbar38);
+        d.addPrisgruppe(pgFredagsbar1Klip);
 
         //---- Opret flaske objekter -----------------------------
         Prisgruppe pgFredagsBar70 = new Prisgruppe(70, "Fredagsbar");
@@ -123,7 +159,7 @@ public class Controller {
         Prisgruppe pgButikPris60 = new Prisgruppe(60, "Butik");
         Prisgruppe pgFredagsbar100 = new Prisgruppe(100, "Fredagsbar");
         Prisgruppe pgFredagsbar3Klip = new Prisgruppe(3, "FredagsbarKlip");
-        Drikkevare d = Controller.createFlaske("Klosterbryg", 6.40);
+        d = Controller.createFlaske("Klosterbryg", 6.40);
         d.addPrisgruppe(pgButikPris36);
         d.addPrisgruppe(pgFredagsbar2Klip);
         d.addPrisgruppe(pgFredagsBar70);
@@ -184,14 +220,36 @@ public class Controller {
         Prisgruppe pgButik599 = new Prisgruppe(599,"Butik");
         Prisgruppe pgFredagsbar599 = new Prisgruppe(599, "Fredagsbar");
         Prisgruppe pgFredagsbar50 = new Prisgruppe(50, "Fredagsbar");
-        Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
-        Controller.createSpiritus("Whisky 45% 4 cl", 45.00);
-        Controller.createSpiritus("Whisky 43% 50cl rør", 43.00);
-        Controller.createSpiritus("Whisky med egesplint", 45.00);
-        Controller.createSpiritus("Whisky uden egesplint", 45.00);
-        Controller.createSpiritus("Liquor of Aarhus", 30.00);
-        Controller.createSpiritus("Lyng gin 50 cl", 45.00);
-        Controller.createSpiritus("Lyng gin 4 cl", 45.00);
+        Prisgruppe pgButik499 = new Prisgruppe(499, "Butik");
+        Prisgruppe pgFredagsbar499 = new Prisgruppe(499, "Fredagsbar");
+        Prisgruppe pgButik300 = new Prisgruppe(300, "Butik");
+        Prisgruppe pgFredagsbar300 = new Prisgruppe(300, "Fredagsbar");
+        Prisgruppe pgButik350 = new Prisgruppe(350, "Butik");
+        Prisgruppe pgFredagsbar350 = new Prisgruppe(350, "Fredagsbar");
+        Prisgruppe pgButik80 = new Prisgruppe(80, "Butik");
+        Prisgruppe pgFredagsbar80 = new Prisgruppe(80, "Fredagsbar");
+        Prisgruppe pgButik175 = new Prisgruppe(175, "Butik");
+        Prisgruppe pgFredagsbar175 = new Prisgruppe(175, "Fredagsbar");
+        Prisgruppe pgFredagsbar40 = new Prisgruppe(40, "Fredagsbar");
+        d = Controller.createSpiritus("Whisky 45% 50cl rør", 45.00);
+        d.addPrisgruppe(pgButik599);
+        d.addPrisgruppe(pgFredagsbar599);
+        d = Controller.createSpiritus("Whisky 45% 4 cl", 45.00);
+        d.addPrisgruppe(pgFredagsbar50);
+        d=Controller.createSpiritus("Whisky 43% 50cl rør", 43.00);
+        d.addPrisgruppe(pgButik499);
+        d.addPrisgruppe(pgFredagsbar499);
+        d=Controller.createSpiritus("Whisky med egesplint", 45.00);
+        d.addPrisgruppe(pgButik350);
+        d.addPrisgruppe(pgFredagsbar350);
+        d=Controller.createSpiritus("Whisky uden egesplint", 45.00);
+        d.addPrisgruppe(pgButik300);
+        d.addPrisgruppe(pgFredagsbar300);
+        d=Controller.createSpiritus("Liquor of Aarhus", 30.00);
+        d.addPrisgruppe();
+        d=Controller.createSpiritus("Lyng gin 50 cl", 45.00);
+
+        d=Controller.createSpiritus("Lyng gin 4 cl", 45.00);
 
         //---- Opret fustage objekter ---------------------------
 
@@ -252,7 +310,7 @@ public class Controller {
         Controller.createKulsyre("4 kg");
         Controller.createKulsyre("10 kg");
 
-        //----
+        //---- Opret klippekort --------------------------------
         Controller.createKlippekort("hans");
         Controller.createKlippekort("gert");
         Controller.createKlippekort("Jens");
