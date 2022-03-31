@@ -258,6 +258,7 @@ public class Controller {
 
     }
 
+
     public ArrayList<Vare> getKlippekort(){
         Storage s = Storage.getStorage();
         ArrayList<Vare> rl = new ArrayList<>();
