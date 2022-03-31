@@ -2,12 +2,12 @@ package Application.Models;
 
 import java.util.InputMismatchException;
 
-public class Klippekort {
+public class Klippekort extends Vare{
     private int antalKlip =4;
     private String navnKunde;
 
     public Klippekort(int antalKlip, String navnKunde) {
-        this.antalKlip = antalKlip;
+        super("navn",0,Varetype.KLIPPEKORT);
         this.navnKunde = navnKunde;
     }
     public void brugKlip(){
