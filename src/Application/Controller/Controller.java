@@ -246,7 +246,7 @@ public class Controller {
         d.addPrisgruppe(pgButik300);
         d.addPrisgruppe(pgFredagsbar300);
         d=Controller.createSpiritus("Liquor of Aarhus", 30.00);
-        d.addPrisgruppe();
+//        d.addPrisgruppe();
         d=Controller.createSpiritus("Lyng gin 50 cl", 45.00);
 
         d=Controller.createSpiritus("Lyng gin 4 cl", 45.00);
