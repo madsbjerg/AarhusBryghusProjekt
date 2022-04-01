@@ -1,6 +1,8 @@
 package Application.Models;
 
-public class Prisgruppe {
+import java.io.Serializable;
+
+public class Prisgruppe implements Serializable {
 
 
     // ----- Basics-------
