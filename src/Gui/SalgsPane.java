@@ -128,31 +128,31 @@ public class SalgsPane extends GridPane {
               if(groupRabat.getSelectedToggle() != null){
                   //laver rabat objekt.
                   if(groupRabat.getSelectedToggle().getUserData().toString().contains("FastRabat")){
-                   Rabat rabat = Controller.createFastRabat(Double.parseDouble(txfFastRabat.getText()));
+                   Rabat rabat = controller.createFastRabat(Double.parseDouble(txfFastRabat.getText()));
                    if(Objects.equals(bform.toString(), "REGNING")){
-                       Controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
+                       controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
                    } else {
-                       Controller.createProduktSalg(varer, bform, total, rabat);
+                       controller.createProduktSalg(varer, bform, total, rabat);
                    }
                     salgOprettetMedRabatMessage(rabat);
                 } else if (groupRabat.getSelectedToggle().getUserData().toString().contains("ProcentRabat")){
-                    Rabat rabat = Controller.createProcentRabat(Double.parseDouble(txfprocentRabat.getText()));
+                    Rabat rabat = controller.createProcentRabat(Double.parseDouble(txfprocentRabat.getText()));
                     if(Objects.equals(bform.toString(), "REGNING")){
-                        Controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
+                        controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
                     } else {
-                        Controller.createProduktSalg(varer, bform, total, rabat);
+                        controller.createProduktSalg(varer, bform, total, rabat);
                     }
                     salgOprettetMedRabatMessage(rabat);
                 }
-                Controller.saveStorageToFile();
+                controller.saveStorageToFile();
             } else {
                   if(Objects.equals(bform.toString(), "REGNING")){
-                      Controller.createRegning(varer, bform, null, total, txfRegning.getText());
+                      controller.createRegning(varer, bform, null, total, txfRegning.getText());
                   }
                   else {
-                      Controller.createProduktSalg(varer, bform, total, null);
+                      controller.createProduktSalg(varer, bform, total, null);
                   }
-                Controller.saveStorageToFile();
+                controller.saveStorageToFile();
                 salgOprettetMessage();
             }
         } else {
