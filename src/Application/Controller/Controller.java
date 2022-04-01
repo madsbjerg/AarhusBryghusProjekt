@@ -101,6 +101,12 @@ public class Controller {
         return r;
     }
 
+    public static Regning createRegning (HashMap<Vare, Integer> varer, Betalingsform betalingsform,Rabat rabat, double beloebTotal, String navnKunde){
+        Regning regning = new Regning(varer, betalingsform, rabat, beloebTotal, navnKunde);
+        Storage.getStorage().addSalg(regning);
+        return regning;
+    }
+
     public ArrayList<Vare> getKlippekort(){
         Storage s = Storage.getStorage();
         ArrayList<Vare> rl = new ArrayList<>();
