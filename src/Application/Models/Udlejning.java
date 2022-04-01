@@ -6,6 +6,11 @@ import java.util.HashMap;
 
 public class Udlejning extends Salg{
 
+    // Beregnpant()
+    // totalPris()
+    // totalPris ved aflevering.
+    //
+
     private double pantBeloeb;
     private double totalBeloeb;
     private LocalDate startDato;
