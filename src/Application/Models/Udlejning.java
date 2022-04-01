@@ -26,6 +26,6 @@ public class Udlejning extends Salg{
             sum += vare.getPris(pgnavn)*varer.get(vare);
         }
         this.totalBeloeb = sum;
-        return sum;
+        return sum - pantBeloeb;
     }
 }
