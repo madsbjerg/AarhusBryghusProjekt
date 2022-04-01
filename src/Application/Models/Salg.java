@@ -19,6 +19,4 @@ public abstract class Salg implements Serializable {
     public double totalPris(int prisgruppe){
       throw new  UnsupportedOperationException();
     }
-
-
 }
