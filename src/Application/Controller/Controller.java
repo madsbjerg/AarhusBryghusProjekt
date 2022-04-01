@@ -19,6 +19,10 @@ public class Controller {
         return controller;
     }
 
+    public static Controller getTestController(){
+        return new Controller();
+    }
+
     public static Drikkevare createFadøl(String navn,double alkoholProcent){
         Drikkevare d1 = new Drikkevare(navn, 0, Varetype.FADØL, alkoholProcent);
         Storage.getStorage().addVare(d1);
