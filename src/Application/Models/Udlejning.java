@@ -9,7 +9,6 @@ public class Udlejning extends Salg{
     // Beregnpant()
     // totalPris()
     // totalPris ved aflevering.
-    //
 
     private double pantBeloeb;
     private double totalBeloeb;
@@ -23,4 +22,7 @@ public class Udlejning extends Salg{
         this.slutDato = slutDato;
         this.betalt = false;
     }
+
+
+
 }
