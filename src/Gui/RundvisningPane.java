@@ -113,8 +113,6 @@ public class RundvisningPane extends GridPane {
 
     private void datePickerAction() {
 
-
-
         Stage stage = new Stage();
         stage.setTitle("Vælg en dato");
 
@@ -139,7 +137,6 @@ public class RundvisningPane extends GridPane {
         stage.setScene(sc);
 
         stage.showAndWait();
-
 
         txfDato.setText(String.valueOf(da.getValue()));
         stage.close();

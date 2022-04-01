@@ -150,7 +150,7 @@ public class Controller {
         return prisgrupper;
     }
 
-    // TODO: Mike brug den her i stedet pls
+    // TODO: Mike brug den her i stedet pls: Author Mads
     public ArrayList<String> getPrisgrupperByName(){
         ArrayList<String> rl = new ArrayList<>();
         for(Vare v : Storage.getStorage().getVarer()){
@@ -179,7 +179,7 @@ public class Controller {
         }
     }
 
-    public double totalPris(String pgnavn, HashMap<Vare, Integer> varer){
+    public static double totalPris(String pgnavn, HashMap<Vare, Integer> varer){
         double sum = 0;
         for(Vare vare : varer.keySet()){
             sum += vare.getPris(pgnavn) * varer.get(vare);
