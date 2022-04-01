@@ -124,19 +124,17 @@ public class SalgsPane extends GridPane {
         if(groupBetalingsform.getSelectedToggle() != null) {
             Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
             double total = Double.parseDouble(txfTotalPris.getText());
-            if(groupRabat.getSelectedToggle().getUserData() == FastRabat.class || groupRabat.getSelectedToggle().getUserData() ==ProcentRabat.class){
-                //laver rabat objekt.
-                if(groupRabat.getSelectedToggle().getUserData().equals(FastRabat.class)){
-                   Rabat rabat = Controller.createFastRabat(Double.parseDouble(txfTotalPris.getText()));
+
+              if(groupRabat.getSelectedToggle() != null){
+                  //laver rabat objekt.
+                  if(groupRabat.getSelectedToggle().getUserData().toString().contains("FastRabat")){
+                   Rabat rabat = Controller.createFastRabat(Double.parseDouble(txfFastRabat.getText()));
                     Controller.createProduktSalg(varer, bform, total, rabat);
                     salgOprettetMedRabatMessage(rabat);
-
-                } else if (groupRabat.getSelectedToggle().getUserData().equals(ProcentRabat.class)){
-                    Rabat rabat = Controller.createProcentRabat(Double.parseDouble(txfTotalPris.getText()));
-
+                } else if (groupRabat.getSelectedToggle().getUserData().toString().contains("ProcentRabat")){
+                    Rabat rabat = Controller.createProcentRabat(Double.parseDouble(txfprocentRabat.getText()));
                     Controller.createProduktSalg(varer, bform, total, rabat);
                     salgOprettetMedRabatMessage(rabat);
-
                 }
                 Controller.saveStorageToFile();
             } else {
@@ -239,14 +237,14 @@ public class SalgsPane extends GridPane {
         VBox box1 = new VBox();
         this.add(box1, 3, 4);
         RadioButton rbProcent = new RadioButton("Procent Rabat");
-        rbProcent.setUserData(ProcentRabat.class);
+        rbProcent.setUserData("ProcentRabat");
         box1.getChildren().add(rbProcent);
         rbProcent.setToggleGroup(groupRabat);
         rbProcent.setOnAction(event -> updateRbProcentAction());
 
         RadioButton rbFast = new RadioButton("Fast Rabat");
         box1.getChildren().add(rbFast);
-        rbFast.setUserData(FastRabat.class);
+        rbFast.setUserData("FastRabat");
         rbFast.setToggleGroup(groupRabat);
         rbFast.setOnAction(event -> updateRbFastAction());
 
@@ -280,6 +278,7 @@ public class SalgsPane extends GridPane {
         txfFastRabat.clear();
         txfprocentRabat.setEditable(false);
         txfprocentRabat.setText("Indtast procentvis rabat:");
+        txfFastRabat.setText("0");
     }
 
     private void updateRbProcentAction() {
@@ -287,6 +286,7 @@ public class SalgsPane extends GridPane {
         txfprocentRabat.clear();
         txfFastRabat.setEditable(false);
         txfFastRabat.setText("Indtast fast rabat:");
+        txfprocentRabat.setText("0");
     }
 
     private void createComboboxKlippekort(SalgsPane salgsPane) {

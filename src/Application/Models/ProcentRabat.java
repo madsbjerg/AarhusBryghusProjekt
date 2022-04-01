@@ -11,7 +11,7 @@ public class ProcentRabat implements Rabat, Serializable {
 
     @Override
     public double beregnRabat(double sum) {
-        return sum * (1-procentSats);
+        return sum * (1-(procentSats/100));
     }
 }
 //
