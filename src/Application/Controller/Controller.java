@@ -185,7 +185,7 @@ public class Controller {
         }
     }
 
-    public double totalPris(String pgnavn, HashMap<Vare, Integer> varer){
+    public static double totalPris(String pgnavn, HashMap<Vare, Integer> varer){
         double sum = 0;
         for(Vare vare : varer.keySet()){
             sum += vare.getPris(pgnavn) * varer.get(vare);
