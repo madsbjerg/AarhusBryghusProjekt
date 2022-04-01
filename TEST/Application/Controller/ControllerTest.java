@@ -4,6 +4,7 @@ import Application.Models.Drikkevare;
 import Application.Models.Prisgruppe;
 import Application.Models.Vare;
 import Application.Models.Varetype;
+import Storage.Storage;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -13,17 +14,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
 
+
+
+    public void setup(){
+        Controller testController = Controller.getController();
+    }
+
+
     @org.junit.jupiter.api.Test
     void getPrisgrupperByName() {
 
-        System.out.println("Spørg Margrethe");
-        assertTrue(true);
+        Prisgruppe pgTest1 = new Prisgruppe(100, "ButikTest");
+
+        Drikkevare d1 = new Drikkevare("Test", 0, Varetype.FLASKE, 0);
+        d1.addPrisgruppe(pgTest1);
+
+        Storage storage = Storage.getTestStorage();
+        storage.addVare(d1);
+
+        Controller c1 = Controller.getTestController();
+
+
 
     }
 
     @org.junit.jupiter.api.Test
     void setActivePrisgruppe() {
-
     }
 
     @org.junit.jupiter.api.Test
@@ -59,8 +75,6 @@ class ControllerTest {
         assertEquals(200, TC1);
         assertEquals(0, TC2);
         assertEquals(-200, TC3);
-
-
 
     }
 }
