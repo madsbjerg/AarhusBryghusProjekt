@@ -97,6 +97,16 @@ public class Controller {
         return p1;
     }
 
+    public static Rabat createFastRabat(double pris){
+        Rabat r = new FastRabat(pris);
+        return r;
+    }
+
+    public static Rabat createProcentRabat(double pris){
+        Rabat r = new FastRabat(pris);
+        return r;
+    }
+
     public ArrayList<Vare> getKlippekort(){
         Storage s = Storage.getStorage();
         ArrayList<Vare> rl = new ArrayList<>();
