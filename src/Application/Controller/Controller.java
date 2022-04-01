@@ -97,7 +97,7 @@ public class Controller {
     }
 
     public static Rabat createProcentRabat(double pris){
-        Rabat r = new FastRabat(pris);
+        Rabat r = new ProcentRabat(pris);
         return r;
     }
 
