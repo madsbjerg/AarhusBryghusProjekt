@@ -59,7 +59,7 @@ class ControllerTest {
         assertEquals(0, TC2);
         assertEquals(-200, TC3);
 
-        // TODO: IllegalStateException i controller. Modificer TC3 til at give Exception.
+        // TODO: Exception (valid operation/ IllegalState) i controller. Modificer TC3 til at give Exception.
 
 
     }
