@@ -124,17 +124,39 @@ public class SalgsPane extends GridPane {
         if(groupBetalingsform.getSelectedToggle() != null) {
             Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
             double total = Double.parseDouble(txfTotalPris.getText());
-            if(groupRabat != null){
-//                    Controller.createProduktSalg(varer, bform, total, groupRabat.getSelectedToggle().getUserData())
+            if(groupRabat.getSelectedToggle().getUserData() == FastRabat.class || groupRabat.getSelectedToggle().getUserData() ==ProcentRabat.class){
+                //laver rabat objekt.
+                if(groupRabat.getSelectedToggle().getUserData().equals(FastRabat.class)){
+                   Rabat rabat = Controller.createFastRabat(Double.parseDouble(txfTotalPris.getText()));
+                    Controller.createProduktSalg(varer, bform, total, rabat);
+                    salgOprettetMedRabatMessage(rabat);
 
+                } else if (groupRabat.getSelectedToggle().getUserData().equals(ProcentRabat.class)){
+                    Rabat rabat = Controller.createProcentRabat(Double.parseDouble(txfTotalPris.getText()));
+
+                    Controller.createProduktSalg(varer, bform, total, rabat);
+                    salgOprettetMedRabatMessage(rabat);
+
+                }
+                Controller.saveStorageToFile();
+            } else {
+                Controller.createProduktSalg(varer, bform, total, null);
+                Controller.saveStorageToFile();
+                salgOprettetMessage();
             }
-
-
-            Controller.createProduktSalg(varer, bform, total, null);
-            Controller.saveStorageToFile();
         } else {
             errormessageBetalingform();
         }
+    }
+
+    private void salgOprettetMedRabatMessage(Rabat rabat) {
+        String message = "Salget er oprettet, total prisen blev: " +  rabat.beregnRabat(Double.parseDouble(txfTotalPris.getText()));
+        JOptionPane.showMessageDialog(new JFrame(), message,"Oprettet",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void salgOprettetMessage() {
+        String message = "Salget er oprettet, total prisen blev: " + txfTotalPris.getText();
+        JOptionPane.showMessageDialog(new JFrame(), message,"Oprettet",JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void errormessageBetalingform() {
@@ -217,12 +239,14 @@ public class SalgsPane extends GridPane {
         VBox box1 = new VBox();
         this.add(box1, 3, 4);
         RadioButton rbProcent = new RadioButton("Procent Rabat");
+        rbProcent.setUserData(ProcentRabat.class);
         box1.getChildren().add(rbProcent);
         rbProcent.setToggleGroup(groupRabat);
         rbProcent.setOnAction(event -> updateRbProcentAction());
 
         RadioButton rbFast = new RadioButton("Fast Rabat");
         box1.getChildren().add(rbFast);
+        rbFast.setUserData(FastRabat.class);
         rbFast.setToggleGroup(groupRabat);
         rbFast.setOnAction(event -> updateRbFastAction());
 
