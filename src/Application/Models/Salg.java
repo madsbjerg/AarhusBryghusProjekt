@@ -1,9 +1,10 @@
 package Application.Models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Salg {
+public abstract class Salg implements Serializable {
     Rabat rabat = null;
     Betalingsform betalingsform;
     Map<Vare, Integer> varer;
