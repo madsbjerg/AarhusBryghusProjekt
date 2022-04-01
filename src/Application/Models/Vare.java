@@ -1,10 +1,11 @@
 package Application.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Vare {
+public abstract class Vare implements Serializable {
     private String navn;
     private int pant;
     private Varetype varetype;
