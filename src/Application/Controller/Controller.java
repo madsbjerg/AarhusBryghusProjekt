@@ -84,12 +84,6 @@ public class Controller {
         Storage.getStorage().addVare(k);
         return k;
     }
-    public static ProduktSalg createProduktsalg(HashMap<Vare, Integer> varer, double beloeb, Betalingsform betalingsform, Rabat rabat){
-        ProduktSalg produktSalg = new ProduktSalg(varer,beloeb,betalingsform,rabat);
-        Storage.getStorage().addSalg(produktSalg);
-        return produktSalg;
-    }
-
     public static ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, Betalingsform bform, double beloeb, Rabat rabat){
 
         ProduktSalg p1 = new ProduktSalg(varer, beloeb, bform, rabat);

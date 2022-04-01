@@ -64,6 +64,8 @@ public class SalgsPane extends GridPane {
         vBox.getChildren().add(txfprocentRabat);
         vBox.getChildren().add(txfFastRabat);
 
+
+
         txfTotalPris = new TextField("0");
         txfTotalPris.setEditable(false);
         this.add(txfTotalPris, 4, 1);
@@ -119,11 +121,25 @@ public class SalgsPane extends GridPane {
                 varer.put(lvwKurv.getItems().get(i), 1);
             }
         }
-        Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
-        double total = Double.parseDouble(txfTotalPris.getText());
-        
-        Controller.createProduktSalg(varer, bform, total, null);
-        Controller.saveStorageToFile();
+        if(groupBetalingsform.getSelectedToggle() != null) {
+            Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
+            double total = Double.parseDouble(txfTotalPris.getText());
+            if(groupRabat != null){
+//                    Controller.createProduktSalg(varer, bform, total, groupRabat.getSelectedToggle().getUserData())
+
+            }
+
+
+            Controller.createProduktSalg(varer, bform, total, null);
+            Controller.saveStorageToFile();
+        } else {
+            errormessageBetalingform();
+        }
+    }
+
+    private void errormessageBetalingform() {
+        String message = "Husk at vælge betalingsmetode.";
+        JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
     }
 
     private void removeKurvAction() {
