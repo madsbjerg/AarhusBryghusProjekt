@@ -111,7 +111,19 @@ public class SalgsPane extends GridPane {
     }
 
     private void lavSalgAction() {
-
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        for(int i =0;i<lvwKurv.getItems().size();i++){
+            if(varer.containsKey(lvwKurv.getItems().get(i))){
+                varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i))+1);
+            } else {
+                varer.put(lvwKurv.getItems().get(i), 1);
+            }
+        }
+        Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().toString());
+        double total = Double.parseDouble(txfTotalPris.getText());
+        
+        Controller.createProduktSalg(varer, bform, total, null);
+        Controller.saveStorageToFile();
     }
 
     private void removeKurvAction() {

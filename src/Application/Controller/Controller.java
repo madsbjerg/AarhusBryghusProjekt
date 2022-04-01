@@ -97,11 +97,135 @@ public class Controller {
         return p1;
     }
 
+    public ArrayList<Vare> getKlippekort(){
+        Storage s = Storage.getStorage();
+        ArrayList<Vare> rl = new ArrayList<>();
+        for(Vare v : s.getVarer()){
+            if(v.getVaretype() == Varetype.KLIPPEKORT){
+                rl.add(v);
+            }
+        }
+        return rl;
+    }
 
+    public ArrayList<Salg> getUdlejninger(){
+        Storage s = Storage.getStorage();
+        ArrayList<Salg> rl = new ArrayList<>();
+        for(Salg sa : s.getSalg()){
+            if(sa instanceof Udlejning){
+                rl.add(sa);
+            }
+        }
+        return rl;
+    }
+
+    public ArrayList<Vare> getRundvisninger(){
+        Storage s = Storage.getStorage();
+        ArrayList<Vare> rl = new ArrayList<>();
+        for(Vare v : s.getVarer()){
+            if(v.getVaretype() == Varetype.RUNDVISNING){
+                rl.add(v);
+            }
+        }
+        return rl;
+    }
+
+    public ArrayList<Vare> getVarer(){
+        return Storage.getStorage().getVarer();
+    }
+
+    public ArrayList<Prisgruppe> getPrisgrupper(){
+        ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
+        for(Vare v : Storage.getStorage().getVarer()){
+            for(Prisgruppe pg : v.getPrisgrupper()){
+                if(!prisgrupper.contains(pg)){
+                    prisgrupper.add(pg);
+                }
+            }
+        }
+        return prisgrupper;
+    }
+
+    // TODO: Mike brug den her i stedet pls
+    public ArrayList<String> getPrisgrupperByName(){
+        ArrayList<String> rl = new ArrayList<>();
+        for(Vare v : Storage.getStorage().getVarer()){
+            for(Prisgruppe pg : v.getPrisgrupper()){
+                if(!rl.contains(pg.getNavn())){
+                    rl.add(pg.getNavn());
+                }
+            }
+        }
+        return rl;
+    }
+
+    public void setActivePrisgruppe(String pgNavn){
+        Vare v = null;
+        for(int i = 0; i < Storage.getStorage().getVarer().size(); i++){
+            v = Storage.getStorage().getVarer().get(i);
+            v.setAktivPrisgruppe(pgNavn);
+        }
+    }
+
+    public void resetPrisgrupper(){
+        Vare v = null;
+        for (int i = 0; i < Storage.getStorage().getVarer().size(); i++){
+            v = Storage.getStorage().getVarer().get(i);
+            v.setAktivPrisgruppe(null);
+        }
+    }
+
+    public double totalPris(String pgnavn, HashMap<Vare, Integer> varer){
+        double sum = 0;
+        for(Vare vare : varer.keySet()){
+            sum += vare.getPris(pgnavn) * varer.get(vare);
+        }
+        return sum;
+    }
+
+    public static void saveStorageToFile(){
+        try{
+            FileOutputStream fs_out = new FileOutputStream("bryghus.ser");
+            ObjectOutputStream os_out = new ObjectOutputStream(fs_out);
+            for(Vare v : Storage.getStorage().getVarer()){
+                os_out.writeObject(v);
+            }
+            for(Salg s : Storage.getStorage().getSalg()){
+                os_out.writeObject(s);
+            }
+            os_out.close();
+            fs_out.close();
+        }catch(IOException ex){
+            System.out.println(ex.getMessage() + " " + ex.getStackTrace());
+        }
+    }
+
+    public static void loadStorageFromFile(){
+        try{
+            FileInputStream fs_in = new FileInputStream("bryghus.ser");
+            ObjectInputStream os_in = new ObjectInputStream(fs_in);
+            boolean isNotDone = true;
+            while(isNotDone){
+                Object obj = os_in.readObject();
+                if(obj == null){
+                    isNotDone = false;
+                }
+                else if(obj instanceof Vare){
+                    Storage.getStorage().addVare((Vare)obj);
+                }
+                else if(obj instanceof Salg){
+                    Storage.getStorage().addSalg((Salg)obj);
+                }
+            }
+            os_in.close();
+            fs_in.close();
+
+        }catch(IOException | ClassNotFoundException ex){
+            System.out.println(ex.getMessage() + " " + ex.getStackTrace());
+        }
+    }
 
     public static void initStorage(){
-
-
         Sampakning s1 = new Sampakning("2 øl & 2 glas i gaveæske", 0, "Gaveæske", 2, 2, 20);
         Sampakning s5 = new Sampakning("4 øl i gaveæske", 0, "Gaveæske", 4, 0, 20);
         Sampakning s2 = new Sampakning("6 øl i trækasse ", 0, "Trækasse", 6, 0, 25);
@@ -389,9 +513,9 @@ public class Controller {
         u.addPrisgruppe(pgKulsyreFredagsbar400);
         u.addPrisgruppe(pgKulsyreButik400);
 
-       u = Controller.createKulsyre("10 kg");
-       u.addPrisgruppe(pgKulsyreFredagsbar400);
-       u.addPrisgruppe(pgKulsyreButik400);
+        u = Controller.createKulsyre("10 kg");
+        u.addPrisgruppe(pgKulsyreFredagsbar400);
+        u.addPrisgruppe(pgKulsyreButik400);
 
 
         //---- Opret klippekort --------------------------------
@@ -402,132 +526,4 @@ public class Controller {
 
     }
 
-
-    public ArrayList<Vare> getKlippekort(){
-        Storage s = Storage.getStorage();
-        ArrayList<Vare> rl = new ArrayList<>();
-        for(Vare v : s.getVarer()){
-            if(v.getVaretype() == Varetype.KLIPPEKORT){
-                rl.add(v);
-            }
-        }
-        return rl;
-    }
-
-    public ArrayList<Salg> getUdlejninger(){
-        Storage s = Storage.getStorage();
-        ArrayList<Salg> rl = new ArrayList<>();
-        for(Salg sa : s.getSalg()){
-            if(sa instanceof Udlejning){
-                rl.add(sa);
-            }
-        }
-        return rl;
-    }
-
-    public ArrayList<Vare> getRundvisninger(){
-        Storage s = Storage.getStorage();
-        ArrayList<Vare> rl = new ArrayList<>();
-        for(Vare v : s.getVarer()){
-            if(v.getVaretype() == Varetype.RUNDVISNING){
-                rl.add(v);
-            }
-        }
-        return rl;
-    }
-
-    public ArrayList<Vare> getVarer(){
-        return Storage.getStorage().getVarer();
-    }
-
-    public ArrayList<Prisgruppe> getPrisgrupper(){
-        ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
-        for(Vare v : Storage.getStorage().getVarer()){
-            for(Prisgruppe pg : v.getPrisgrupper()){
-                if(!prisgrupper.contains(pg)){
-                    prisgrupper.add(pg);
-                }
-            }
-        }
-        return prisgrupper;
-    }
-
-    // TODO: Mike brug den her i stedet pls
-    public ArrayList<String> getPrisgrupperByName(){
-        ArrayList<String> rl = new ArrayList<>();
-        for(Vare v : Storage.getStorage().getVarer()){
-            for(Prisgruppe pg : v.getPrisgrupper()){
-                if(!rl.contains(pg.getNavn())){
-                    rl.add(pg.getNavn());
-                }
-            }
-        }
-        return rl;
-    }
-
-    public void setActivePrisgruppe(String pgNavn){
-        Vare v = null;
-        for(int i = 0; i < Storage.getStorage().getVarer().size(); i++){
-            v = Storage.getStorage().getVarer().get(i);
-            v.setAktivPrisgruppe(pgNavn);
-        }
-    }
-
-    public void resetPrisgrupper(){
-        Vare v = null;
-        for (int i = 0; i < Storage.getStorage().getVarer().size(); i++){
-            v = Storage.getStorage().getVarer().get(i);
-            v.setAktivPrisgruppe(null);
-        }
-    }
-
-    public double totalPris(String pgnavn, HashMap<Vare, Integer> varer){
-        double sum = 0;
-        for(Vare vare : varer.keySet()){
-            sum += vare.getPris(pgnavn) * varer.get(vare);
-        }
-        return sum;
-    }
-
-    public static void saveStorageToFile(){
-        try{
-            FileOutputStream fs_out = new FileOutputStream("bryghus.ser");
-            ObjectOutputStream os_out = new ObjectOutputStream(fs_out);
-            for(Vare v : Storage.getStorage().getVarer()){
-                os_out.writeObject(v);
-            }
-            for(Salg s : Storage.getStorage().getSalg()){
-                os_out.writeObject(s);
-            }
-            os_out.close();
-            fs_out.close();
-        }catch(IOException ex){
-            System.out.println(ex.getMessage() + " " + ex.getStackTrace());
-        }
-    }
-
-    public static void loadStorageFromFile(){
-        try{
-            FileInputStream fs_in = new FileInputStream("bryghus.ser");
-            ObjectInputStream os_in = new ObjectInputStream(fs_in);
-            boolean isNotDone = true;
-            while(isNotDone){
-                Object obj = os_in.readObject();
-                if(obj == null){
-                    isNotDone = false;
-                }
-                else if(obj instanceof Vare){
-                    Storage.getStorage().addVare((Vare)obj);
-                }
-                else if(obj instanceof Salg){
-                    Storage.getStorage().addSalg((Salg)obj);
-                }
-            }
-            os_in.close();
-            fs_in.close();
-
-        }catch(IOException | ClassNotFoundException ex){
-            System.out.println(ex.getMessage() + " " + ex.getStackTrace());
-        }
-    }
 }
