@@ -112,7 +112,7 @@ public class Controller {
 
         // ---- Opret fadøl objekter ------ ----------------------
 
-        Prisgruppe pgFredagsbar38 = new Prisgruppe(38, "fredagsbar");
+        Prisgruppe pgFredagsbar38 = new Prisgruppe(38, "Fredagsbar");
         Prisgruppe pgFredagsbar1Klip = new Prisgruppe(1, "FredagsbarKlip");
 
         Drikkevare d =  Controller.createFadøl("Jazz Classic",  6.00);
