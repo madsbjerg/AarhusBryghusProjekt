@@ -4,6 +4,7 @@ import Application.Models.Drikkevare;
 import Application.Models.Prisgruppe;
 import Application.Models.Vare;
 import Application.Models.Varetype;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +24,6 @@ class ControllerTest {
     @org.junit.jupiter.api.Test
     void setActivePrisgruppe() {
 
-
-
     }
 
     @org.junit.jupiter.api.Test
@@ -33,6 +32,8 @@ class ControllerTest {
 
     @org.junit.jupiter.api.Test
     void totalPris() {
+
+        // TODO: Exception (valid operation/ IllegalState) i controller. Modificer TC3 til at give Exception.
 
         Prisgruppe pgTest = new Prisgruppe(100, "Butik");
         Prisgruppe pgTest2 = new Prisgruppe(100.5, "Butik");
@@ -59,7 +60,6 @@ class ControllerTest {
         assertEquals(0, TC2);
         assertEquals(-200, TC3);
 
-        // TODO: Exception (valid operation/ IllegalState) i controller. Modificer TC3 til at give Exception.
 
 
     }

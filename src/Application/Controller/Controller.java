@@ -4,6 +4,7 @@ import Application.Models.*;
 import Storage.Storage;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import Storage.Storage;
@@ -105,6 +106,18 @@ public class Controller {
         Regning regning = new Regning(varer, betalingsform, rabat, beloebTotal, navnKunde);
         Storage.getStorage().addSalg(regning);
         return regning;
+    }
+
+    public static Udlejning createUdlejning(HashMap<Vare, Integer> varer, double pant, LocalDate startDato, LocalDate slutDato,
+                                            Betalingsform betalingsform, Rabat rabat) {
+        if(slutDato.isBefore(startDato)){
+            throw new IllegalArgumentException();
+        }else{
+            Udlejning udlejning = new Udlejning(varer, pant, startDato, slutDato, betalingsform, rabat);
+            Storage.getStorage().addSalg(udlejning);
+            return udlejning;
+
+        }
     }
 
     public ArrayList<Vare> getKlippekort(){
