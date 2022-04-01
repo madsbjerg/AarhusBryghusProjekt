@@ -524,6 +524,7 @@ public class Controller {
         Controller.createKlippekort("Jens");
         Controller.createKlippekort("Mads");
 
+        Controller.saveStorageToFile();
     }
 
 }
