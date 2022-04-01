@@ -1,6 +1,8 @@
 package Application.Models;
 
-public class FastRabat implements Rabat {
+import java.io.Serializable;
+
+public class FastRabat implements Rabat, Serializable {
     private double beloeb;
 
 
