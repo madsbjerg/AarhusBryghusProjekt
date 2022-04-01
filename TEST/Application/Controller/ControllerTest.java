@@ -12,6 +12,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
+    private Controller controller = Controller.getController();
 
     @org.junit.jupiter.api.Test
     void getPrisgrupperByName() {
@@ -52,9 +53,9 @@ class ControllerTest {
         HashMap<Vare, Integer> varer3 = new HashMap<>();
         varer3.put(testvare3, 2);
 
-        double TC1 = Controller.totalPris(pgTest.getNavn(), varer);
-        double TC2 = Controller.totalPris(pgTest2.getNavn(),varer2);
-        double TC3 = Controller.totalPris(pgTest3.getNavn(), varer3);
+        double TC1 = controller.totalPris(pgTest.getNavn(), varer);
+        double TC2 = controller.totalPris(pgTest2.getNavn(),varer2);
+        double TC3 = controller.totalPris(pgTest3.getNavn(), varer3);
 
         assertEquals(200, TC1);
         assertEquals(0, TC2);
