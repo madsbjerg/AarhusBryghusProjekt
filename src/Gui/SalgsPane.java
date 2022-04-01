@@ -129,16 +129,29 @@ public class SalgsPane extends GridPane {
                   //laver rabat objekt.
                   if(groupRabat.getSelectedToggle().getUserData().toString().contains("FastRabat")){
                    Rabat rabat = Controller.createFastRabat(Double.parseDouble(txfFastRabat.getText()));
-                    Controller.createProduktSalg(varer, bform, total, rabat);
+                   if(Objects.equals(bform.toString(), "REGNING")){
+                       Controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
+                   } else {
+                       Controller.createProduktSalg(varer, bform, total, rabat);
+                   }
                     salgOprettetMedRabatMessage(rabat);
                 } else if (groupRabat.getSelectedToggle().getUserData().toString().contains("ProcentRabat")){
                     Rabat rabat = Controller.createProcentRabat(Double.parseDouble(txfprocentRabat.getText()));
-                    Controller.createProduktSalg(varer, bform, total, rabat);
+                    if(Objects.equals(bform.toString(), "REGNING")){
+                        Controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
+                    } else {
+                        Controller.createProduktSalg(varer, bform, total, rabat);
+                    }
                     salgOprettetMedRabatMessage(rabat);
                 }
                 Controller.saveStorageToFile();
             } else {
-                Controller.createProduktSalg(varer, bform, total, null);
+                  if(Objects.equals(bform.toString(), "REGNING")){
+                      Controller.createRegning(varer, bform, null, total, txfRegning.getText());
+                  }
+                  else {
+                      Controller.createProduktSalg(varer, bform, total, null);
+                  }
                 Controller.saveStorageToFile();
                 salgOprettetMessage();
             }
@@ -194,7 +207,6 @@ public class SalgsPane extends GridPane {
         }
 //            opdatere totalPris.
             txfTotalPris.setText(String.valueOf(controller.totalPris(cbbprisgrupper.getSelectionModel().getSelectedItem(),varer)));
-
     }
 
     private void errorMessageTilføj() {
