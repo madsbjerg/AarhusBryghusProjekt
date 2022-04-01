@@ -119,7 +119,7 @@ public class SalgsPane extends GridPane {
                 varer.put(lvwKurv.getItems().get(i), 1);
             }
         }
-        Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().toString());
+        Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
         double total = Double.parseDouble(txfTotalPris.getText());
         
         Controller.createProduktSalg(varer, bform, total, null);
