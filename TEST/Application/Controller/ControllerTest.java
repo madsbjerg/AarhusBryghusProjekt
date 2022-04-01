@@ -43,10 +43,12 @@ class ControllerTest {
 
     @org.junit.jupiter.api.Test
     void setActivePrisgruppe() {
+        // Jens
     }
 
     @org.junit.jupiter.api.Test
     void resetPrisgrupper() {
+        // Omar
     }
 
     @org.junit.jupiter.api.Test
@@ -86,37 +88,45 @@ class ControllerTest {
 
     @Test
     void createSpiritus() {
+        // Mike
     }
 
     @Test
     void createKlippekort() {
+        // Mads
     }
 
     @Test
     void createProduktSalg() {
+        // Mike
     }
 
     @Test
-    void createFastRabat() {
-    }
+    void createFastRabat()
+        //Omar
 
     @Test
     void createProcentRabat() {
+        // Mike
     }
 
     @Test
     void createRegning() {
+        // Mads
     }
 
     @Test
     void createUdlejning() {
+        // Mads
     }
 
     @Test
     void getRundvisninger() {
+        // Omar
     }
 
     @Test
     void testResetPrisgrupper() {
+        // Jens
     }
 }
