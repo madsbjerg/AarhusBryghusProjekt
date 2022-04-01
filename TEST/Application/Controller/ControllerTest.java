@@ -7,33 +7,35 @@ import Application.Models.Varetype;
 import Storage.Storage;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
-    private Controller controller = Controller.getController();
 
 
-
-    public void setup(){
-        Controller testController = Controller.getController();
-    }
 
 
     @org.junit.jupiter.api.Test
     void getPrisgrupperByName() {
 
         Prisgruppe pgTest1 = new Prisgruppe(100, "ButikTest");
+        Prisgruppe pgTest2 = new Prisgruppe(100.5, "Test2");
 
-        Drikkevare d1 = new Drikkevare("Test", 0, Varetype.FLASKE, 0);
+        Controller testController = new Controller();
+
+        Drikkevare d1 = testController.createFlaske("Test", 0);
         d1.addPrisgruppe(pgTest1);
 
-        Storage storage = Storage.getTestStorage();
-        storage.addVare(d1);
+        Drikkevare d2 = testController.createSpiritus("Ol fashioned", 50);
+        d2.addPrisgruppe(pgTest2);
 
-        Controller c1 = Controller.getTestController();
+        ArrayList<String> testList = testController.getPrisgrupperByName();
+
+        assertEquals("ButikTest", testList.get(0));
+        assertEquals("Test2", testList.get(1));
 
 
 
@@ -49,6 +51,8 @@ class ControllerTest {
 
     @org.junit.jupiter.api.Test
     void totalPris() {
+
+        Controller testController = new Controller();
 
         // TODO: Exception (valid operation/ IllegalState) i controller. Modificer TC3 til at give Exception.
 
@@ -69,9 +73,9 @@ class ControllerTest {
         HashMap<Vare, Integer> varer3 = new HashMap<>();
         varer3.put(testvare3, 2);
 
-        double TC1 = controller.totalPris(pgTest.getNavn(), varer);
-        double TC2 = controller.totalPris(pgTest2.getNavn(),varer2);
-        double TC3 = controller.totalPris(pgTest3.getNavn(), varer3);
+        double TC1 = testController.totalPris(pgTest.getNavn(), varer);
+        double TC2 = testController.totalPris(pgTest2.getNavn(),varer2);
+        double TC3 = testController.totalPris(pgTest3.getNavn(), varer3);
 
         assertEquals(200, TC1);
         assertEquals(0, TC2);
