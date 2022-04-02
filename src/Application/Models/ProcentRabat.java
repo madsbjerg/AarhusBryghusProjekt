@@ -1,6 +1,8 @@
 package Application.Models;
 
-public class ProcentRabat implements Rabat {
+import java.io.Serializable;
+
+public class ProcentRabat implements Rabat, Serializable {
     private double procentSats;
 
     public ProcentRabat(double procentSats) {
@@ -9,7 +11,7 @@ public class ProcentRabat implements Rabat {
 
     @Override
     public double beregnRabat(double sum) {
-        return sum * (1+procentSats);
+        return sum * (1-(procentSats/100));
     }
 }
 //

@@ -33,6 +33,7 @@ public class RundvisningPane extends GridPane {
 
     private TextField txfAntalPersoner,txfPrisPrPerson, txfTotalPris, txfDato, txfTidspunkt, txfNavn;
     private Button btnValgDato, btnOpret;
+    private Controller controller = Controller.getController();
 
 
     public RundvisningPane(){
@@ -66,7 +67,7 @@ public class RundvisningPane extends GridPane {
             LocalDate date = LocalDate.parse(txfDato.getText());
             LocalDateTime time = date.atTime(LocalTime.parse(txfTidspunkt.getText()));
             if(!Objects.equals(txfTotalPris.getText(), "Total Pris") && !txfNavn.getText().isEmpty()) {
-                Controller.createRundvisning(txfNavn.getText(), Integer.parseInt(txfAntalPersoner.getText()), time);
+                controller.createRundvisning(txfNavn.getText(), Integer.parseInt(txfAntalPersoner.getText()), time);
                 txfNavn.clear();
                 txfTidspunkt.setText("00:00");
                 txfTotalPris.clear();
@@ -113,8 +114,6 @@ public class RundvisningPane extends GridPane {
 
     private void datePickerAction() {
 
-
-
         Stage stage = new Stage();
         stage.setTitle("Vælg en dato");
 
@@ -139,7 +138,6 @@ public class RundvisningPane extends GridPane {
         stage.setScene(sc);
 
         stage.showAndWait();
-
 
         txfDato.setText(String.valueOf(da.getValue()));
         stage.close();
