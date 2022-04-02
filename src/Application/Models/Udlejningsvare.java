@@ -7,6 +7,4 @@ public class Udlejningsvare extends Vare{
         super(navn, pant, type);
     }
 
-
-
 }
