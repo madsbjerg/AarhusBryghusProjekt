@@ -1,12 +1,10 @@
 package Application.Controller;
 
-import Application.Models.Drikkevare;
-import Application.Models.Prisgruppe;
-import Application.Models.Vare;
-import Application.Models.Varetype;
+import Application.Models.*;
 import Storage.Storage;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -93,7 +91,12 @@ class ControllerTest {
 
     @Test
     void createKlippekort() {
-        // Mads
+        // Arrange
+        Controller c = new Controller();
+        // Act
+        Klippekort k = c.createKlippekort("Mads");
+        // Assert
+        assertEquals(4, k.getAntalKlip());
     }
 
     @Test
@@ -102,7 +105,7 @@ class ControllerTest {
     }
 
     @Test
-    void createFastRabat()
+    void createFastRabat(){}
         //Omar
 
     @Test
@@ -112,12 +115,53 @@ class ControllerTest {
 
     @Test
     void createRegning() {
-        // Mads
+        // Arrange
+        Controller c = new Controller();
+        Vare testVare = new Drikkevare("testVare", 0, Varetype.FADØL, 0);
+        Prisgruppe testPg = new Prisgruppe(100,"testPrisGruppe");
+        testVare.addPrisgruppe(testPg);
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        varer.put(testVare, 1);
+
+        // Act
+        Regning r0 = c.createRegning(varer, Betalingsform.REGNING, null, 1, "testNavn0");
+
+        // Assert r0
+        assertFalse(r0.isBetalt());
+        assertEquals(1, r0.getBeloebTotal());
+        assertEquals("testNavn0", r0.getNavnKunde());
+
+        // Assert exceptional arguments
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> c.createRegning(varer, Betalingsform.REGNING, null, 0, "testNavn1"));
+        assertEquals("Beløb for regning skal være højere end 0.", ex.getMessage());
+        Exception ex1 = assertThrows(IllegalArgumentException.class, () -> c.createRegning(varer, Betalingsform.REGNING, null, -1, "testNavn1"));
+        assertEquals("Beløb for regning skal være højere end 0.", ex1.getMessage());
     }
 
     @Test
     void createUdlejning() {
         // Mads
+        // Arrange
+        Controller c = new Controller();
+        Vare testVare = new Udlejningsvare("testVare", 100, Varetype.FUSTAGE);
+        Prisgruppe testPg = new Prisgruppe(100,"testPrisGruppe");
+        testVare.addPrisgruppe(testPg);
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        varer.put(testVare, 1);
+
+        // Act
+        Udlejning u = c.createUdlejning(varer, 100, LocalDate.of(1999, 1,1), LocalDate.of(1999, 1, 2),Betalingsform.KONTANT, null);
+
+        // Assert
+        //assertFalse(u.)
+        // TODO: Svær at teste siden flowet ikke er færdiggjort for udlejning så der er lidt hiccups - Mads Bjerg 3/4/2022
+
+        // Assert exceptional arguments
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> c.createUdlejning(varer, 100, LocalDate.of(1999, 1,1), LocalDate.of(1999, 1, 1),Betalingsform.KONTANT, null));
+        assertEquals("Startdato skal være før slutdato.", ex.getMessage());
+        ex = assertThrows(IllegalArgumentException.class, () -> c.createUdlejning(varer, 100, LocalDate.of(1999, 1,2), LocalDate.of(1999, 1, 1),Betalingsform.KONTANT, null));
+        assertEquals("Startdato skal være før slutdato.", ex.getMessage());
+
     }
 
     @Test

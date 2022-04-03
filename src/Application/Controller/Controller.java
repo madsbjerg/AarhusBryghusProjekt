@@ -102,15 +102,16 @@ public class Controller {
     }
 
     public  Regning createRegning (HashMap<Vare, Integer> varer, Betalingsform betalingsform,Rabat rabat, double beloebTotal, String navnKunde){
+        if(beloebTotal <= 0) throw new IllegalArgumentException("Beløb for regning skal være højere end 0.");
         Regning regning = new Regning(varer, betalingsform, rabat, beloebTotal, navnKunde);
         Storage.getStorage().addSalg(regning);
         return regning;
     }
 
-    public static Udlejning createUdlejning(HashMap<Vare, Integer> varer, double pant, LocalDate startDato, LocalDate slutDato,
+    public Udlejning createUdlejning(HashMap<Vare, Integer> varer, double pant, LocalDate startDato, LocalDate slutDato,
                                             Betalingsform betalingsform, Rabat rabat) {
-        if(slutDato.isBefore(startDato)){
-            throw new IllegalArgumentException();
+        if(slutDato.isEqual(startDato) || slutDato.isBefore(startDato)){
+            throw new IllegalArgumentException("Slutdato skal være efter startdato.");
         }else{
             Udlejning udlejning = new Udlejning(varer, pant, startDato, slutDato, betalingsform, rabat);
             Storage.getStorage().addSalg(udlejning);
