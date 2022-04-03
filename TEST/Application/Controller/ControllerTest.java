@@ -87,6 +87,23 @@ class ControllerTest {
     @Test
     void createSpiritus() {
         // Mike
+
+        Controller testcontroller = new Controller();
+        //nedre grænse
+        Exception exception =assertThrows(IllegalArgumentException.class, ()-> testcontroller.createSpiritus("øl", -15));
+        //øvre grænse
+        Exception exception1 = assertThrows(IllegalArgumentException.class, () -> testcontroller.createSpiritus("øl1", 5000));
+        //normalt flow
+        //Nedre gyldig grænseværdi
+        Drikkevare drikkevare = testcontroller.createSpiritus("l", 1);
+        assertEquals(1, drikkevare.getAlkoholProcent());
+        //mellem
+        Drikkevare drikkevare1 = testcontroller.createSpiritus("p",50);
+        assertEquals(50, drikkevare1.getAlkoholProcent());
+        //øvre gyldig grænseværdi
+        Drikkevare drikkevare2 = testcontroller.createSpiritus("lksda", 99);
+        assertEquals(99, drikkevare2.getAlkoholProcent());
+
     }
 
     @Test
@@ -101,8 +118,30 @@ class ControllerTest {
 
     @Test
     void createProduktSalg() {
-        // Mike
+        Controller testController = new Controller();
+
+        Prisgruppe pgTest = new Prisgruppe(100, "Butik");
+        Prisgruppe pgTest2 = new Prisgruppe(100.5, "Butik");
+        Prisgruppe pgTest3 = new Prisgruppe(-100, "Butik");
+        Drikkevare testvare = new Drikkevare("testvare", 0, Varetype.FLASKE, 0);
+        Drikkevare testvare2 = new Drikkevare("Testvare2", 0, Varetype.FLASKE, 0);
+        Drikkevare testvare3 = new Drikkevare("Testvare3", 0, Varetype.FLASKE, 0);
+        testvare.addPrisgruppe(pgTest);
+        testvare2.addPrisgruppe(pgTest2);
+        testvare3.addPrisgruppe(pgTest3);
+
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        varer.put(testvare, 2);
+        HashMap<Vare, Integer> varer2 = new HashMap<>();
+        varer2.put(testvare2, 0);
+        HashMap<Vare, Integer> varer3 = new HashMap<>();
+        varer3.put(testvare3, 2);
+
+
     }
+    // Spørgsmål: Hvorfor har vi beloeb i constructoren, når vi alligevel beregner beløbet i totalPris metoden?
+    // Den her metode er et helvede at teste.. GØr det imorgen i skolen.
+
 
     @Test
     void createFastRabat(){}
@@ -110,7 +149,26 @@ class ControllerTest {
 
     @Test
     void createProcentRabat() {
-        // Mike
+        Controller testController = new Controller();
+        //Tjekker exceptions
+        //Nedre grænse
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> testController.createProcentRabat(-11));
+        //Øvre grænse.
+        Exception exception1 = assertThrows(IllegalArgumentException.class, () -> testController.createProcentRabat(5000));
+
+        //gyldige værdier:
+        Rabat rabat = testController.createProcentRabat(1);
+        Rabat rabat1 = testController.createProcentRabat(50);
+        Rabat rabat2 = testController.createProcentRabat(99);
+        //nedre gyldig
+        // 100 * 1% = 1
+        assertEquals(1, rabat.beregnRabat(100));
+        //midt gyldig
+        //100 * 50% = 50
+        assertEquals(50, rabat1);
+        //topgyldig.
+        //100 * 99% = 99
+        assertEquals(99, rabat2);
     }
 
     @Test
