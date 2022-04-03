@@ -111,7 +111,7 @@ public class Controller {
     public Udlejning createUdlejning(HashMap<Vare, Integer> varer, double pant, LocalDate startDato, LocalDate slutDato,
                                             Betalingsform betalingsform, Rabat rabat) {
         if(slutDato.isEqual(startDato) || slutDato.isBefore(startDato)){
-            throw new IllegalArgumentException("Slutdato skal være efter startdato.");
+            throw new IllegalArgumentException("Startdato skal være før slutdato.");
         }else{
             Udlejning udlejning = new Udlejning(varer, pant, startDato, slutDato, betalingsform, rabat);
             Storage.getStorage().addSalg(udlejning);
