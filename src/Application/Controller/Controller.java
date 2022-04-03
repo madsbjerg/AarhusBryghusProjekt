@@ -156,6 +156,8 @@ public class Controller {
         return Storage.getStorage().getVarer();
     }
 
+
+
     public ArrayList<Prisgruppe> getPrisgrupper(){
         ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
         for(Vare v : Storage.getStorage().getVarer()){
