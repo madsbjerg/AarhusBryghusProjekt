@@ -53,6 +53,7 @@ class ControllerTest {
 
     @org.junit.jupiter.api.Test
     void totalPris() {
+        // Jens
 
         // TODO: Exception (valid operation/ IllegalState) i controller. Modificer TC3 til at give Exception.
 
@@ -102,8 +103,10 @@ class ControllerTest {
     }
 
     @Test
-    void createFastRabat()
+    void createFastRabat(){
         //Omar
+    }
+
 
     @Test
     void createProcentRabat() {
@@ -126,7 +129,39 @@ class ControllerTest {
     }
 
     @Test
-    void testResetPrisgrupper() {
+    void resetPrisgrupper() {
         // Jens
+
+        // --- Arrange ----
+        Controller testController = new Controller();
+
+        Prisgruppe pgTest1 = new Prisgruppe(100, "prisgruppeTest");
+        Prisgruppe pgTest2 = new Prisgruppe(150, "prisgruppeTest2");
+        Prisgruppe pgTest3 = new Prisgruppe(0, "prisgruppeTestNull");
+
+        Drikkevare test1test = testController.createFlaske("Test1", 0);
+        Drikkevare test2test = testController.createFlaske("Test2", 0);
+        Drikkevare test3test = testController.createFlaske("Test3", 0);
+
+        test1test.addPrisgruppe(pgTest1);
+        test2test.addPrisgruppe(pgTest2);
+        test3test.addPrisgruppe(pgTest3);
+
+
+        // --- Act ----
+
+
+
+
+
+
+
+        // --- Assert ----
+
+       assertEquals(0, TC1);
+
+
+
+
     }
 }

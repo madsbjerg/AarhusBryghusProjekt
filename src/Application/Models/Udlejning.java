@@ -28,4 +28,13 @@ public class Udlejning extends Salg{
         this.totalBeloeb = sum;
         return sum - pantBeloeb;
     }
+
+    public void udregnPant (){
+
+
+
+    }
+
+
+
 }
