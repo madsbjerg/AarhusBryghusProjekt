@@ -238,8 +238,7 @@ public class Controller {
         udlejning.setBetalt(true);
     }
 
-
-    public  void saveStorageToFile(){
+    public void saveStorageToFile(){
         try{
             FileOutputStream fs_out = new FileOutputStream("bryghus.ser");
             ObjectOutputStream os_out = new ObjectOutputStream(fs_out);
