@@ -9,7 +9,7 @@ public class Rundvisning extends Vare{
     public Rundvisning(String navn,  Varetype type, int antalPersoner, LocalDateTime tidspunkt){
         super(navn, 0, Varetype.RUNDVISNING);
         this.antalPersoner = antalPersoner;
-        this.tidspunkt = tidspunkt;
+        this.tidspunkt = tidspunkt;   
     }
 
     public int getAntalPersoner(){
