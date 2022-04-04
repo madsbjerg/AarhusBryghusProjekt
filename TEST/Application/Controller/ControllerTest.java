@@ -223,7 +223,7 @@ class ControllerTest {
         assertEquals("Startdato skal være før slutdato.", ex.getMessage());
         ex = assertThrows(IllegalArgumentException.class, () -> c.createUdlejning(varer, 100, LocalDate.of(1999, 1,2), LocalDate.of(1999, 1, 1),Betalingsform.KONTANT, null));
         assertEquals("Startdato skal være før slutdato.", ex.getMessage());
-
+        //
     }
 
     @Test
