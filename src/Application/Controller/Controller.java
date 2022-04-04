@@ -220,7 +220,6 @@ public class Controller {
             sumPant += vare.getPant() * returnerede.get(vare);
         }
         total = sumVarer - sumPant;
-
         return total;
     }
 
