@@ -40,12 +40,6 @@ class ControllerTest {
 
     }
 
-
-    @org.junit.jupiter.api.Test
-    void resetPrisgrupper() {
-        // Omar
-    }
-
     @org.junit.jupiter.api.Test
     void totalPris() {
 
@@ -56,7 +50,6 @@ class ControllerTest {
         Prisgruppe pgTest2 = new Prisgruppe(100.5, "Butik");
         Drikkevare testvare = new Drikkevare("testvare", 0, Varetype.FLASKE, 0);
         Drikkevare testvare2 = new Drikkevare("Testvare2", 0, Varetype.FLASKE, 0);
-        Drikkevare testvare3 = new Drikkevare("Testvare3", 0, Varetype.FLASKE, 0);
         testvare.addPrisgruppe(pgTest);
         testvare2.addPrisgruppe(pgTest2);
 
@@ -328,5 +321,9 @@ class ControllerTest {
         assertEquals("Ingen prisgruppe valgt", dtest2.getAktivPrisgruppe());
 
     }
+
+
+
+
 
 }
