@@ -233,13 +233,13 @@ class ControllerTest {
         Rabat rabat2 = testController.createProcentRabat(99);
         //nedre gyldig
         // 100 * 1% = 1
-        assertEquals(1, rabat.beregnRabat(100));
+        assertEquals(99, rabat.beregnRabat(100),0.01);
         //midt gyldig
         //100 * 50% = 50
-        assertEquals(50, rabat1);
+        assertEquals(50, rabat1.beregnRabat(100),0.01);
         //topgyldig.
         //100 * 99% = 99
-        assertEquals(99, rabat2);
+        assertEquals(1, rabat2.beregnRabat(100),0.01);
     }
 
     @Test
