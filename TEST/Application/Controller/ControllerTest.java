@@ -5,6 +5,7 @@ import Storage.Storage;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,6 +106,9 @@ class ControllerTest {
         assertEquals(99, drikkevare2.getAlkoholProcent());
 
     }
+    // Spørgsmål: Hvorfor har vi beloeb i constructoren, når vi alligevel beregner beløbet i totalPris metoden?
+    // Den her metode er et helvede at teste.. GØr det imorgen i skolen.
+
 
     @Test
     void createKlippekort() {
@@ -223,8 +227,27 @@ class ControllerTest {
     }
 
     @Test
-    void getRundvisninger() {
-        // Omar
+    void createRundvisning() {
+        Controller c = new Controller();
+        Rundvisning rundvisning = new Rundvisning("Mads", Varetype.RUNDVISNING, 4, LocalDateTime.of(2022, 4, 4,12, 10 ));
+        Prisgruppe prisgruppe = new Prisgruppe(400, "Butik");
+
+        rundvisning.addPrisgruppe(prisgruppe);
+
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        varer.put(rundvisning, 1);
+
+        //asserts
+
+
+        // Assert exceptional arguments
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> c.createRundvisning("Mads", 1, LocalDateTime.of(2022, 4, 25, 12, 10)));
+        assertEquals("Rundvisning kan ikke bookes mere end 14 dage frem.", ex.getMessage());
+
+
+
+
+
     }
 
     @Test
