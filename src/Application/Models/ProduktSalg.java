@@ -19,6 +19,14 @@ public class ProduktSalg extends Salg {
         this.Beloeb = beloeb;
     }
 
+    public double totalPris(String pgnavn){
+        double sum = 0;
+        for(Vare vare : varer.keySet()){
+            sum += vare.getPris(pgnavn) * varer.get(vare);
+        }
+        this.Beloeb = sum;
+        return sum;
+    }
 
     public double getBeloeb() {
         return Beloeb;
