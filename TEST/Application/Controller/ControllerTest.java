@@ -304,7 +304,9 @@ class ControllerTest {
         HashMap<Vare, Integer> varer = new HashMap<>();
         varer.put(rundvisning, 1);
 
-        //asserts
+        //act
+        Rundvisning r = c.createRundvisning("Mads", 4, LocalDateTime.of(2022, 4, 8, 12, 10));
+
 
 
         // Assert exceptional arguments
