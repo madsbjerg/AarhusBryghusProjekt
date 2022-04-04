@@ -203,7 +203,9 @@ class ControllerTest {
 
 
     @Test
-    void createFastRabat(){}
+    void createFastRabat(){
+
+    }
         //Omar
 
     @Test
