@@ -117,7 +117,6 @@ public class Controller {
             Udlejning udlejning = new Udlejning(varer, pant, startDato, slutDato, betalingsform, rabat);
             Storage.getStorage().addSalg(udlejning);
             return udlejning;
-
         }
     }
 
@@ -238,8 +237,7 @@ public class Controller {
         udlejning.setBetalt(true);
     }
 
-
-    public  void saveStorageToFile(){
+    public void saveStorageToFile(){
         try{
             FileOutputStream fs_out = new FileOutputStream("bryghus.ser");
             ObjectOutputStream os_out = new ObjectOutputStream(fs_out);

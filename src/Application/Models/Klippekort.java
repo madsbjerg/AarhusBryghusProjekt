@@ -11,6 +11,8 @@ public class Klippekort extends Vare{
         this.navnKunde = navnKunde;
     }
 
+    //todo
+    //skal kunne bruge mange klip på en gang.
     public void brugKlip(){
         if(antalKlip >0) {
             antalKlip--;
