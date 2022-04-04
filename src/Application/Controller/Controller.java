@@ -212,7 +212,7 @@ public class Controller {
     public double totalUdlejning(HashMap<Vare, Integer> varer, HashMap<Vare, Integer> returnerede){
         double sumVarer = 0;
         double sumPant = 0;
-        double total = 0;
+        double totalUdlejning = 0;
 
         for(Vare vare : varer.keySet()){
             sumVarer += vare.getPrisgrupper().get(0).getPris() * varer.get(vare);
@@ -220,8 +220,8 @@ public class Controller {
         for(Vare vare : returnerede.keySet()){
             sumPant += vare.getPant() * returnerede.get(vare);
         }
-        total = sumVarer - sumPant;
-        return total;
+        totalUdlejning = sumVarer - sumPant;
+        return totalUdlejning;
     }
 
 

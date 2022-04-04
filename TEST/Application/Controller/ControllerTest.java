@@ -315,5 +315,28 @@ class ControllerTest {
     @Test
     void testResetPrisgrupper() {
         // Jens
+        // Arrange
+        Controller testController = new Controller();
+
+        Prisgruppe pgTest = new Prisgruppe(100, "pgTest1");
+        Drikkevare dtest = testController.createFlaske("TestFlaske1", 0);
+        dtest.addPrisgruppe(pgTest);
+        testController.setActivePrisgruppe("pgTest1");
+
+        Prisgruppe pgTest2 = new Prisgruppe(50, "pgTest2");
+        Drikkevare dtest2 = testController.createFlaske("Testflaske2", 0);
+        dtest2.addPrisgruppe(pgTest2);
+        testController.setActivePrisgruppe("pgTest2");
+
+        // Act
+        testController.resetPrisgrupper();
+
+        // Assert
+        assertEquals("Ingen prisgruppe valgt", dtest.getAktivPrisgruppe());
+        assertEquals("Ingen prisgruppe valgt", dtest2.getAktivPrisgruppe());
+
+
+
+
     }
 }
