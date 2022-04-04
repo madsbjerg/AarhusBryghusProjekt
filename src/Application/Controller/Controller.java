@@ -38,6 +38,7 @@ public class Controller {
     }
 
     public  Rundvisning createRundvisning(String navn, int antalPersoner, LocalDateTime tidspunkt){
+        if(LocalDateTime.now().plusDays(13).isBefore(tidspunkt)) throw new IllegalArgumentException("Tidspunkt er efter 14 dage af oprettelse af rundvisning.");
         Rundvisning r = new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
         Storage.getStorage().addVare(r);
         return r;
@@ -91,13 +92,13 @@ public class Controller {
         return p1;
     }
 
-    public  Rabat createFastRabat(double pris){
-        Rabat r = new FastRabat(pris);
+    public  Rabat createFastRabat(double rabatBeloeb){
+        Rabat r = new FastRabat(rabatBeloeb);
         return r;
     }
 
-    public  Rabat createProcentRabat(double pris){
-        Rabat r = new ProcentRabat(pris);
+    public  Rabat createProcentRabat(double procentSats){
+        Rabat r = new ProcentRabat(procentSats);
         return r;
     }
 

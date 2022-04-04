@@ -10,6 +10,9 @@ public class Prisgruppe implements Serializable {
     private String navn;
 
     public Prisgruppe(double pris, String navn) {
+        if(pris < 0){
+            throw new IllegalArgumentException("Prisgruppe pris skal være over 0");
+        }
         this.pris = pris;
         this.navn = navn;
     }
@@ -23,5 +26,10 @@ public class Prisgruppe implements Serializable {
     }
 
     // --------------------
+
+
+
+
+
 
 }

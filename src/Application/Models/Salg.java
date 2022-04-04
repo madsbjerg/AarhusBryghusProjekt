@@ -7,7 +7,7 @@ import java.util.Map;
 public abstract class Salg implements Serializable {
     Rabat rabat = null;
     Betalingsform betalingsform;
-    Map<Vare, Integer> varer;
+    HashMap<Vare, Integer> varer;
 
     Salg(HashMap<Vare, Integer> varer, Betalingsform betalingsform, Rabat rabat){
         this.varer = varer; // lmao
