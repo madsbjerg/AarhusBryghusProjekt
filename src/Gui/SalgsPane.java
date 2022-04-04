@@ -185,7 +185,7 @@ public class SalgsPane extends GridPane {
         JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
     }
 
-    private void updateKurvAction() {
+    private void updateKurvAction() { 
 
             Vare ValgtVare = lvwValgteVare.getSelectionModel().getSelectedItem();
             if(ValgtVare ==null) {
