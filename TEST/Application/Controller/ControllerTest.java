@@ -216,7 +216,7 @@ class ControllerTest {
 
     @Test
     void createFastRabat(){}
-        //Omar
+
 
     @Test
     void createProcentRabat() {
