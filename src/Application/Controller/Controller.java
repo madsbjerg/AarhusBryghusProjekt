@@ -91,13 +91,13 @@ public class Controller {
         return p1;
     }
 
-    public  Rabat createFastRabat(double pris){
-        Rabat r = new FastRabat(pris);
+    public  Rabat createFastRabat(double rabatBeloeb){
+        Rabat r = new FastRabat(rabatBeloeb);
         return r;
     }
 
-    public  Rabat createProcentRabat(double pris){
-        Rabat r = new ProcentRabat(pris);
+    public  Rabat createProcentRabat(double procentSats){
+        Rabat r = new ProcentRabat(procentSats);
         return r;
     }
 
