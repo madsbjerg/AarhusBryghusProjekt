@@ -224,6 +224,16 @@ public class Controller {
         return totalUdlejning;
     }
 
+    public double beregnPant(HashMap<Vare, Integer> varer){
+
+        double totalPant = 0;
+
+        for(Vare vare : varer.keySet()){
+            totalPant += vare.getPant() * varer.get(vare);
+        }
+        return totalPant;
+    }
+
 
     public  void saveStorageToFile(){
         try{

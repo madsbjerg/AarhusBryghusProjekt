@@ -49,35 +49,27 @@ class ControllerTest {
     @org.junit.jupiter.api.Test
     void totalPris() {
 
-        // TODO: Exception (valid operation/ IllegalState) i controller. Modificer TC3 til at give Exception.
-
         Controller testController = new Controller();
 
 
         Prisgruppe pgTest = new Prisgruppe(100, "Butik");
         Prisgruppe pgTest2 = new Prisgruppe(100.5, "Butik");
-        Prisgruppe pgTest3 = new Prisgruppe(-100, "Butik");
         Drikkevare testvare = new Drikkevare("testvare", 0, Varetype.FLASKE, 0);
         Drikkevare testvare2 = new Drikkevare("Testvare2", 0, Varetype.FLASKE, 0);
         Drikkevare testvare3 = new Drikkevare("Testvare3", 0, Varetype.FLASKE, 0);
         testvare.addPrisgruppe(pgTest);
         testvare2.addPrisgruppe(pgTest2);
-        testvare3.addPrisgruppe(pgTest3);
 
         HashMap<Vare, Integer> varer = new HashMap<>();
         varer.put(testvare, 2);
         HashMap<Vare, Integer> varer2 = new HashMap<>();
         varer2.put(testvare2, 0);
-        HashMap<Vare, Integer> varer3 = new HashMap<>();
-        varer3.put(testvare3, 2);
 
         double TC1 = testController.totalPris(pgTest.getNavn(), varer);
         double TC2 = testController.totalPris(pgTest2.getNavn(),varer2);
-        double TC3 = testController.totalPris(pgTest3.getNavn(), varer3);
-
+        
         assertEquals(200, TC1);
         assertEquals(0, TC2);
-        assertEquals(-200, TC3);
 
     }
 
@@ -229,13 +221,13 @@ class ControllerTest {
         Rabat rabat2 = testController.createProcentRabat(99);
         //nedre gyldig
         // 100 * 1% = 1
-        assertEquals(1, rabat.beregnRabat(100));
+        assertEquals(99, rabat.beregnRabat(100),0.01);
         //midt gyldig
         //100 * 50% = 50
-        assertEquals(50, rabat1);
+        assertEquals(50, rabat1.beregnRabat(100),0.01);
         //topgyldig.
         //100 * 99% = 99
-        assertEquals(99, rabat2);
+        assertEquals(1, rabat2.beregnRabat(100),0.01);
     }
 
     @Test
