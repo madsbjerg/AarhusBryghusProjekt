@@ -117,7 +117,6 @@ public class Controller {
             Udlejning udlejning = new Udlejning(varer, pant, startDato, slutDato, betalingsform, rabat);
             Storage.getStorage().addSalg(udlejning);
             return udlejning;
-
         }
     }
 

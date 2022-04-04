@@ -29,5 +29,4 @@ public class Udlejning extends Salg{
         this.slutDato = slutDato;
         this.betalt = false;
     }
-
 }
