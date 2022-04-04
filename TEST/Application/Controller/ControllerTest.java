@@ -40,6 +40,12 @@ class ControllerTest {
 
     }
 
+
+    @org.junit.jupiter.api.Test
+    void resetPrisgrupper() {
+        // Omar
+    }
+
     @org.junit.jupiter.api.Test
     void totalPris() {
 
@@ -198,9 +204,26 @@ class ControllerTest {
 
     @Test
     void createFastRabat(){
+        Controller c = new Controller();
+
+        Rabat r = c.createFastRabat(50);
+        Rabat r1 = c.createFastRabat(20);
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () ->c.createFastRabat(-30));
+        assertEquals("Rabat skal være over 0", ex.getMessage());
+
+        assertEquals(150, r.beregnRabat(200));
+        assertEquals(180, r1.beregnRabat(200));
+
+
+
 
     }
-        //Omar
+
+
+
+
+
 
     @Test
     void createProcentRabat() {
@@ -216,10 +239,13 @@ class ControllerTest {
         Rabat rabat1 = testController.createProcentRabat(50);
         Rabat rabat2 = testController.createProcentRabat(99);
         //nedre gyldig
+        // 100 * 1% = 1
         assertEquals(99, rabat.beregnRabat(100),0.01);
         //midt gyldig
+        //100 * 50% = 50
         assertEquals(50, rabat1.beregnRabat(100),0.01);
         //topgyldig.
+        //100 * 99% = 99
         assertEquals(1, rabat2.beregnRabat(100),0.01);
     }
 
