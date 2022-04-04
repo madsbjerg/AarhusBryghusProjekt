@@ -40,12 +40,6 @@ class ControllerTest {
 
     }
 
-
-    @org.junit.jupiter.api.Test
-    void resetPrisgrupper() {
-        // Omar
-    }
-
     @org.junit.jupiter.api.Test
     void totalPris() {
 
@@ -222,13 +216,10 @@ class ControllerTest {
         Rabat rabat1 = testController.createProcentRabat(50);
         Rabat rabat2 = testController.createProcentRabat(99);
         //nedre gyldig
-        // 100 * 1% = 1
         assertEquals(99, rabat.beregnRabat(100),0.01);
         //midt gyldig
-        //100 * 50% = 50
         assertEquals(50, rabat1.beregnRabat(100),0.01);
         //topgyldig.
-        //100 * 99% = 99
         assertEquals(1, rabat2.beregnRabat(100),0.01);
     }
 
@@ -330,5 +321,6 @@ class ControllerTest {
         assertEquals("Ingen prisgruppe valgt", dtest2.getAktivPrisgruppe());
 
     }
-
+//todo
+    // test af brug klippekort.
 }

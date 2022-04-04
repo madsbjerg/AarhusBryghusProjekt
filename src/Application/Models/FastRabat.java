@@ -18,4 +18,3 @@ public class FastRabat implements Rabat, Serializable {
         return sum - beloeb;
     }
 }
-//
