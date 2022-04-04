@@ -327,8 +327,6 @@ class ControllerTest {
         assertEquals("Ingen prisgruppe valgt", dtest.getAktivPrisgruppe());
         assertEquals("Ingen prisgruppe valgt", dtest2.getAktivPrisgruppe());
 
-
-
-
     }
+
 }
