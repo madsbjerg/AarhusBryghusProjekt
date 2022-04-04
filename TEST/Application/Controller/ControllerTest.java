@@ -90,6 +90,9 @@ class ControllerTest {
     void createSpiritus() {
         // Mike
     }
+    // Spørgsmål: Hvorfor har vi beloeb i constructoren, når vi alligevel beregner beløbet i totalPris metoden?
+    // Den her metode er et helvede at teste.. GØr det imorgen i skolen.
+
 
     @Test
     void createKlippekort() {
