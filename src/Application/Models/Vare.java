@@ -32,13 +32,17 @@ public abstract class Vare implements Serializable {
     }
 
     public double getPris(String pgNavn){
-        Prisgruppe retPg = null;
-        for(Prisgruppe pg : prisgrupper){
-            if(pg.getNavn().equalsIgnoreCase(pgNavn)){
-                retPg = pg;
+        try{
+            Prisgruppe retPg = null;
+            for(Prisgruppe pg : prisgrupper){
+                if(pg.getNavn().equalsIgnoreCase(pgNavn)){
+                    retPg = pg;
+                }
             }
+            return retPg.getPris();
+        }catch(NullPointerException ex){
+            return 0.0;
         }
-        return retPg.getPris();
     }
 
     public void removePrisgruppe(Prisgruppe prisgruppe){
