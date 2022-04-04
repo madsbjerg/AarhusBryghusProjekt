@@ -242,10 +242,7 @@ class ControllerTest {
 
         // Assert exceptional arguments
         Exception ex = assertThrows(IllegalArgumentException.class, () -> c.createRundvisning("Mads", 1, LocalDateTime.of(2022, 4, 25, 12, 10)));
-        assertEquals("Rundvisning kan ikke bookes mere end 14 dage frem.", ex.getMessage());
-
-
-
+        assertEquals("Tidspunkt er efter 14 dage af oprettelse af rundvisning.", ex.getMessage());
 
 
     }
