@@ -234,6 +234,10 @@ public class Controller {
         return totalPant;
     }
 
+    public void setBetaltUdlejning(Udlejning udlejning){
+        udlejning.setBetalt(true);
+    }
+
 
     public  void saveStorageToFile(){
         try{
