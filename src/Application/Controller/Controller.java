@@ -38,7 +38,7 @@ public class Controller {
     }
 
     public  Rundvisning createRundvisning(String navn, int antalPersoner, LocalDateTime tidspunkt){
-        if(LocalDateTime.now().plusDays(13).isBefore(tidspunkt)) throw new IllegalArgumentException("Tidspunkt er indenfor 14 dage af oprettelse af rundvisning.");
+        if(LocalDateTime.now().plusDays(13).isBefore(tidspunkt)) throw new IllegalArgumentException("Tidspunkt er efter 14 dage af oprettelse af rundvisning.");
         Rundvisning r = new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
         Storage.getStorage().addVare(r);
         return r;
