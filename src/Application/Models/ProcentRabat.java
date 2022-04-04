@@ -20,6 +20,5 @@ public class ProcentRabat implements Rabat, Serializable {
     public double getProcentSats() {
         return procentSats;
     }
-
 }
 //
