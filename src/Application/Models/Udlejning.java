@@ -20,12 +20,5 @@ public class Udlejning extends Salg{
         this.slutDato = slutDato;
         this.betalt = false;
     }
-    public double totalPris(String pgnavn){
-        double sum =0;
-        for(Vare vare : varer.keySet()){
-            sum += vare.getPris(pgnavn)*varer.get(vare);
-        }
-        this.totalBeloeb = sum;
-        return sum - pantBeloeb;
-    }
+
 }

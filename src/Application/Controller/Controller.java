@@ -208,6 +208,23 @@ public class Controller {
         return sum;
     }
 
+    public double totalUdlejning(HashMap<Vare, Integer> varer, HashMap<Vare, Integer> returnerede){
+        double sumVarer = 0;
+        double sumPant = 0;
+        double total = 0;
+
+        for(Vare vare : varer.keySet()){
+            sumVarer += vare.getPrisgrupper().get(0).getPris() * varer.get(vare);
+        }
+        for(Vare vare : returnerede.keySet()){
+            sumPant += vare.getPant() * returnerede.get(vare);
+        }
+        total = sumVarer - sumPant;
+
+        return total;
+    }
+
+
     public  void saveStorageToFile(){
         try{
             FileOutputStream fs_out = new FileOutputStream("bryghus.ser");
@@ -249,6 +266,8 @@ public class Controller {
             System.out.println(ex.getMessage() + " " + ex.getStackTrace());
         }
     }
+
+
 
     public void initStorage(){
         Sampakning s1 = new Sampakning("2 øl & 2 glas i gaveæske", 0, "Gaveæske", 2, 2, 20);

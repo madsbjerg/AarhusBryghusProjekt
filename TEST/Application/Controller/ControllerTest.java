@@ -39,10 +39,6 @@ class ControllerTest {
 
     }
 
-    @org.junit.jupiter.api.Test
-    void setActivePrisgruppe() {
-        // Jens
-    }
 
     @org.junit.jupiter.api.Test
     void resetPrisgrupper() {
