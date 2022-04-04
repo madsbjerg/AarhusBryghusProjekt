@@ -38,6 +38,7 @@ public class Controller {
     }
 
     public  Rundvisning createRundvisning(String navn, int antalPersoner, LocalDateTime tidspunkt){
+        if(!LocalDateTime.now().plusDays(13).isBefore(tidspunkt)) throw new IllegalArgumentException("Tidspunkt er indenfor 14 dage af oprettelse af rundvisning.");
         Rundvisning r = new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
         Storage.getStorage().addVare(r);
         return r;
@@ -102,15 +103,16 @@ public class Controller {
     }
 
     public  Regning createRegning (HashMap<Vare, Integer> varer, Betalingsform betalingsform,Rabat rabat, double beloebTotal, String navnKunde){
+        if(beloebTotal <= 0) throw new IllegalArgumentException("Beløb for regning skal være højere end 0.");
         Regning regning = new Regning(varer, betalingsform, rabat, beloebTotal, navnKunde);
         Storage.getStorage().addSalg(regning);
         return regning;
     }
 
-    public static Udlejning createUdlejning(HashMap<Vare, Integer> varer, double pant, LocalDate startDato, LocalDate slutDato,
+    public Udlejning createUdlejning(HashMap<Vare, Integer> varer, double pant, LocalDate startDato, LocalDate slutDato,
                                             Betalingsform betalingsform, Rabat rabat) {
-        if(slutDato.isBefore(startDato)){
-            throw new IllegalArgumentException();
+        if(slutDato.isEqual(startDato) || slutDato.isBefore(startDato)){
+            throw new IllegalArgumentException("Startdato skal være før slutdato.");
         }else{
             Udlejning udlejning = new Udlejning(varer, pant, startDato, slutDato, betalingsform, rabat);
             Storage.getStorage().addSalg(udlejning);
@@ -155,6 +157,8 @@ public class Controller {
     public ArrayList<Vare> getVarer(){
         return Storage.getStorage().getVarer();
     }
+
+
 
     public ArrayList<Prisgruppe> getPrisgrupper(){
         ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
