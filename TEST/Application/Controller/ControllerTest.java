@@ -204,9 +204,26 @@ class ControllerTest {
 
     @Test
     void createFastRabat(){
+        Controller c = new Controller();
+
+        Rabat r = c.createFastRabat(50);
+        Rabat r1 = c.createFastRabat(20);
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () ->c.createFastRabat(-30));
+        assertEquals("Rabat skal være over 0", ex.getMessage());
+
+        assertEquals(150, r.beregnRabat(200));
+        assertEquals(180, r1.beregnRabat(200));
+
+
+
 
     }
-        //Omar
+
+
+
+
+
 
     @Test
     void createProcentRabat() {
