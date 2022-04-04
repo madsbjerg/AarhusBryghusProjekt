@@ -49,8 +49,6 @@ class ControllerTest {
     @org.junit.jupiter.api.Test
     void totalPris() {
 
-        // TODO: Exception (valid operation/ IllegalState) i controller. Modificer TC3 til at give Exception.
-
         Controller testController = new Controller();
 
 
