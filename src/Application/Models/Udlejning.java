@@ -21,4 +21,20 @@ public class Udlejning extends Salg{
         this.betalt = false;
     }
 
+    public double getPantBeloeb(){
+        return this.pantBeloeb;
+    }
+
+    public double getTotalBeloeb(){
+        return this.totalBeloeb;
+    }
+
+    public boolean isBetalt(){
+        return this.betalt;
+    }
+
+    public void setBetalt(boolean betalt){
+        this.betalt = betalt;
+    }
+
 }
