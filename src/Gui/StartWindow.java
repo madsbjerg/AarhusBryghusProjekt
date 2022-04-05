@@ -58,6 +58,9 @@ private void initContent(BorderPane pane) {
         RundvisningPane rundvisningPane = new RundvisningPane();
         tabRundvisning.setContent(rundvisningPane);
 
+        Tab tabUdlejning = new Tab("Udlejning");
+        tabs.getTabs().add(tabUdlejning);
+
 
 
         SalgsPane salgsPane = new SalgsPane();
