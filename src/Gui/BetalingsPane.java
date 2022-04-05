@@ -78,13 +78,13 @@ public class BetalingsPane extends GridPane {
 
         vboxRabat = new VBox();
         this.add(vboxRabat, 3, 1);
-        vboxRabat.getChildren().add(txfFastRabat);
-        vboxRabat.getChildren().add(txfProcentRabat);
+//        vboxRabat.getChildren().add(txfFastRabat);
+//        vboxRabat.getChildren().add(txfProcentRabat);
 
     }
 
     private void createComboBox(BetalingsPane betalingsPane){
-        cbbRabat = new ComboBox<>();
+       ComboBox cbbRabat = new ComboBox<>();
         this.add(cbbRabat, 3, 1);
         cbbRabat.getItems().add(0, "Fast rabat");
         cbbRabat.getItems().add(1, "Procent rabat");

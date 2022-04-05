@@ -63,6 +63,9 @@ private void initContent(BorderPane pane) {
         Tab tabUdlejning = new Tab("Udlejning");
         tabs.getTabs().add(tabUdlejning);
 
+        UdlejningsPane udlejningsPane = new UdlejningsPane();
+        tabUdlejning.setContent(udlejningsPane);
+
         Tab tabBetaling = new Tab("Betaling");
         tabs.getTabs().add(tabBetaling);
         BetalingsPane betalingsPane = new BetalingsPane();
