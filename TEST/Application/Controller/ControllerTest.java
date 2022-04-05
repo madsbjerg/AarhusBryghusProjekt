@@ -386,14 +386,14 @@ class ControllerTest {
         Prisgruppe pg1 = new Prisgruppe(400, "pgtest2");
         u.addPrisgruppe(pg1);
 
-        HashMap<Vare, Integer> vareHashMap = new HashMap();
+        HashMap<Vare, Integer> vareHashMap = new HashMap<>();
         HashMap<Vare, Integer> vareIntegerHashMap = new HashMap<>();
 
         vareHashMap.put(udlejning, 1);
-        vareIntegerHashMap.put(u,3);
+        vareIntegerHashMap.put(u,1);
 
         //asserts
-        assertEquals(175, c.totalUdlejning(vareHashMap, vareIntegerHashMap));
+        assertEquals(575, c.totalUdlejning(vareHashMap, vareIntegerHashMap));
 
 
 
