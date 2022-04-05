@@ -25,7 +25,7 @@ public class BetalingsPane extends GridPane {
         // kald create på elementer
 
         createTextfields(this);
-        createRaioButtons(this);
+        createRadioButtons(this);
 
 
     }
@@ -45,12 +45,12 @@ public class BetalingsPane extends GridPane {
 
     }
 
-
     private void createRadioButtons(BetalingsPane betalingsPane){
         radBtnBetalingsform = new RadioButton();
     }
 
     private void createButtons(){
+
 
     }
 
