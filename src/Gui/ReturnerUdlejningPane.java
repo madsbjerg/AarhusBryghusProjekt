@@ -95,7 +95,25 @@ public class ReturnerUdlejningPane extends GridPane {
     }
 
     private void færdiggørUdlejningAction() {
-        
+        Udlejning u = lvwUdlejninger.getSelectionModel().getSelectedItem();
+        if(u != null){
+            HashMap<Vare, Integer> returVare = new HashMap<>();
+            int count = 0;
+            for(Udlejningsvare uv : lvwReturneredeVarer.getItems()){
+                count = returVare.get(uv) != null ? returVare.get(uv) : 0;
+                returVare.put(uv, count);
+                count++;
+            }
+            u.setReturVarer(returVare);
+            u.setBetalt(true);
+            lvwUdlejninger.getItems().removeAll();
+            ArrayList<Salg> ul = controller.getUdlejninger();
+            for(Salg s : ul){
+                if(!((Udlejning) s).isBetalt()){
+                    lvwUdlejninger.getItems().add((Udlejning)s);
+                }
+            }
+        }
     }
 
     private void addVareAction() {
@@ -103,6 +121,12 @@ public class ReturnerUdlejningPane extends GridPane {
         if(vare != null){
             lvwReturneredeVarer.getItems().add(vare);
             HashMap<Vare, Integer> returVare = new HashMap<>();
+            int count = 0;
+            for(Udlejningsvare uv : lvwReturneredeVarer.getItems()){
+                count = returVare.get(uv) != null ? returVare.get(uv) : 0;
+                returVare.put(uv, count);
+                count++;
+            }
             lblTotalPris.setText(""+controller.totalUdlejning(lvwUdlejninger.getSelectionModel().getSelectedItem().getVarer(), returVare));
             Rabat rabat = lvwUdlejninger.getSelectionModel().getSelectedItem().getRabat();
             double totalEfterRabat = rabat != null ? rabat.beregnRabat(Double.parseDouble(lblTotalPris.getText())) : 0.0;
