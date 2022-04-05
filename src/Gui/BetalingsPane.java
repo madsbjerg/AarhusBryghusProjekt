@@ -18,6 +18,7 @@ public class BetalingsPane extends GridPane {
     private Label lblTotal;
     private VBox vboxBetalingform, vboxRabat;
     private ToggleGroup groupBetalingsform = new ToggleGroup();
+    private ComboBox<String> cbbRabat;
 
     public BetalingsPane(){
         this.setPadding(new Insets(20));
@@ -76,10 +77,6 @@ public class BetalingsPane extends GridPane {
             rb.setToggleGroup(groupBetalingsform);
         }
 
-        vboxRabat = new VBox();
-        this.add(vboxRabat, 3, 1);
-        vboxRabat.getChildren().add(txfFastRabat);
-        vboxRabat.getChildren().add(txfProcentRabat);
 
     }
 
