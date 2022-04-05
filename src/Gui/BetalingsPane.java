@@ -20,7 +20,7 @@ public class BetalingsPane extends GridPane {
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
-        this.setGridLinesVisible(false);
+            this.setGridLinesVisible(false);
 
         // kald create på elementer
 

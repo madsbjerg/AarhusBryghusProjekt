@@ -361,14 +361,16 @@ class ControllerTest {
         Udlejningsvare u = c.createFustage("celebration");
         Udlejningsvare u1 = c.createKulsyre("6 kg");
 
+
         //asserts
+        assertEquals(300, c.beregnPant(varer));
         assertEquals(3000, c.beregnPant(varer));
 
+    }
 
-
-
-
-
+    @Test
+    void totalUdlejning(){
+        Controller c = new Controller();
 
 
 
