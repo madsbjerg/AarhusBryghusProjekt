@@ -33,6 +33,7 @@ public class BetalingsPane extends GridPane {
         createButtons(this);
         createListViews(this);
         createVbox(this);
+        createComboBox(this);
     }
 
     // create elementer
@@ -62,6 +63,8 @@ public class BetalingsPane extends GridPane {
     private void createListViews(BetalingsPane betalingsPane){
         lvwRegninger = new ListView<>();
         this.add(lvwRegninger, 0, 1);
+
+
     }
 
     private void createVbox (BetalingsPane betalingsPane){
@@ -76,8 +79,6 @@ public class BetalingsPane extends GridPane {
             rb.setUserData(betalingsform[i]);
             rb.setToggleGroup(groupBetalingsform);
         }
-
-
     }
 
     private void createComboBox(BetalingsPane betalingsPane){
@@ -86,14 +87,5 @@ public class BetalingsPane extends GridPane {
         cbbRabat.getItems().add(0, "Fast rabat");
         cbbRabat.getItems().add(1, "Procent rabat");
     }
-
-
-
-
-
-
-
-
-
 
 }
