@@ -42,6 +42,26 @@ class ControllerTest {
     @org.junit.jupiter.api.Test
     void setActivePrisgruppe() {
         // Jens
+        // Arrange
+        Controller testController = new Controller();
+
+        Prisgruppe pgtest1 = new Prisgruppe(100, "Test1");
+        Prisgruppe pgtest2 = new Prisgruppe(50, "Test2");
+        Prisgruppe pgtest3 = new Prisgruppe(0, "Test3");
+
+        // Act
+        testController.setActivePrisgruppe("Test1");
+        testController.setActivePrisgruppe("Test2");
+        testController.setActivePrisgruppe("Test3");
+
+        // String testString = testController.getAktivePrisgrupper;
+        // Føler jeg mangler en get i controlleren.
+
+        // Assert
+        assertEquals("Test1", "");
+
+
+
     }
 
     @org.junit.jupiter.api.Test
@@ -246,21 +266,12 @@ class ControllerTest {
         test2test.addPrisgruppe(pgTest2);
         test3test.addPrisgruppe(pgTest3);
 
-
         // --- Act ----
-
-
-
-
 
 
 
         // --- Assert ----
 
        assertEquals(0, TC1);
-
-
-
-
     }
 }
