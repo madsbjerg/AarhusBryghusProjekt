@@ -11,6 +11,10 @@ public class Klippekort extends Vare{
         this.navnKunde = navnKunde;
     }
 
+    public Klippekort(){
+        super("",0,Varetype.KLIPPEKORT);
+    }
+
     /**
      * Laver en variabel, for ikke at manipulere med dataen.
      * Tjekker om der er nok klip på kortet, hvis nej kaster metoden en illegalArguementException.
