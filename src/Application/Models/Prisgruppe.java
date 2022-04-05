@@ -25,6 +25,9 @@ public class Prisgruppe implements Serializable {
         return navn;
     }
 
+    public String toString(){
+        return navn;
+    }
     // --------------------
 
 

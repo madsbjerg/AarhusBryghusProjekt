@@ -291,7 +291,8 @@ class ControllerTest {
         // Assert
         //assertFalse(u.)
         // TODO: Svær at teste siden flowet ikke er færdiggjort for udlejning så der er lidt hiccups - Mads Bjerg 3/4/2022
-
+        // TODO: Test totalPris udlejning og beregnPant metoder også.
+        
         // Assert exceptional arguments
         Exception ex = assertThrows(IllegalArgumentException.class, () -> c.createUdlejning(varer, 100, LocalDate.of(1999, 1,1), LocalDate.of(1999, 1, 1),Betalingsform.KONTANT, null));
         assertEquals("Startdato skal være før slutdato.", ex.getMessage());
@@ -347,6 +348,75 @@ class ControllerTest {
         assertEquals("Ingen prisgruppe valgt", dtest2.getAktivPrisgruppe());
 
     }
-//todo
-    // test af brug klippekort.
+
+    @Test
+    void beregnPant(){
+        Controller c = new Controller();
+
+        Vare testVare = new Udlejningsvare("testVare", 200, Varetype.FUSTAGE);
+        Vare vare = new Udlejningsvare("6 kg", 1000, Varetype.KULSYRE);
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        HashMap<Vare, Integer> vareIntegerHashMap = new HashMap<>();
+        varer.put(testVare, 2);
+        vareIntegerHashMap.put(vare, 2);
+
+
+        //act
+        Udlejningsvare u = c.createFustage("celebration");
+        Udlejningsvare u1 = c.createKulsyre("6 kg");
+
+
+        //asserts
+        assertEquals(400, c.beregnPant(varer));
+        assertEquals(2000, c.beregnPant(vareIntegerHashMap));
+
+
+
+
+    }
+
+    @Test
+    void totalUdlejning(){
+        Controller c = new Controller();
+
+        Vare udlejning = new Udlejningsvare("Klosterbryg", 3000, Varetype.FUSTAGE);
+        Vare u = new Udlejningsvare("6 kg",200, Varetype.KULSYRE);
+
+        Prisgruppe pg = new Prisgruppe(775, "pgtest1");
+        udlejning.addPrisgruppe(pg);
+        Prisgruppe pg1 = new Prisgruppe(400, "pgtest2");
+        u.addPrisgruppe(pg1);
+
+        HashMap<Vare, Integer> vareHashMap = new HashMap<>();
+        HashMap<Vare, Integer> vareIntegerHashMap = new HashMap<>();
+
+        vareHashMap.put(udlejning, 1);
+        vareIntegerHashMap.put(u,1);
+
+        //asserts
+        assertEquals(575, c.totalUdlejning(vareHashMap, vareIntegerHashMap));
+        
+    }
+
+    @Test
+    void brugKlippekort() {
+        Controller testController = new Controller();
+
+       Klippekort klippekort1 = testController.createKlippekort("hans");
+       //tester om klippekortet bliver initialiseret med 4 klip.
+       assertEquals(4,klippekort1.getAntalKlip());
+       //tester om man kan forbruge klip.
+        //3 klip brugt. 4-3 = 1
+        testController.brugKlippekort(klippekort1, 3);
+        assertEquals(1, klippekort1.getAntalKlip());
+       //tester for exceptions.
+       //Indtastning af negativ værdi i klippris param
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->testController.brugKlippekort(klippekort1, -15));
+        //forsøg på, at bruge flere klip end der eksistere.
+        //1 klip tilbage. 2 forsøgt forbrugt (1-2) <0
+        Exception exception1 = assertThrows(IllegalArgumentException.class, () -> testController.brugKlippekort(klippekort1, 2));
+
+
+
+    }
 }

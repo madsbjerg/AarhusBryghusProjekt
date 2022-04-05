@@ -6,4 +6,11 @@ public class Udlejningsvare extends Vare{
         super(navn, pant, type);
     }
 
+    @Override
+    public String toString(){
+        return this.getNavn() + " Pant: " + this.getPant() + " Pris: " + this.getPris("Butik");
+    }
+    public String toString(String pgNavn){
+        return this.getNavn() + " Pant: " + this.getPant() + " Pris: " + this.getPris(pgNavn);
+    }
 }
