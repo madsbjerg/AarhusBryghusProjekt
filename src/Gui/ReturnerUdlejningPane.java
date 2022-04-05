@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 
 import java.util.ArrayList;
 
@@ -32,17 +33,30 @@ public class ReturnerUdlejningPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        createListViews(this);
+        createLayout(this);
+
+
 
     }
 
-    private void createListViews(GridPane pane){
+    private void createLayout(GridPane pane){
+        int heightScale = 5;
         lblUdlejninger = new Label("Ubetalte udlejninger");
         lvwUdlejninger = new ListView<>();
-        lblReturneredeVarer = new Label("Returnerede varer");
+        lblReturneredeVarer = new Label("Returnerede varer med pant.");
         lvwReturneredeVarer = new ListView<>();
         lblUdlejedeVarer = new Label("Varer i udlejning");
         lvwUdlejedeVarer = new ListView<>();
+
+        lblTotalPris = new Label("Total pris");
+        lblTotalPrisEfterRabat = new Label("Total pris rabat");
+
+        btnTilføjVare = new Button("Tilføj til returliste.");
+        btnFærdiggør = new Button("Færdiggør udlejning.");
+
+        lvwUdlejninger.setPrefHeight(Screen.getPrimary().getBounds().getMaxY() / heightScale);
+        lvwUdlejedeVarer.setPrefHeight(Screen.getPrimary().getBounds().getMaxY() / heightScale);
+        lvwReturneredeVarer.setPrefHeight(Screen.getPrimary().getBounds().getMaxY() / heightScale);
 
         ArrayList<Salg> ul = controller.getUdlejninger();
         for(Salg s : ul){
@@ -55,6 +69,12 @@ public class ReturnerUdlejningPane extends GridPane {
         pane.add(lvwUdlejninger, 0,1);
         pane.add(lblUdlejedeVarer, 0,2);
         pane.add(lvwUdlejedeVarer, 0,3);
+        pane.add(lblReturneredeVarer,1,2);
+        pane.add(lvwReturneredeVarer, 1,3);
+        pane.add(lblTotalPris, 2,3);
+        pane.add(lblTotalPrisEfterRabat, 2,4);
+        pane.add(btnTilføjVare, 0,4);
+        pane.add(btnFærdiggør, 1,4);
     }
 
 
