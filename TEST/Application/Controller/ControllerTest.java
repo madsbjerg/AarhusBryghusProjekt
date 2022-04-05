@@ -355,7 +355,10 @@ class ControllerTest {
         Vare testVare = new Udlejningsvare("testVare", 100, Varetype.FUSTAGE);
         Vare vare = new Udlejningsvare("6 kg", 1000, Varetype.KULSYRE);
         HashMap<Vare, Integer> varer = new HashMap<>();
+        HashMap<Vare, Integer> vareIntegerHashMap = new HashMap<>();
         varer.put(testVare, 3);
+        vareIntegerHashMap.put(vare, 2);
+
 
         //act
         Udlejningsvare u = c.createFustage("celebration");
@@ -364,7 +367,10 @@ class ControllerTest {
 
         //asserts
         assertEquals(300, c.beregnPant(varer));
-        assertEquals(3000, c.beregnPant(varer));
+        assertEquals(2000, c.beregnPant(vareIntegerHashMap));
+
+
+
 
     }
 
