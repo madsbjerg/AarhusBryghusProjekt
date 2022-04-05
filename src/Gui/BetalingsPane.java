@@ -11,14 +11,13 @@ import javafx.scene.layout.VBox;
 public class BetalingsPane extends GridPane {
 
     private Controller controller = Controller.getController();
-    private TextField txfTotal, txfRabat;
+    private TextField txfTotal, txfProcentRabat, txfFastRabat;
     private ListView<Regning> lvwRegninger;
     private Button btnBetal;
     //private RadioButton radBtnBetalingsform;
-    private Label lblTotal, lblFastRabat, lblPrRabet;
-    private VBox vboxBetalingform, vboxRabat, vboxLblRabat;
+    private Label lblTotal;
+    private VBox vboxBetalingform, vboxRabat;
     private ToggleGroup groupBetalingsform = new ToggleGroup();
-    private ComboBox<String> cbbRabat;
 
     public BetalingsPane(){
         this.setPadding(new Insets(20));
@@ -26,14 +25,13 @@ public class BetalingsPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        // Create elementer
+        // kald create på elementer
 
         createTextfields(this);
         createLabels(this);
         createButtons(this);
         createListViews(this);
         createVbox(this);
-        createComboBox(this);
     }
 
     // create elementer
@@ -66,8 +64,6 @@ public class BetalingsPane extends GridPane {
     }
 
     private void createVbox (BetalingsPane betalingsPane){
-
-        // Vbox til betalingsform radiobuttons
         vboxBetalingform = new VBox();
         this.add(vboxBetalingform, 2, 1);
         Betalingsform[] betalingsform = Betalingsform.values();
@@ -80,6 +76,10 @@ public class BetalingsPane extends GridPane {
             rb.setToggleGroup(groupBetalingsform);
         }
 
+        vboxRabat = new VBox();
+        this.add(vboxRabat, 3, 1);
+        vboxRabat.getChildren().add(txfFastRabat);
+        vboxRabat.getChildren().add(txfProcentRabat);
 
     }
 
