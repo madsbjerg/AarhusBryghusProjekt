@@ -72,7 +72,6 @@ public class SalgsPane extends GridPane {
         txfRegning = new TextField("Indtast navn til regning");
         vbox.getChildren().add(txfRegning);
         disableRegningAction();
-
     }
 
     private void createComboboxPrisgruppe(SalgsPane salgsPane) {
@@ -90,6 +89,7 @@ public class SalgsPane extends GridPane {
         } else {
             rbklippekort.setDisable(true);
         }
+        UpdateVagteVareAction();
     }
 
     private void createButtons(SalgsPane salgsPane) {
@@ -121,9 +121,7 @@ public class SalgsPane extends GridPane {
         }
         if(groupBetalingsform.getSelectedToggle() != null) {
             //laver klippekort(ene)
-            for(int i =0;i< varer.size();i++){
-
-            }
+            System.out.println(varer);
             Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
             double total = Double.parseDouble(txfTotalPris.getText());
 
@@ -217,9 +215,11 @@ public class SalgsPane extends GridPane {
                 errorMessageTilføj();
             } else {
                 //Hvis man vælger klippekort, og den ikke er tom
-                if(lvwValgteVare.getSelectionModel().getSelectedItem().getVaretype().equals(Varetype.KLIPPEKORT) || klippekortNavn.isEmpty()){
-                    createKlippekortAction();
-                }
+
+                   if (lvwValgteVare.getSelectionModel().getSelectedItem().getVaretype().equals(Varetype.KLIPPEKORT) || klippekortNavn =="") {
+                       createKlippekortAction();
+                   }
+
                 lvwKurv.getItems().add(ValgtVare);
 
                 //Hashmap af alle vores vare.
@@ -344,13 +344,11 @@ public class SalgsPane extends GridPane {
         this.add(cbbVareType, 1, 1);
         cbbVareType.getItems().addAll(Varetype.values());
         cbbVareType.setOnAction(event -> UpdateVagteVareAction());
-//        cbbVareType.setDisable(true);
-        //todo
-        //fjern kommentar når prisgrupper fungere.
     }
 
     private void UpdateVagteVareAction() {
         //Nulstiller listen
+
         lvwValgteVare.getItems().remove(0, lvwValgteVare.getItems().size());
 
 
