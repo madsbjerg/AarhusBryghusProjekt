@@ -15,26 +15,35 @@ public class Udlejning extends Salg{
     public Udlejning(HashMap<Vare, Integer> varer, double pantBeloeb, LocalDate startDato, LocalDate slutDato,
                      Betalingsform betalingsform, Rabat rabat){
         super(varer,betalingsform, rabat);
+        if(varer == null){
+            throw new IllegalArgumentException("Tilføj vare til udlejningen");
+        }
+        if(betalingsform == null){
+            throw new IllegalArgumentException("Tilføj betalingsform til udlejning");
+        }
+        if(startDato.isAfter(slutDato)){
+            throw new IllegalArgumentException("Start datoen skal være før slut datoen");
+        }
         this.pantBeloeb = pantBeloeb;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.betalt = false;
     }
-    public double totalPris(String pgnavn){
-        double sum =0;
-        for(Vare vare : varer.keySet()){
-            sum += vare.getPris(pgnavn)*varer.get(vare);
-        }
-        this.totalBeloeb = sum;
-        return sum - pantBeloeb;
+
+    public double getPantBeloeb(){
+        return this.pantBeloeb;
     }
 
-    public void udregnPant (){
-
-
-
+    public double getTotalBeloeb(){
+        return this.totalBeloeb;
     }
 
+    public boolean isBetalt(){
+        return this.betalt;
+    }
 
+    public void setBetalt(boolean betalt){
+        this.betalt = betalt;
+    }
 
 }

@@ -8,6 +8,9 @@ public class FastRabat implements Rabat, Serializable {
 
     public FastRabat(double beloeb) {
         this.beloeb = beloeb;
+        if(beloeb < 0){
+            throw new IllegalArgumentException("Rabat skal være over 0");
+        }
     }
 
     @Override
@@ -15,4 +18,3 @@ public class FastRabat implements Rabat, Serializable {
         return sum - beloeb;
     }
 }
-//

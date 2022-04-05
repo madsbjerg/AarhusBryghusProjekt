@@ -5,6 +5,7 @@ import Storage.Storage;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,30 +40,6 @@ class ControllerTest {
 
     }
 
-    @org.junit.jupiter.api.Test
-    void setActivePrisgruppe() {
-        // Jens
-        // Arrange
-        Controller testController = new Controller();
-
-        Prisgruppe pgtest1 = new Prisgruppe(100, "Test1");
-        Prisgruppe pgtest2 = new Prisgruppe(50, "Test2");
-        Prisgruppe pgtest3 = new Prisgruppe(0, "Test3");
-
-        // Act
-        testController.setActivePrisgruppe("Test1");
-        testController.setActivePrisgruppe("Test2");
-        testController.setActivePrisgruppe("Test3");
-
-        // String testString = testController.getAktivePrisgrupper;
-        // Føler jeg mangler en get i controlleren.
-
-        // Assert
-        assertEquals("Test1", "");
-
-
-
-    }
 
     @org.junit.jupiter.api.Test
     void resetPrisgrupper() {
@@ -72,35 +49,27 @@ class ControllerTest {
     @org.junit.jupiter.api.Test
     void totalPris() {
 
-        // TODO: Exception (valid operation/ IllegalState) i controller. Modificer TC3 til at give Exception.
-
         Controller testController = new Controller();
 
 
         Prisgruppe pgTest = new Prisgruppe(100, "Butik");
         Prisgruppe pgTest2 = new Prisgruppe(100.5, "Butik");
-        Prisgruppe pgTest3 = new Prisgruppe(-100, "Butik");
         Drikkevare testvare = new Drikkevare("testvare", 0, Varetype.FLASKE, 0);
         Drikkevare testvare2 = new Drikkevare("Testvare2", 0, Varetype.FLASKE, 0);
         Drikkevare testvare3 = new Drikkevare("Testvare3", 0, Varetype.FLASKE, 0);
         testvare.addPrisgruppe(pgTest);
         testvare2.addPrisgruppe(pgTest2);
-        testvare3.addPrisgruppe(pgTest3);
 
         HashMap<Vare, Integer> varer = new HashMap<>();
         varer.put(testvare, 2);
         HashMap<Vare, Integer> varer2 = new HashMap<>();
         varer2.put(testvare2, 0);
-        HashMap<Vare, Integer> varer3 = new HashMap<>();
-        varer3.put(testvare3, 2);
 
         double TC1 = testController.totalPris(pgTest.getNavn(), varer);
         double TC2 = testController.totalPris(pgTest2.getNavn(),varer2);
-        double TC3 = testController.totalPris(pgTest3.getNavn(), varer3);
-
+        
         assertEquals(200, TC1);
         assertEquals(0, TC2);
-        assertEquals(-200, TC3);
 
     }
 
@@ -125,6 +94,9 @@ class ControllerTest {
         assertEquals(99, drikkevare2.getAlkoholProcent());
 
     }
+    // Spørgsmål: Hvorfor har vi beloeb i constructoren, når vi alligevel beregner beløbet i totalPris metoden?
+    // Den her metode er et helvede at teste.. GØr det imorgen i skolen.
+
 
     @Test
     void createKlippekort() {
@@ -136,36 +108,122 @@ class ControllerTest {
         assertEquals(4, k.getAntalKlip());
     }
 
+
     @Test
-    void createProduktSalg() {
+    void createProduktSalgBetalingsForm() {
         Controller testController = new Controller();
 
         Prisgruppe pgTest = new Prisgruppe(100, "Butik");
-        Prisgruppe pgTest2 = new Prisgruppe(100.5, "Butik");
-        Prisgruppe pgTest3 = new Prisgruppe(-100, "Butik");
+
         Drikkevare testvare = new Drikkevare("testvare", 0, Varetype.FLASKE, 0);
-        Drikkevare testvare2 = new Drikkevare("Testvare2", 0, Varetype.FLASKE, 0);
-        Drikkevare testvare3 = new Drikkevare("Testvare3", 0, Varetype.FLASKE, 0);
         testvare.addPrisgruppe(pgTest);
-        testvare2.addPrisgruppe(pgTest2);
-        testvare3.addPrisgruppe(pgTest3);
 
         HashMap<Vare, Integer> varer = new HashMap<>();
         varer.put(testvare, 2);
-        HashMap<Vare, Integer> varer2 = new HashMap<>();
-        varer2.put(testvare2, 0);
-        HashMap<Vare, Integer> varer3 = new HashMap<>();
-        varer3.put(testvare3, 2);
 
+        double total = testController.totalPris("Butik", varer);
+
+        ProduktSalg produktSalgRegning =testController.createProduktSalg(varer,Betalingsform.REGNING,total,null);
+
+        //test uden betalingsform
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> testController.createProduktSalg(varer, null, total, null));
+        //normalt flow
+        assertSame(Betalingsform.REGNING,produktSalgRegning.getBetalingsform() );
 
     }
-    // Spørgsmål: Hvorfor har vi beloeb i constructoren, når vi alligevel beregner beløbet i totalPris metoden?
-    // Den her metode er et helvede at teste.. GØr det imorgen i skolen.
+
+    @Test
+    void createProduktSalgTestPåVarer(){
+        Controller testController = new Controller();
+
+        Prisgruppe pgTest = new Prisgruppe(100, "Butik");
+
+        Drikkevare testvare = new Drikkevare("testvare", 0, Varetype.FLASKE, 0);
+        testvare.addPrisgruppe(pgTest);
+
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        varer.put(testvare, 2);
+
+        //Test uden vare.
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> testController.createProduktSalg(null, Betalingsform.KREDITKORT, 0, null));
+        // salg med varer
+        ProduktSalg produktSalg = testController.createProduktSalg(varer, Betalingsform.KREDITKORT,  0,   null);
+        assertSame(varer, produktSalg.getVare());
+    }
+
+    @Test
+    void createProduktSalgBeloeb(){
+        Controller testController = new Controller();
+
+        Prisgruppe pgTest = new Prisgruppe(100, "Butik");
+
+        Drikkevare testvare = new Drikkevare("testvare", 0, Varetype.FLASKE, 0);
+        testvare.addPrisgruppe(pgTest);
+
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        varer.put(testvare, 2);
+
+        double total = testController.totalPris("Butik", varer);
+
+        //Test for beloeb <0
+         Exception exception =assertThrows(IllegalArgumentException.class, () -> testController.createProduktSalg(varer, Betalingsform.KREDITKORT,-100,null));
+       //normalt flow
+        ProduktSalg produktSalg = testController.createProduktSalg(varer, Betalingsform.KREDITKORT,total,null);
+        assertEquals(total, produktSalg.getBeloeb());
+    }
+
+    @Test
+    void createProduktSalgRabat(){
+        Controller testController = new Controller();
+
+        Prisgruppe pgTest = new Prisgruppe(100, "Butik");
+
+        Drikkevare testvare = new Drikkevare("testvare", 0, Varetype.FLASKE, 0);
+        testvare.addPrisgruppe(pgTest);
+
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        varer.put(testvare, 2);
+
+        double total = testController.totalPris("Butik", varer);
+
+        Rabat rabatFast = testController.createFastRabat(50);
+        Rabat rabatProcent = testController.createProcentRabat(5);
+
+        ProduktSalg produktSalgUden = testController.createProduktSalg(varer, Betalingsform.KREDITKORT  ,total,null);
+        ProduktSalg produktSalgFast = testController.createProduktSalg(varer, Betalingsform.KREDITKORT,total,rabatFast);
+        ProduktSalg produktSalgProcent = testController.createProduktSalg(varer,Betalingsform.KREDITKORT,total,rabatProcent);
+
+        //Uden rabat
+        assertSame(null, produktSalgUden.getRabat());
+        //Fast rabat
+        assertSame(rabatFast, produktSalgFast.getRabat());
+        //Procent rabat
+        assertSame(rabatProcent, produktSalgProcent.getRabat());
+    }
 
 
     @Test
-    void createFastRabat(){}
-        //Omar
+    void createFastRabat(){
+        Controller c = new Controller();
+
+        Rabat r = c.createFastRabat(50);
+        Rabat r1 = c.createFastRabat(20);
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () ->c.createFastRabat(-30));
+        assertEquals("Rabat skal være over 0", ex.getMessage());
+
+        assertEquals(150, r.beregnRabat(200));
+        assertEquals(180, r1.beregnRabat(200));
+
+
+
+
+    }
+
+
+
+
+
 
     @Test
     void createProcentRabat() {
@@ -182,13 +240,13 @@ class ControllerTest {
         Rabat rabat2 = testController.createProcentRabat(99);
         //nedre gyldig
         // 100 * 1% = 1
-        assertEquals(1, rabat.beregnRabat(100));
+        assertEquals(99, rabat.beregnRabat(100),0.01);
         //midt gyldig
         //100 * 50% = 50
-        assertEquals(50, rabat1);
+        assertEquals(50, rabat1.beregnRabat(100),0.01);
         //topgyldig.
         //100 * 99% = 99
-        assertEquals(99, rabat2);
+        assertEquals(1, rabat2.beregnRabat(100),0.01);
     }
 
     @Test
@@ -239,39 +297,56 @@ class ControllerTest {
         assertEquals("Startdato skal være før slutdato.", ex.getMessage());
         ex = assertThrows(IllegalArgumentException.class, () -> c.createUdlejning(varer, 100, LocalDate.of(1999, 1,2), LocalDate.of(1999, 1, 1),Betalingsform.KONTANT, null));
         assertEquals("Startdato skal være før slutdato.", ex.getMessage());
+        //
+    }
+
+    @Test
+    void createRundvisning() {
+        Controller c = new Controller();
+        Rundvisning rundvisning = new Rundvisning("Mads", Varetype.RUNDVISNING, 4, LocalDateTime.of(2022, 4, 4,12, 10 ));
+        Prisgruppe prisgruppe = new Prisgruppe(400, "Butik");
+
+        rundvisning.addPrisgruppe(prisgruppe);
+
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        varer.put(rundvisning, 1);
+
+        //act
+        Rundvisning r = c.createRundvisning("Mads", 4, LocalDateTime.of(2022, 4, 8, 12, 10));
+
+
+
+        // Assert exceptional arguments
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> c.createRundvisning("Mads", 1, LocalDateTime.of(2022, 4, 25, 12, 10)));
+        assertEquals("Tidspunkt er efter 14 dage af oprettelse af rundvisning.", ex.getMessage());
+
 
     }
 
     @Test
-    void getRundvisninger() {
-        // Omar
-    }
-
-    @Test
-    void resetPrisgrupper() {
+    void testResetPrisgrupper() {
         // Jens
-
-        // --- Arrange ----
+        // Arrange
         Controller testController = new Controller();
 
-        Prisgruppe pgTest1 = new Prisgruppe(100, "prisgruppeTest");
-        Prisgruppe pgTest2 = new Prisgruppe(150, "prisgruppeTest2");
-        Prisgruppe pgTest3 = new Prisgruppe(0, "prisgruppeTestNull");
+        Prisgruppe pgTest = new Prisgruppe(100, "pgTest1");
+        Drikkevare dtest = testController.createFlaske("TestFlaske1", 0);
+        dtest.addPrisgruppe(pgTest);
+        testController.setActivePrisgruppe("pgTest1");
 
-        Drikkevare test1test = testController.createFlaske("Test1", 0);
-        Drikkevare test2test = testController.createFlaske("Test2", 0);
-        Drikkevare test3test = testController.createFlaske("Test3", 0);
+        Prisgruppe pgTest2 = new Prisgruppe(50, "pgTest2");
+        Drikkevare dtest2 = testController.createFlaske("Testflaske2", 0);
+        dtest2.addPrisgruppe(pgTest2);
+        testController.setActivePrisgruppe("pgTest2");
 
-        test1test.addPrisgruppe(pgTest1);
-        test2test.addPrisgruppe(pgTest2);
-        test3test.addPrisgruppe(pgTest3);
+        // Act
+        testController.resetPrisgrupper();
 
-        // --- Act ----
+        // Assert
+        assertEquals("Ingen prisgruppe valgt", dtest.getAktivPrisgruppe());
+        assertEquals("Ingen prisgruppe valgt", dtest2.getAktivPrisgruppe());
 
-
-
-        // --- Assert ----
-
-       assertEquals(0, TC1);
     }
+//todo
+    // test af brug klippekort.
 }

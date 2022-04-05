@@ -9,10 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 public class SalgsPane extends GridPane {
 
@@ -27,6 +24,7 @@ public class SalgsPane extends GridPane {
     private ListView<Vare> lvwKurv, lvwValgteVare;
     private Button btnTilføj,btnRemove,  btnLavSalg;
     private VBox vbox;
+    private RadioButton rbklippekort;
 
     public SalgsPane(){
         this.setPadding(new Insets(20));
@@ -70,13 +68,6 @@ public class SalgsPane extends GridPane {
         txfTotalPris.setEditable(false);
         this.add(txfTotalPris, 4, 1);
 
-        //Todo
-        /*
-        Vi skal have lavet nedenstående metode:
-          //txfTotalPris.setText();
-          setText() - Skal være prisen på varene i kurven kombineret.
-         */
-
         txfRegning = new TextField("Indtast navn til regning");
         vbox.getChildren().add(txfRegning);
         disableRegningAction();
@@ -92,6 +83,12 @@ public class SalgsPane extends GridPane {
 
     private void enableVareTypeAction() {
         cbbVareType.setDisable(false);
+
+        if(cbbprisgrupper.getSelectionModel().getSelectedItem().toLowerCase(Locale.ROOT).contains("Klip".toLowerCase(Locale.ROOT))){
+            rbklippekort.setDisable(false);
+        } else {
+            rbklippekort.setDisable(true);
+        }
     }
 
     private void createButtons(SalgsPane salgsPane) {
@@ -236,11 +233,12 @@ public class SalgsPane extends GridPane {
             rb.setText((betalingsForm[i].toString()));
             rb.setUserData(betalingsForm[i]);
             rb.setToggleGroup(groupBetalingsform);
-            //todo
-            //UserData skal på en eller anden måde kobles til ordren.
-            if(rb.getUserData().equals(Betalingsform.KLIPPEKORT)){
-                rb.setOnAction(event -> enableKlippekortDisableRegningAction());
-            } else if (rb.getUserData().equals(Betalingsform.REGNING)) {
+
+            if(betalingsForm[i].equals(Betalingsform.KLIPPEKORT)){
+                rbklippekort = rb;
+                rbklippekort.setOnAction(event -> enableKlippekortDisableRegningAction());
+                rbklippekort.setDisable(true);
+            } else if (betalingsForm[i].equals(Betalingsform.REGNING)) {
                 rb.setOnAction(event -> enableRegningDisableKlippekortAction());            }
             else {
                 rb.setOnAction(event -> disableRegningAndKlippekortAction());

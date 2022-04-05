@@ -38,6 +38,7 @@ public class Controller {
     }
 
     public  Rundvisning createRundvisning(String navn, int antalPersoner, LocalDateTime tidspunkt){
+        if(LocalDateTime.now().plusDays(13).isBefore(tidspunkt)) throw new IllegalArgumentException("Tidspunkt er efter 14 dage af oprettelse af rundvisning.");
         Rundvisning r = new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
         Storage.getStorage().addVare(r);
         return r;
@@ -91,13 +92,13 @@ public class Controller {
         return p1;
     }
 
-    public  Rabat createFastRabat(double pris){
-        Rabat r = new FastRabat(pris);
+    public  Rabat createFastRabat(double rabatBeloeb){
+        Rabat r = new FastRabat(rabatBeloeb);
         return r;
     }
 
-    public  Rabat createProcentRabat(double pris){
-        Rabat r = new ProcentRabat(pris);
+    public  Rabat createProcentRabat(double procentSats){
+        Rabat r = new ProcentRabat(procentSats);
         return r;
     }
 
@@ -116,7 +117,6 @@ public class Controller {
             Udlejning udlejning = new Udlejning(varer, pant, startDato, slutDato, betalingsform, rabat);
             Storage.getStorage().addSalg(udlejning);
             return udlejning;
-
         }
     }
 
@@ -208,7 +208,36 @@ public class Controller {
         return sum;
     }
 
-    public  void saveStorageToFile(){
+    public double totalUdlejning(HashMap<Vare, Integer> varer, HashMap<Vare, Integer> returnerede){
+        double sumVarer = 0;
+        double sumPant = 0;
+        double totalUdlejning = 0;
+
+        for(Vare vare : varer.keySet()){
+            sumVarer += vare.getPrisgrupper().get(0).getPris() * varer.get(vare);
+        }
+        for(Vare vare : returnerede.keySet()){
+            sumPant += vare.getPant() * returnerede.get(vare);
+        }
+        totalUdlejning = sumVarer - sumPant;
+        return totalUdlejning;
+    }
+
+    public double beregnPant(HashMap<Vare, Integer> varer){
+
+        double totalPant = 0;
+
+        for(Vare vare : varer.keySet()){
+            totalPant += vare.getPant() * varer.get(vare);
+        }
+        return totalPant;
+    }
+
+    public void setBetaltUdlejning(Udlejning udlejning){
+        udlejning.setBetalt(true);
+    }
+
+    public void saveStorageToFile(){
         try{
             FileOutputStream fs_out = new FileOutputStream("bryghus.ser");
             ObjectOutputStream os_out = new ObjectOutputStream(fs_out);
@@ -249,6 +278,8 @@ public class Controller {
             System.out.println(ex.getMessage() + " " + ex.getStackTrace());
         }
     }
+
+
 
     public void initStorage(){
         Sampakning s1 = new Sampakning("2 øl & 2 glas i gaveæske", 0, "Gaveæske", 2, 2, 20);
