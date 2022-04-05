@@ -25,9 +25,9 @@ public class BetalingsPane extends GridPane {
         // kald create på elementer
 
         createTextfields(this);
-        createRaioButtons(this);
-
-
+        createRadioButtons(this);
+        createLabels(this);
+        createButtons(this);
     }
 
     // create elementer
@@ -37,7 +37,6 @@ public class BetalingsPane extends GridPane {
         txfBetalerNavn.setEditable(true);
 
         txfTotal = new TextField("");
-
     }
 
     private void createLabels(BetalingsPane betalingsPane){
@@ -45,13 +44,12 @@ public class BetalingsPane extends GridPane {
 
     }
 
-
     private void createRadioButtons(BetalingsPane betalingsPane){
         radBtnBetalingsform = new RadioButton();
     }
 
-    private void createButtons(){
-
+    private void createButtons(BetalingsPane betalingsPane){
+        btnBetal = new Button();
     }
 
 
