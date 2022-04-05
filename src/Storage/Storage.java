@@ -31,4 +31,10 @@ public class Storage implements Serializable {
     public void addVare(Vare v){
         if(!this.varer.contains(v)) this.varer.add(v);
     }
+
+
+    public static Storage getTestStorage(){
+        return new Storage();
+    }
+
 }

@@ -2,17 +2,16 @@ package Gui;
 
 import Application.Controller.Controller;
 import Application.Models.*;
-import com.sun.source.tree.CatchTree;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 public class SalgsPane extends GridPane {
 
@@ -21,12 +20,13 @@ public class SalgsPane extends GridPane {
     private ToggleGroup groupRabat = new ToggleGroup();
     private TextField txfprocentRabat, txfFastRabat,txfTotalPris,txfRegning;
     private ComboBox<Varetype> cbbVareType;
-
+    private String klippekortNavn;
     private ComboBox<Vare> cbbKlippekort;
     private ComboBox<String> cbbprisgrupper;
     private ListView<Vare> lvwKurv, lvwValgteVare;
     private Button btnTilføj,btnRemove,  btnLavSalg;
     private VBox vbox;
+    private RadioButton rbklippekort;
 
     public SalgsPane(){
         this.setPadding(new Insets(20));
@@ -39,7 +39,7 @@ public class SalgsPane extends GridPane {
         createComboboxVareType(this);
 
         createListviewValgteVare(this);
-        
+
         createComboboxKlippekort(this);
 
         createRadioButtons(this);
@@ -51,6 +51,7 @@ public class SalgsPane extends GridPane {
         createComboboxPrisgruppe(this);
 
         createTextfields(this);
+
     }
 
     private void createTextfields(SalgsPane salgsPane) {
@@ -68,17 +69,9 @@ public class SalgsPane extends GridPane {
         txfTotalPris.setEditable(false);
         this.add(txfTotalPris, 4, 1);
 
-        //Todo
-        /*
-        Vi skal have lavet nedenstående metode:
-          //txfTotalPris.setText();
-          setText() - Skal være prisen på varene i kurven kombineret.
-         */
-
         txfRegning = new TextField("Indtast navn til regning");
         vbox.getChildren().add(txfRegning);
         disableRegningAction();
-
     }
 
     private void createComboboxPrisgruppe(SalgsPane salgsPane) {
@@ -90,6 +83,13 @@ public class SalgsPane extends GridPane {
 
     private void enableVareTypeAction() {
         cbbVareType.setDisable(false);
+
+        if(cbbprisgrupper.getSelectionModel().getSelectedItem().toLowerCase(Locale.ROOT).contains("Klip".toLowerCase(Locale.ROOT))){
+            rbklippekort.setDisable(false);
+        } else {
+            rbklippekort.setDisable(true);
+        }
+        UpdateVagteVareAction();
     }
 
     private void createButtons(SalgsPane salgsPane) {
@@ -111,7 +111,89 @@ public class SalgsPane extends GridPane {
     }
 
     private void lavSalgAction() {
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        for(int i =0;i<lvwKurv.getItems().size();i++){
+            if(varer.containsKey(lvwKurv.getItems().get(i))){
+                varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i))+1);
+            } else {
+                varer.put(lvwKurv.getItems().get(i), 1);
+            }
+        }
+        if(groupBetalingsform.getSelectedToggle() != null) {
+            //laver klippekort(ene)
+            System.out.println(varer);
+            Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
+            double total = Double.parseDouble(txfTotalPris.getText());
 
+              if(groupRabat.getSelectedToggle() != null){
+                  //laver rabat objekt.
+                  if(groupRabat.getSelectedToggle().getUserData().toString().contains("FastRabat")){
+                   Rabat rabat = controller.createFastRabat(Double.parseDouble(txfFastRabat.getText()));
+                   if(Objects.equals(bform.toString(), "REGNING")){
+                       controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
+                   } else {
+                       controller.createProduktSalg(varer, bform, total, rabat);
+                   }
+                    salgOprettetMedRabatMessage(rabat);
+                } else if (groupRabat.getSelectedToggle().getUserData().toString().contains("ProcentRabat")){
+                    Rabat rabat = controller.createProcentRabat(Double.parseDouble(txfprocentRabat.getText()));
+                    if(Objects.equals(bform.toString(), "REGNING")){
+                        controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
+                    } else {
+                        controller.createProduktSalg(varer, bform, total, rabat);
+                    }
+                    salgOprettetMedRabatMessage(rabat);
+                }
+                controller.saveStorageToFile();
+            } else {
+                  if(Objects.equals(bform.toString(), "REGNING")){
+                      controller.createRegning(varer, bform, null, total, txfRegning.getText());
+                  }
+                  else {
+                      controller.createProduktSalg(varer, bform, total, null);
+                  }
+                controller.saveStorageToFile();
+                salgOprettetMessage();
+            }
+        } else {
+            errormessageBetalingform();
+        }
+    }
+
+    private void salgOprettetMedRabatMessage(Rabat rabat) {
+        String message = "Salget er oprettet, total prisen blev: " +  rabat.beregnRabat(Double.parseDouble(txfTotalPris.getText()));
+        JOptionPane.showMessageDialog(new JFrame(), message,"Oprettet",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void salgOprettetMessage() {
+        String message = "Salget er oprettet, total prisen blev: " + txfTotalPris.getText();
+        JOptionPane.showMessageDialog(new JFrame(), message,"Oprettet",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void createKlippekortAction(){
+        Stage stage = new Stage();
+        stage.setTitle("Lav klippekort");
+
+        TilePane r = new TilePane();
+        TextField txfKlippekortNavn= new TextField();
+        r.getChildren().add(txfKlippekortNavn);
+
+        Button btnCreate = new Button("Lav klippekortet med dette navn");
+        btnCreate.setOnAction(event -> stage.close());
+
+        r.getChildren().add(btnCreate);
+
+        Scene sc = new Scene(r,200,50);
+        stage.setScene(sc);
+        stage.showAndWait();
+
+        klippekortNavn = txfKlippekortNavn.getText();
+        stage.close();
+    }
+
+    private void errormessageBetalingform() {
+        String message = "Husk at vælge betalingsmetode.";
+        JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
     }
 
     private void removeKurvAction() {
@@ -128,25 +210,30 @@ public class SalgsPane extends GridPane {
     }
 
     private void updateKurvAction() {
-
             Vare ValgtVare = lvwValgteVare.getSelectionModel().getSelectedItem();
-            if(ValgtVare ==null) {
+            if (ValgtVare == null) {
                 errorMessageTilføj();
-            }
-            lvwKurv.getItems().add(ValgtVare);
-
-            //Hashmap af alle vores vare.
-        HashMap<Vare, Integer> varer = new HashMap<>();
-        for(int i =0;i<lvwKurv.getItems().size();i++){
-            if(varer.containsKey(lvwKurv.getItems().get(i))){
-                varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i))+1);
             } else {
-                varer.put(lvwKurv.getItems().get(i), 1);
-            }
-        }
-//            opdatere totalPris.
-            txfTotalPris.setText(String.valueOf(controller.totalPris(cbbprisgrupper.getSelectionModel().getSelectedItem(),varer)));
+                //Hvis man vælger klippekort, og den ikke er tom
 
+                   if (lvwValgteVare.getSelectionModel().getSelectedItem().getVaretype().equals(Varetype.KLIPPEKORT) || klippekortNavn =="") {
+                       createKlippekortAction();
+                   }
+
+                lvwKurv.getItems().add(ValgtVare);
+
+                //Hashmap af alle vores vare.
+                HashMap<Vare, Integer> varer = new HashMap<>();
+                for (int i = 0; i < lvwKurv.getItems().size(); i++) {
+                    if (varer.containsKey(lvwKurv.getItems().get(i))) {
+                        varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i)) + 1);
+                    } else {
+                        varer.put(lvwKurv.getItems().get(i), 1);
+                    }
+                }
+//            opdatere totalPris.
+                txfTotalPris.setText(String.valueOf(controller.totalPris(cbbprisgrupper.getSelectionModel().getSelectedItem(), varer)));
+            }
     }
 
     private void errorMessageTilføj() {
@@ -176,11 +263,12 @@ public class SalgsPane extends GridPane {
             rb.setText((betalingsForm[i].toString()));
             rb.setUserData(betalingsForm[i]);
             rb.setToggleGroup(groupBetalingsform);
-            //todo
-            //UserData skal på en eller anden måde kobles til ordren.
-            if(rb.getUserData().equals(Betalingsform.KLIPPEKORT)){
-                rb.setOnAction(event -> enableKlippekortDisableRegningAction());
-            } else if (rb.getUserData().equals(Betalingsform.REGNING)) {
+
+            if(betalingsForm[i].equals(Betalingsform.KLIPPEKORT)){
+                rbklippekort = rb;
+                rbklippekort.setOnAction(event -> enableKlippekortDisableRegningAction());
+                rbklippekort.setDisable(true);
+            } else if (betalingsForm[i].equals(Betalingsform.REGNING)) {
                 rb.setOnAction(event -> enableRegningDisableKlippekortAction());            }
             else {
                 rb.setOnAction(event -> disableRegningAndKlippekortAction());
@@ -189,12 +277,14 @@ public class SalgsPane extends GridPane {
         VBox box1 = new VBox();
         this.add(box1, 3, 4);
         RadioButton rbProcent = new RadioButton("Procent Rabat");
+        rbProcent.setUserData("ProcentRabat");
         box1.getChildren().add(rbProcent);
         rbProcent.setToggleGroup(groupRabat);
         rbProcent.setOnAction(event -> updateRbProcentAction());
 
         RadioButton rbFast = new RadioButton("Fast Rabat");
         box1.getChildren().add(rbFast);
+        rbFast.setUserData("FastRabat");
         rbFast.setToggleGroup(groupRabat);
         rbFast.setOnAction(event -> updateRbFastAction());
 
@@ -228,6 +318,7 @@ public class SalgsPane extends GridPane {
         txfFastRabat.clear();
         txfprocentRabat.setEditable(false);
         txfprocentRabat.setText("Indtast procentvis rabat:");
+        txfFastRabat.setText("0");
     }
 
     private void updateRbProcentAction() {
@@ -235,6 +326,7 @@ public class SalgsPane extends GridPane {
         txfprocentRabat.clear();
         txfFastRabat.setEditable(false);
         txfFastRabat.setText("Indtast fast rabat:");
+        txfprocentRabat.setText("0");
     }
 
     private void createComboboxKlippekort(SalgsPane salgsPane) {
@@ -252,13 +344,11 @@ public class SalgsPane extends GridPane {
         this.add(cbbVareType, 1, 1);
         cbbVareType.getItems().addAll(Varetype.values());
         cbbVareType.setOnAction(event -> UpdateVagteVareAction());
-//        cbbVareType.setDisable(true);
-        //todo
-        //fjern kommentar når prisgrupper fungere.
     }
 
     private void UpdateVagteVareAction() {
         //Nulstiller listen
+
         lvwValgteVare.getItems().remove(0, lvwValgteVare.getItems().size());
 
 

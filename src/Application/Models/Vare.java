@@ -1,10 +1,11 @@
 package Application.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Vare {
+public abstract class Vare implements Serializable {
     private String navn;
     private int pant;
     private Varetype varetype;
@@ -31,13 +32,17 @@ public abstract class Vare {
     }
 
     public double getPris(String pgNavn){
-        Prisgruppe retPg = null;
-        for(Prisgruppe pg : prisgrupper){
-            if(pg.getNavn().equalsIgnoreCase(pgNavn)){
-                retPg = pg;
+        try{
+            Prisgruppe retPg = null;
+            for(Prisgruppe pg : prisgrupper){
+                if(pg.getNavn().equalsIgnoreCase(pgNavn)){
+                    retPg = pg;
+                }
             }
+            return retPg.getPris();
+        }catch(NullPointerException ex){
+            return 0.0;
         }
-        return retPg.getPris();
     }
 
     public void removePrisgruppe(Prisgruppe prisgruppe){
