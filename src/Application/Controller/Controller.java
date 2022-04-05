@@ -169,6 +169,18 @@ public class Controller {
     }
 
 
+    public ArrayList<Salg> getRegninger (){
+        // Slår mig at det måske også kan laves på tjekke valgt betalingsform i salget.
+
+        ArrayList<Salg> regninger = new ArrayList<>();
+        for(Salg s : Storage.getStorage().getSalg()){
+            if(s instanceof Regning){
+                regninger.add(s);
+            }
+        }
+        return regninger;
+    }
+
 
     public ArrayList<Prisgruppe> getPrisgrupper(){
         ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
@@ -602,6 +614,15 @@ public class Controller {
         klippekort.addPrisgruppe(prisgruppeFredagsbar);
 
         controller.saveStorageToFile();
+
+        // ---- Opret regninger --------------------------------
+
+        Drikkevare regningObj1 = controller.createFlaske("Satan", 0);
+        Drikkevare regningsObj2 = controller.createFlaske("I helvede", 0);
+
+        //Salg regning = controller.createRegning(regningObj1, Betalingsform.REGNING, 0.00, 1500.00, "Er du kristen?");
+
+
     }
 
 }

@@ -7,8 +7,13 @@ import Application.Models.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 
 public class BetalingsPane extends GridPane {
+
+    // det slår mig at det måske kunne være meget sejt, at kunne se hvilke varer der er på regning.
 
     private Controller controller = Controller.getController();
     private TextField txfTotal, txfRabat;
@@ -34,6 +39,8 @@ public class BetalingsPane extends GridPane {
         createListViews(this);
         createVbox(this);
         createComboBox(this);
+
+        updateRegninger();
     }
 
     // create elementer
@@ -63,8 +70,6 @@ public class BetalingsPane extends GridPane {
     private void createListViews(BetalingsPane betalingsPane){
         lvwRegninger = new ListView<>();
         this.add(lvwRegninger, 0, 1);
-
-
     }
 
     private void createVbox (BetalingsPane betalingsPane){
@@ -88,8 +93,15 @@ public class BetalingsPane extends GridPane {
         cbbRabat.getItems().add(1, "Procent rabat");
     }
 
+    public void updateRegninger(){
+        // Skal nok bruge en if statement til at determine om det er en ubetalt regning.
+        // Ved ikke om vi skal have en boolean på den.
 
-
+        ArrayList<Salg> regninger = controller.getRegninger();
+        for(Salg s : regninger){
+            lvwRegninger.getItems().add((Regning)s);
+        }
+    }
 
 
 
