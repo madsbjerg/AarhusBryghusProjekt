@@ -170,7 +170,6 @@ public class Controller {
 
 
     public ArrayList<Salg> getRegninger (){
-        // Slår mig at det måske også kan laves på tjekke valgt betalingsform i salget.
 
         ArrayList<Salg> regninger = new ArrayList<>();
         for(Salg s : Storage.getStorage().getSalg()){
@@ -600,6 +599,19 @@ public class Controller {
         u.addPrisgruppe(pgKulsyreButik400);
 
 
+        // ---- Opret regninger --------------------------------
+
+        HashMap<Vare, Integer> regninger = new HashMap<>();
+        Rabat rb1 = new FastRabat(0);
+        Drikkevare regningObj1 = controller.createFlaske("Bov", 0);
+        Drikkevare regningsObj2 = controller.createFlaske("Hov", 0);
+        regninger.put(regningObj1, 0);
+        regninger.put(regningsObj2, 1);
+
+        Regning regning = controller.createRegning(regninger, Betalingsform.REGNING, rb1, 1500.00, "Thomas the train engine");
+
+
+
         //---- Opret klippekort --------------------------------
         controller.createKlippekort("hans");
         controller.createKlippekort("gert");
@@ -614,14 +626,6 @@ public class Controller {
         klippekort.addPrisgruppe(prisgruppeFredagsbar);
 
         controller.saveStorageToFile();
-
-        // ---- Opret regninger --------------------------------
-
-        Drikkevare regningObj1 = controller.createFlaske("Satan", 0);
-        Drikkevare regningsObj2 = controller.createFlaske("I helvede", 0);
-
-        //Salg regning = controller.createRegning(regningObj1, Betalingsform.REGNING, 0.00, 1500.00, "Er du kristen?");
-
 
     }
 
