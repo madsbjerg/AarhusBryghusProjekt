@@ -4,6 +4,7 @@ import Application.Controller.Controller;
 import Application.Models.Salg;
 import Application.Models.Udlejning;
 import Application.Models.Udlejningsvare;
+import Application.Models.Vare;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -51,6 +52,10 @@ public class ReturnerUdlejningPane extends GridPane {
         }
 
         pane.add(lblUdlejninger, 0,0);
-        pane.add(lvwUdlejninger, )
+        pane.add(lvwUdlejninger, 0,1);
+        pane.add(lblUdlejedeVarer, 0,2);
+        pane.add(lvwUdlejedeVarer, 0,3);
     }
+
+
 }
