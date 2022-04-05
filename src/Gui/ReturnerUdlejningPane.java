@@ -91,7 +91,11 @@ public class ReturnerUdlejningPane extends GridPane {
 
         btnTilføjVare.setOnAction(event -> addVareAction());
 
+        btnFærdiggør.setOnAction(event -> færdiggørUdlejningAction());
+    }
 
+    private void færdiggørUdlejningAction() {
+        
     }
 
     private void addVareAction() {
