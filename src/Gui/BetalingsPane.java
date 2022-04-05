@@ -16,7 +16,7 @@ public class BetalingsPane extends GridPane {
     private RadioButton radBtnBetalingsform;
     private Label lblTotal;
 
-    public BetalingsPane{
+    public BetalingsPane(){
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
@@ -25,7 +25,7 @@ public class BetalingsPane extends GridPane {
         // kald create på elementer
 
         createTextfields(this);
-        createRaioButtons(this);
+        createRadioButtons(this);
 
 
     }
