@@ -131,6 +131,11 @@ public class Controller {
         return rl;
     }
 
+    public int brugKlippekort(Klippekort klippekort, int klipPris){
+        klippekort.brugKlip(klipPris);
+        return klippekort.getAntalKlip();
+    }
+
     public ArrayList<Salg> getUdlejninger(){
         Storage s = Storage.getStorage();
         ArrayList<Salg> rl = new ArrayList<>();
