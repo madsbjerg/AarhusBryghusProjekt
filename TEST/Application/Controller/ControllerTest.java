@@ -395,13 +395,7 @@ class ControllerTest {
 
         //asserts
         assertEquals(575, c.totalUdlejning(vareHashMap, vareIntegerHashMap));
-
-
-
-
-
-
-
+        
     }
 
     @Test

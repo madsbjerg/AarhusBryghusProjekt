@@ -3,9 +3,12 @@ package Gui;
 import Application.Controller.Controller;
 import Application.Models.*;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.util.*;
@@ -17,7 +20,7 @@ public class SalgsPane extends GridPane {
     private ToggleGroup groupRabat = new ToggleGroup();
     private TextField txfprocentRabat, txfFastRabat,txfTotalPris,txfRegning;
     private ComboBox<Varetype> cbbVareType;
-
+    private String klippekortNavn;
     private ComboBox<Vare> cbbKlippekort;
     private ComboBox<String> cbbprisgrupper;
     private ListView<Vare> lvwKurv, lvwValgteVare;
@@ -36,7 +39,7 @@ public class SalgsPane extends GridPane {
         createComboboxVareType(this);
 
         createListviewValgteVare(this);
-        
+
         createComboboxKlippekort(this);
 
         createRadioButtons(this);
@@ -48,6 +51,7 @@ public class SalgsPane extends GridPane {
         createComboboxPrisgruppe(this);
 
         createTextfields(this);
+
     }
 
     private void createTextfields(SalgsPane salgsPane) {
@@ -60,8 +64,6 @@ public class SalgsPane extends GridPane {
         this.add(vBox, 4, 4);
         vBox.getChildren().add(txfprocentRabat);
         vBox.getChildren().add(txfFastRabat);
-
-
 
         txfTotalPris = new TextField("0");
         txfTotalPris.setEditable(false);
@@ -118,6 +120,10 @@ public class SalgsPane extends GridPane {
             }
         }
         if(groupBetalingsform.getSelectedToggle() != null) {
+            //laver klippekort(ene)
+            for(int i =0;i< varer.size();i++){
+
+            }
             Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
             double total = Double.parseDouble(txfTotalPris.getText());
 
@@ -166,6 +172,27 @@ public class SalgsPane extends GridPane {
         JOptionPane.showMessageDialog(new JFrame(), message,"Oprettet",JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void createKlippekortAction(){
+        Stage stage = new Stage();
+        stage.setTitle("Lav klippekort");
+
+        TilePane r = new TilePane();
+        TextField txfKlippekortNavn= new TextField();
+        r.getChildren().add(txfKlippekortNavn);
+
+        Button btnCreate = new Button("Lav klippekortet med dette navn");
+        btnCreate.setOnAction(event -> stage.close());
+
+        r.getChildren().add(btnCreate);
+
+        Scene sc = new Scene(r,200,50);
+        stage.setScene(sc);
+        stage.showAndWait();
+
+        klippekortNavn = txfKlippekortNavn.getText();
+        stage.close();
+    }
+
     private void errormessageBetalingform() {
         String message = "Husk at vælge betalingsmetode.";
         JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
@@ -184,25 +211,29 @@ public class SalgsPane extends GridPane {
         JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
     }
 
-    private void updateKurvAction() { 
-
+    private void updateKurvAction() {
             Vare ValgtVare = lvwValgteVare.getSelectionModel().getSelectedItem();
-            if(ValgtVare ==null) {
+            if (ValgtVare == null) {
                 errorMessageTilføj();
-            }
-            lvwKurv.getItems().add(ValgtVare);
-
-            //Hashmap af alle vores vare.
-        HashMap<Vare, Integer> varer = new HashMap<>();
-        for(int i =0;i<lvwKurv.getItems().size();i++){
-            if(varer.containsKey(lvwKurv.getItems().get(i))){
-                varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i))+1);
             } else {
-                varer.put(lvwKurv.getItems().get(i), 1);
-            }
-        }
+                //Hvis man vælger klippekort, og den ikke er tom
+                if(lvwValgteVare.getSelectionModel().getSelectedItem().getVaretype().equals(Varetype.KLIPPEKORT) || klippekortNavn.isEmpty()){
+                    createKlippekortAction();
+                }
+                lvwKurv.getItems().add(ValgtVare);
+
+                //Hashmap af alle vores vare.
+                HashMap<Vare, Integer> varer = new HashMap<>();
+                for (int i = 0; i < lvwKurv.getItems().size(); i++) {
+                    if (varer.containsKey(lvwKurv.getItems().get(i))) {
+                        varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i)) + 1);
+                    } else {
+                        varer.put(lvwKurv.getItems().get(i), 1);
+                    }
+                }
 //            opdatere totalPris.
-            txfTotalPris.setText(String.valueOf(controller.totalPris(cbbprisgrupper.getSelectionModel().getSelectedItem(),varer)));
+                txfTotalPris.setText(String.valueOf(controller.totalPris(cbbprisgrupper.getSelectionModel().getSelectedItem(), varer)));
+            }
     }
 
     private void errorMessageTilføj() {
