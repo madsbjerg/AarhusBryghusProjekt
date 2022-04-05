@@ -361,6 +361,13 @@ class ControllerTest {
         Udlejningsvare u = c.createFustage("celebration");
         Udlejningsvare u1 = c.createKulsyre("6 kg");
 
+        //asserts
+        assertEquals(3000, c.beregnPant(varer));
+
+
+
+
+
 
 
 
