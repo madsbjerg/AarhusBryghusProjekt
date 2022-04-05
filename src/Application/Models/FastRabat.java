@@ -12,5 +12,5 @@ public class FastRabat implements Rabat {
     public double beregnRabat(double sum) {
         return sum - beloeb;
     }
-}
+}      
 //
