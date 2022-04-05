@@ -3,11 +3,16 @@ package Gui;
 import Application.Controller.Controller;
 import Application.Models.*;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -18,13 +23,12 @@ public class UdlejningsPane  extends GridPane {
     private Controller controller = Controller.getController();
     private ToggleGroup groupBetalingsform = new ToggleGroup();
     private ToggleGroup groupRabat = new ToggleGroup();
-    private TextField txfprocentRabat, txfFastRabat,txfTotalPris,txfRegning, txfStartDato, txfSlutDato;
+    private TextField txfprocentRabat, txfFastRabat,txfTotalPris,txfRegning, txfStartDato, txfSlutDato, txfPant;
     private ComboBox<Varetype> cbbVareType;
 
     private ComboBox<String> cbbprisgrupper;
     private ListView<Vare> lvwKurv, lvwValgteVare;
-    private Button btnTilføj,btnRemove,  btnLavSalg;
-    private VBox vbox;
+    private Button btnTilføj,btnRemove,  btnLavSalg, btnStartDato, btnSlutDato;
 
     public UdlejningsPane(){
         this.setPadding(new Insets(20));
@@ -47,6 +51,61 @@ public class UdlejningsPane  extends GridPane {
         createComboboxPrisgruppe(this);
 
         createTextfields(this);
+
+
+    }
+
+    private void DatepickerAction(int metode) {
+        Stage stage = new Stage();
+        stage.setTitle("Vælg en dato");
+
+        TilePane r = new TilePane();
+
+        DatePicker da = new DatePicker();
+        if(metode == 2) {
+            //Hvis der ikke er valgt dato i txfStartDato
+            LocalDate minDate = LocalDate.now();
+            LocalDate maxDate = LocalDate.now().plusWeeks(4);
+            //Hvis der er valgt dato i txfStartDato
+            try {
+                minDate = LocalDate.parse(txfStartDato.getText());
+                maxDate = LocalDate.parse(txfStartDato.getText()).plusDays(14);
+            }
+            catch (NullPointerException | DateTimeParseException e ){
+                System.out.println(e.getMessage());
+                System.out.println("Start dato ikke valgt");
+            }
+            LocalDate finalMaxDate = maxDate;
+            LocalDate finalMinDate = minDate;
+            da.setDayCellFactory(d ->
+                    new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                            setDisable(item.isAfter(finalMaxDate) || item.isBefore(finalMinDate));
+                        }
+                    });
+        }
+        r.getChildren().add(da);
+
+        Scene sc = new Scene(r, 200, 200);
+        Button btnOk = new Button("ok");
+        r.getChildren().add(btnOk);
+        btnOk.setOnAction(event -> stage.close());
+
+        stage.setScene(sc);
+
+        stage.showAndWait();
+
+        if(metode ==1) {
+            txfStartDato.setText(String.valueOf(da.getValue()));
+            stage.close();
+            btnStartDato.setDisable(true);
+        } else {
+            txfSlutDato.setText(String.valueOf(da.getValue()));
+            stage.close();
+            btnSlutDato.setDisable(true);
+        }
     }
 
     private void createTextfields(UdlejningsPane udlejningsPane) {
@@ -60,34 +119,39 @@ public class UdlejningsPane  extends GridPane {
         vBox.getChildren().add(txfprocentRabat);
         vBox.getChildren().add(txfFastRabat);
 
-
-
         txfTotalPris = new TextField("0");
         txfTotalPris.setEditable(false);
         this.add(txfTotalPris, 4, 1);
 
-        vbox = new VBox();
-        this.add(vbox,2,4);
-        txfRegning = new TextField("Indtast navn til regning");
-        vbox.getChildren().add(txfRegning);
-        disableRegningAction();
+        txfPant = new TextField("0");
+        txfPant.setEditable(false);
+        this.add(txfPant, 5, 1);
 
         txfStartDato = new TextField();
-        txfStartDato.setText("Vælg Start dato");
+        txfStartDato.setText("00-00-00");
         txfSlutDato = new TextField();
-        txfSlutDato.setText("Vælg slut dato");
-        VBox vbox1 = new VBox();
-        this.add(vbox1, 5, 4);
-        vbox1.getChildren().add(txfStartDato);
-        vbox1.getChildren().add(txfSlutDato);
-        //Todo
-        //datepicker her.
+        txfSlutDato.setText("00-00-00");
+        VBox vboxDato = new VBox();
+        this.add(vboxDato, 5, 2);
+        vboxDato.getChildren().add(txfStartDato);
+        vboxDato.getChildren().add(txfSlutDato);
     }
 
     private void createComboboxPrisgruppe(UdlejningsPane udlejningsPane) {
         cbbprisgrupper = new ComboBox<>();
         this.add(cbbprisgrupper,0,1 );
-        cbbprisgrupper.getItems().add("Butik");
+        ArrayList<Vare> v1 = controller.getVarer();
+        ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
+        for(Vare v : v1){
+            if(v instanceof Udlejningsvare){
+                for(int i =0;i<v.getPrisgrupper().size();i++)
+                if(!cbbprisgrupper.getItems().contains(String.valueOf(v.getPrisgrupper().get(i)))){
+                    cbbprisgrupper.getItems().add(String.valueOf(v.getPrisgrupper().get(i)));
+                }
+            }
+        }
+        //Fjerner manuelt fredagsbar.. Det giver simpelthen ikke mening, at have den i listen.
+        cbbprisgrupper.getItems().remove("Fredagsbar");
         cbbprisgrupper.setOnAction(event ->  enableVareTypeAction());
     }
 
@@ -108,10 +172,16 @@ public class UdlejningsPane  extends GridPane {
         btnLavSalg = new Button("Lav Udlejning");
         this.add(btnLavSalg, 5, 5);
         btnLavSalg.setOnAction(event -> lavSalgAction());
-        //todo
-        /*
-        skal have en action som sætter salget ind i systemet or something
-         */
+
+        VBox vBox = new VBox();
+        this.add(vBox, 5, 3);
+        btnStartDato = new Button("Vælg start Dato");
+        vBox.getChildren().add(btnStartDato);
+        btnStartDato.setOnAction(event -> DatepickerAction(1));
+
+        btnSlutDato = new Button("Vælg slut Dato");
+        vBox.getChildren().add(btnSlutDato);
+        btnSlutDato.setOnAction(event ->  DatepickerAction(2));
     }
 
     private void lavSalgAction() {
@@ -123,52 +193,54 @@ public class UdlejningsPane  extends GridPane {
                 varer.put(lvwKurv.getItems().get(i), 1);
             }
         }
-        if(groupBetalingsform.getSelectedToggle() != null) {
-            Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
-            double total = Double.parseDouble(txfTotalPris.getText());
 
-            if(groupRabat.getSelectedToggle() != null){
-                //laver rabat objekt.
-                if(groupRabat.getSelectedToggle().getUserData().toString().contains("FastRabat")){
-                    Rabat rabat = controller.createFastRabat(Double.parseDouble(txfFastRabat.getText()));
-                    if(Objects.equals(bform.toString(), "REGNING")){
-                        controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
-                    } else {
-                        controller.createProduktSalg(varer, bform, total, rabat);
+        if(btnStartDato.isDisable() && btnSlutDato.isDisable()) {
+            if (groupBetalingsform.getSelectedToggle() != null) {
+                Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
+                double pant = Double.parseDouble(txfPant.getText());
+                LocalDate startDato = LocalDate.parse(txfStartDato.getText());
+                LocalDate slutDato = LocalDate.parse(txfSlutDato.getText());
+
+                if (groupRabat.getSelectedToggle() != null) {
+                    if (groupRabat.getSelectedToggle().getUserData().toString().contains("FastRabat")) {
+                        Rabat rabat = controller.createFastRabat(Double.parseDouble(txfFastRabat.getText()));
+                        controller.createUdlejning(varer, pant, startDato, slutDato, bform, rabat);
+                        salgOprettetMedRabatMessage(rabat);
+
+                    } else if (groupRabat.getSelectedToggle().getUserData().toString().contains("ProcentRabat")) {
+                        Rabat rabat = controller.createProcentRabat(Double.parseDouble(txfprocentRabat.getText()));
+                        controller.createUdlejning(varer, pant, startDato, slutDato, bform, rabat);
+                        salgOprettetMedRabatMessage(rabat);
                     }
-                    salgOprettetMedRabatMessage(rabat);
-                } else if (groupRabat.getSelectedToggle().getUserData().toString().contains("ProcentRabat")){
-                    Rabat rabat = controller.createProcentRabat(Double.parseDouble(txfprocentRabat.getText()));
-                    if(Objects.equals(bform.toString(), "REGNING")){
-                        controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
-                    } else {
-                        controller.createProduktSalg(varer, bform, total, rabat);
-                    }
-                    salgOprettetMedRabatMessage(rabat);
+                    controller.saveStorageToFile();
+                } else {
+                        controller.createUdlejning(varer, pant, startDato, slutDato, bform, null);
+                    controller.saveStorageToFile();
+                    salgOprettetMessage();
                 }
-                controller.saveStorageToFile();
             } else {
-                if(Objects.equals(bform.toString(), "REGNING")){
-                    controller.createRegning(varer, bform, null, total, txfRegning.getText());
-                }
-                else {
-                    controller.createProduktSalg(varer, bform, total, null);
-                }
-                controller.saveStorageToFile();
-                salgOprettetMessage();
+                errormessageBetalingform();
             }
         } else {
-            errormessageBetalingform();
+            errormessageDato();
         }
     }
 
+    private void errormessageDato() {
+        String message = "Husk at vælge Start og slut dato!.";
+        JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
+    }
+
     private void salgOprettetMedRabatMessage(Rabat rabat) {
-        String message = "Salget er oprettet, total prisen blev: " +  rabat.beregnRabat(Double.parseDouble(txfTotalPris.getText()));
+        String message = "Salget er oprettet, total prisen blev: " +  rabat.beregnRabat(Double.parseDouble(txfTotalPris.getText()))
+
+                + "\nPant på varene blev:  " + txfPant.getText();
         JOptionPane.showMessageDialog(new JFrame(), message,"Oprettet",JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void salgOprettetMessage() {
-        String message = "Salget er oprettet, total prisen blev: " + txfTotalPris.getText();
+        String message = "Salget er oprettet, total prisen blev: " + txfTotalPris.getText()
+                + "\nPant på varene blev: " + txfPant.getText();
         JOptionPane.showMessageDialog(new JFrame(), message,"Oprettet",JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -207,8 +279,9 @@ public class UdlejningsPane  extends GridPane {
                 varer.put(lvwKurv.getItems().get(i), 1);
             }
         }
-//            opdatere totalPris.
+//            opdatere totalPris og pant.
         txfTotalPris.setText(String.valueOf(controller.totalPris(cbbprisgrupper.getSelectionModel().getSelectedItem(),varer)));
+        txfPant.setText(String.valueOf(controller.beregnPant(varer)));
     }
 
     private void errorMessageTilføj() {
@@ -234,17 +307,11 @@ public class UdlejningsPane  extends GridPane {
 
         for(int i =0;i<betalingsForm.length;i++){
             RadioButton rb =new RadioButton();
-            if(!betalingsForm[i].equals(Betalingsform.KLIPPEKORT)) {
+            if(betalingsForm[i].equals(Betalingsform.KLIPPEKORT) || betalingsForm[i].equals(Betalingsform.REGNING)) {} else {
                 box.getChildren().add(rb);
                 rb.setText((betalingsForm[i].toString()));
                 rb.setUserData(betalingsForm[i]);
                 rb.setToggleGroup(groupBetalingsform);
-            }
-
-            if (betalingsForm[i].equals(Betalingsform.REGNING)) {
-                rb.setOnAction(event -> enableRegningDisableKlippekortAction());            }
-            else {
-                rb.setOnAction(event -> disableRegningAndKlippekortAction());
             }
         }
         VBox box1 = new VBox();
@@ -261,29 +328,6 @@ public class UdlejningsPane  extends GridPane {
         rbFast.setToggleGroup(groupRabat);
         rbFast.setOnAction(event -> updateRbFastAction());
 
-    }
-
-    private void enableRegningDisableKlippekortAction() {
-        txfRegning.clear();
-        txfRegning.setDisable(false);
-
-    }
-
-    private void enableKlippekortDisableRegningAction() {
-
-        txfRegning.setDisable(true);
-        txfRegning.setText("Indtast navn til regning");
-    }
-
-    private void disableRegningAndKlippekortAction() {
-        txfRegning.setDisable(true);
-        txfRegning.setText("Indtast navn til regning");
-
-    }
-
-    private void disableRegningAction() {
-        txfRegning.setDisable(true);
-        txfRegning.setText("Indtast navn til regning");
     }
 
     private void updateRbFastAction() {
@@ -358,5 +402,8 @@ public class UdlejningsPane  extends GridPane {
 
         Label lblTotalPris = new Label("Total Pris:");
         this.add(lblTotalPris, 4, 0);
+
+        Label lblPant = new Label("Pant:");
+        this.add(lblPant, 5, 0);
     }
 }

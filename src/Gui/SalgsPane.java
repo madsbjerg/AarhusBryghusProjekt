@@ -2,7 +2,6 @@ package Gui;
 
 import Application.Controller.Controller;
 import Application.Models.*;
-import com.sun.source.tree.CatchTree;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;

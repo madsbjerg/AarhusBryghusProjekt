@@ -16,8 +16,6 @@ public class BetalingsPane extends GridPane {
     private Button btnBetal;
     //private RadioButton radBtnBetalingsform;
     private Label lblTotal;
-    private VBox vboxBetalingform, vboxRabat;
-    private ToggleGroup groupBetalingsform = new ToggleGroup();
 
     public BetalingsPane(){
         this.setPadding(new Insets(20));
