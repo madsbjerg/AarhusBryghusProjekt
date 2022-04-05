@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 public class BetalingsPane extends GridPane {
 
     private Controller controller = Controller.getController();
-    private TextField txfTotal, txfProcentRabat, txfFastRabat;
+    private TextField txfTotal, txfRabat;
     private ListView<Regning> lvwRegninger;
     private Button btnBetal;
     //private RadioButton radBtnBetalingsform;
