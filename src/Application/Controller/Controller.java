@@ -586,6 +586,7 @@ public class Controller {
         controller.createKlippekort("Mads");
 
         controller.saveStorageToFile();
+
     }
 
 }
