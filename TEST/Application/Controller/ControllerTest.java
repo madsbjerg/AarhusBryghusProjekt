@@ -347,6 +347,28 @@ class ControllerTest {
         assertEquals("Ingen prisgruppe valgt", dtest2.getAktivPrisgruppe());
 
     }
+
+    @Test
+    void beregnPant(){
+        Controller c = new Controller();
+
+        Vare testVare = new Udlejningsvare("testVare", 100, Varetype.FUSTAGE);
+        Vare vare = new Udlejningsvare("6 kg", 1000, Varetype.KULSYRE);
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        varer.put(testVare, 3);
+
+        //act
+        Udlejningsvare u = c.createFustage("celebration");
+        Udlejningsvare u1 = c.createKulsyre("6 kg");
+
+
+
+
+
+
+    }
 //todo
     // test af brug klippekort.
+
+
 }

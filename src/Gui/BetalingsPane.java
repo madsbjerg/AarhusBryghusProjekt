@@ -42,7 +42,6 @@ public class BetalingsPane extends GridPane {
 
     private void createLabels(BetalingsPane betalingsPane){
         lblTotal = new Label("Total");
-
     }
 
 
