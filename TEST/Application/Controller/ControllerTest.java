@@ -392,8 +392,10 @@ class ControllerTest {
         vareHashMap.put(udlejning, 1);
         vareIntegerHashMap.put(u,3);
 
-        //act
+        //asserts
         assertEquals(175, c.totalUdlejning(vareHashMap, vareIntegerHashMap));
+
+
 
 
 
