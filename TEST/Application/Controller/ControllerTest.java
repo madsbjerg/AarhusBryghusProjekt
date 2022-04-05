@@ -352,11 +352,11 @@ class ControllerTest {
     void beregnPant(){
         Controller c = new Controller();
 
-        Vare testVare = new Udlejningsvare("testVare", 100, Varetype.FUSTAGE);
+        Vare testVare = new Udlejningsvare("testVare", 200, Varetype.FUSTAGE);
         Vare vare = new Udlejningsvare("6 kg", 1000, Varetype.KULSYRE);
         HashMap<Vare, Integer> varer = new HashMap<>();
         HashMap<Vare, Integer> vareIntegerHashMap = new HashMap<>();
-        varer.put(testVare, 3);
+        varer.put(testVare, 2);
         vareIntegerHashMap.put(vare, 2);
 
 
@@ -366,7 +366,7 @@ class ControllerTest {
 
 
         //asserts
-        assertEquals(300, c.beregnPant(varer));
+        assertEquals(400, c.beregnPant(varer));
         assertEquals(2000, c.beregnPant(vareIntegerHashMap));
 
 
@@ -377,6 +377,24 @@ class ControllerTest {
     @Test
     void totalUdlejning(){
         Controller c = new Controller();
+
+        Vare udlejning = new Udlejningsvare("Klosterbryg", 3000, Varetype.FUSTAGE);
+        Vare u = new Udlejningsvare("6 kg",200, Varetype.KULSYRE);
+
+        Prisgruppe pg = new Prisgruppe(775, "pgtest1");
+        udlejning.addPrisgruppe(pg);
+        Prisgruppe pg1 = new Prisgruppe(400, "pgtest2");
+        u.addPrisgruppe(pg1);
+
+        HashMap<Vare, Integer> vareHashMap = new HashMap();
+        HashMap<Vare, Integer> vareIntegerHashMap = new HashMap<>();
+
+        vareHashMap.put(udlejning, 1);
+        vareIntegerHashMap.put(u,3);
+
+        //act
+        assertEquals(175, c.totalUdlejning(vareHashMap, vareIntegerHashMap));
+
 
 
 
