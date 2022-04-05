@@ -374,8 +374,26 @@ class ControllerTest {
 
 
     }
-//todo
-    // test af brug klippekort.
+
+    @Test
+    void brugKlippekort() {
+        Controller testController = new Controller();
+
+       Klippekort klippekort1 = testController.createKlippekort("hans");
+       //tester om klippekortet bliver initialiseret med 4 klip.
+       assertEquals(4,klippekort1.getAntalKlip());
+       //tester om man kan forbruge klip.
+        //3 klip brugt. 4-3 = 1
+        testController.brugKlippekort(klippekort1, 3);
+        assertEquals(1, klippekort1.getAntalKlip());
+       //tester for exceptions.
+       //Indtastning af negativ værdi i klippris param
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->testController.brugKlippekort(klippekort1, -15));
+        //forsøg på, at bruge flere klip end der eksistere.
+        //1 klip tilbage. 2 forsøgt forbrugt (1-2) <0
+        Exception exception1 = assertThrows(IllegalArgumentException.class, () -> testController.brugKlippekort(klippekort1, 2));
 
 
+
+    }
 }
