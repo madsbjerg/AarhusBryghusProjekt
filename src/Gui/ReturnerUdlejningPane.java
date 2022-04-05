@@ -113,6 +113,7 @@ public class ReturnerUdlejningPane extends GridPane {
                     lvwUdlejninger.getItems().add((Udlejning)s);
                 }
             }
+            controller.saveStorageToFile();
         }
     }
 
