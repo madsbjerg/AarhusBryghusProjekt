@@ -81,16 +81,5 @@ public class BetalingsPane extends GridPane {
         this.add(vboxRabat, 3, 1);
         vboxRabat.getChildren().add(txfFastRabat);
         vboxRabat.getChildren().add(txfProcentRabat);
-
     }
-
-
-
-
-
-
-
-
-
-
 }
