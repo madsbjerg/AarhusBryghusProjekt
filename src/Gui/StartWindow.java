@@ -55,13 +55,15 @@ private void initContent(BorderPane pane) {
 
         Tab tabRundvisning = new Tab("Opret Rundvisning");
         tabs.getTabs().add(tabRundvisning);
+
         RundvisningPane rundvisningPane = new RundvisningPane();
         tabRundvisning.setContent(rundvisningPane);
 
         Tab tabUdlejning = new Tab("Udlejning");
         tabs.getTabs().add(tabUdlejning);
 
-
+        UdlejningsPane udlejningsPane = new UdlejningsPane();
+        tabUdlejning.setContent(udlejningsPane);
 
         SalgsPane salgsPane = new SalgsPane();
         tabSalg.setContent(salgsPane);
