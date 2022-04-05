@@ -52,21 +52,21 @@ private void initContent(BorderPane pane) {
 
         Tab tabSalg = new Tab("Salg");
         tabs.getTabs().add(tabSalg);
+        SalgsPane salgsPane = new SalgsPane();
+        tabSalg.setContent(salgsPane);
 
         Tab tabRundvisning = new Tab("Opret Rundvisning");
         tabs.getTabs().add(tabRundvisning);
-
         RundvisningPane rundvisningPane = new RundvisningPane();
         tabRundvisning.setContent(rundvisningPane);
 
         Tab tabUdlejning = new Tab("Udlejning");
         tabs.getTabs().add(tabUdlejning);
 
-        UdlejningsPane udlejningsPane = new UdlejningsPane();
-        tabUdlejning.setContent(udlejningsPane);
-
-        SalgsPane salgsPane = new SalgsPane();
-        tabSalg.setContent(salgsPane);
+        Tab tabBetaling = new Tab("Betaling");
+        tabs.getTabs().add(tabBetaling);
+        BetalingsPane betalingsPane = new BetalingsPane();
+        tabBetaling.setContent(betalingsPane);
 
         AnchorPane.setTopAnchor(tabs, 5.0);
         AnchorPane.setLeftAnchor(tabs, 5.0);
