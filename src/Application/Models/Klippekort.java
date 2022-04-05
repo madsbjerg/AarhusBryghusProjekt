@@ -11,14 +11,24 @@ public class Klippekort extends Vare{
         this.navnKunde = navnKunde;
     }
 
-    //todo
-    //skal kunne bruge mange klip på en gang.
-    public void brugKlip(){
-        if(antalKlip >0) {
-            antalKlip--;
+    public Klippekort(){
+        super("",0,Varetype.KLIPPEKORT);
+    }
+
+    /**
+     * Laver en variabel, for ikke at manipulere med dataen.
+     * Tjekker om der er nok klip på kortet, hvis nej kaster metoden en illegalArguementException.
+     * @param klipPris = hvor mange klip der skal bruges
+     */
+    public void brugKlip(int klipPris){
+        if(klipPris <=0){
+            throw new IllegalArgumentException("klipPris skal være 1 eller højere.");
         }
-        else {
-            throw new InputMismatchException();
+        double antalKlipTilbage = antalKlip;
+        if(!((antalKlipTilbage -klipPris) < 0)){
+            antalKlip = antalKlip - klipPris;
+        } else {
+            throw new IllegalArgumentException("Du forsøger at bruge flere klip end der er på kortet");
         }
     }
     public int getAntalKlip(){
@@ -26,7 +36,7 @@ public class Klippekort extends Vare{
     }
 
     public String toString (){
-        return navnKunde + " \n Antal klip tilbage: " + getAntalKlip();
+        return navnKunde + " \nAntal klip tilbage: " + getAntalKlip();
     }
 
 

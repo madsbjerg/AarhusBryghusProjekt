@@ -85,6 +85,12 @@ public class Controller {
         Storage.getStorage().addVare(k);
         return k;
     }
+
+    public Klippekort createKlippekort(){
+        Klippekort k = new Klippekort();
+        Storage.getStorage().addVare(k);
+        return k;
+    }
     public  ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, Betalingsform bform, double beloeb, Rabat rabat){
 
         ProduktSalg p1 = new ProduktSalg(varer, beloeb, bform, rabat);
@@ -129,6 +135,11 @@ public class Controller {
             }
         }
         return rl;
+    }
+
+    public int brugKlippekort(Klippekort klippekort, int klipPris){
+        klippekort.brugKlip(klipPris);
+        return klippekort.getAntalKlip();
     }
 
     public ArrayList<Salg> getUdlejninger(){
@@ -207,7 +218,7 @@ public class Controller {
         }
         return sum;
     }
-
+                                        //Varen, Antallet af den vare.
     public double totalUdlejning(HashMap<Vare, Integer> varer, HashMap<Vare, Integer> returnerede){
         double sumVarer = 0;
         double sumPant = 0;
@@ -256,39 +267,42 @@ public class Controller {
 
     public  void loadStorageFromFile(){
         try{
-            FileInputStream fs_in = new FileInputStream("bryghus.ser");
-            ObjectInputStream os_in = new ObjectInputStream(fs_in);
-            boolean isNotDone = true;
-            while(isNotDone){
-                Object obj = os_in.readObject();
-                if(obj == null){
-                    isNotDone = false;
+            File f = new File("bryghus.ser");
+            if(f.exists()){
+                FileInputStream fs_in = new FileInputStream(f);
+                ObjectInputStream os_in = new ObjectInputStream(fs_in);
+                boolean isNotDone = true;
+                while(fs_in.available() > 0){
+                    Object obj = os_in.readObject();
+                    if(obj instanceof Vare){
+                        Storage.getStorage().addVare((Vare)obj);
+                    }
+                    else if(obj instanceof Salg){
+                        Storage.getStorage().addSalg((Salg)obj);
+                    }
                 }
-                else if(obj instanceof Vare){
-                    Storage.getStorage().addVare((Vare)obj);
-                }
-                else if(obj instanceof Salg){
-                    Storage.getStorage().addSalg((Salg)obj);
-                }
+                os_in.close();
+                fs_in.close();
             }
-            os_in.close();
-            fs_in.close();
+            else{
+                this.initStorage();
+            }
 
         }catch(IOException | ClassNotFoundException ex){
-            System.out.println(ex.getMessage() + " " + ex.getStackTrace());
+            System.out.println(ex.getMessage() + " " + ex.getStackTrace() + ex);
         }
     }
 
 
 
     public void initStorage(){
-        Sampakning s1 = new Sampakning("2 øl & 2 glas i gaveæske", 0, "Gaveæske", 2, 2, 20);
-        Sampakning s5 = new Sampakning("4 øl i gaveæske", 0, "Gaveæske", 4, 0, 20);
-        Sampakning s2 = new Sampakning("6 øl i trækasse ", 0, "Trækasse", 6, 0, 25);
-        Sampakning s3 = new Sampakning("6 øl & 2 glas i gavekurv", 0, "Gavekurv", 2, 4, 30);
-        Sampakning s6 = new Sampakning("6 øl & 6 glas i trækasse ", 0, "Trækasse", 6, 6, 25);
-        Sampakning s7 = new Sampakning("12 øl i Trækassse", 0, "Trækasse", 12, 0, 25);
-        Sampakning s4 = new Sampakning("12 øl i papkasse", 0, "Papkasse", 12, 0, 30);
+        Sampakning s1 = new Sampakning("2 øl & 2 glas i gaveæske", 0, "Gaveæske", 2, 2);
+        Sampakning s5 = new Sampakning("4 øl i gaveæske", 0, "Gaveæske", 4, 0);
+        Sampakning s2 = new Sampakning("6 øl i trækasse ", 0, "Trækasse", 6, 0);
+        Sampakning s3 = new Sampakning("6 øl & 2 glas i gavekurv", 0, "Gavekurv", 2, 4);
+        Sampakning s6 = new Sampakning("6 øl & 6 glas i trækasse ", 0, "Trækasse", 6, 6);
+        Sampakning s7 = new Sampakning("12 øl i Trækassse", 0, "Trækasse", 12, 0);
+        Sampakning s4 = new Sampakning("12 øl i papkasse", 0, "Papkasse", 12, 0);
 
         // ---- Opret fadøl objekter ------ ----------------------
 
@@ -579,6 +593,13 @@ public class Controller {
         controller.createKlippekort("gert");
         controller.createKlippekort("Jens");
         controller.createKlippekort("Mads");
+
+        //Klippekort objektet til salg af klippekort
+        Klippekort klippekort = controller.createKlippekort();
+        Prisgruppe prisgruppeButik  = new Prisgruppe(130, "Butik");
+        Prisgruppe prisgruppeFredagsbar = new Prisgruppe(130, "Fredagsbar");
+        klippekort.addPrisgruppe(prisgruppeButik);
+        klippekort.addPrisgruppe(prisgruppeFredagsbar);
 
         controller.saveStorageToFile();
     }
