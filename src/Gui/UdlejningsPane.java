@@ -23,7 +23,7 @@ public class UdlejningsPane  extends GridPane {
     private Controller controller = Controller.getController();
     private ToggleGroup groupBetalingsform = new ToggleGroup();
     private ToggleGroup groupRabat = new ToggleGroup();
-    private TextField txfprocentRabat, txfFastRabat,txfTotalPris,txfRegning, txfStartDato, txfSlutDato, txfPant;
+    private TextField txfprocentRabat, txfFastRabat,txfTotalPris, txfStartDato, txfSlutDato, txfPant;
     private ComboBox<Varetype> cbbVareType;
 
     private ComboBox<String> cbbprisgrupper;
@@ -265,23 +265,24 @@ public class UdlejningsPane  extends GridPane {
     private void updateKurvAction() {
 
         Vare ValgtVare = lvwValgteVare.getSelectionModel().getSelectedItem();
-        if(ValgtVare ==null) {
+        if (ValgtVare == null) {
             errorMessageTilføj();
-        }
-        lvwKurv.getItems().add(ValgtVare);
+        } else {
+            lvwKurv.getItems().add(ValgtVare);
 
-        //Hashmap af alle vores vare.
-        HashMap<Vare, Integer> varer = new HashMap<>();
-        for(int i =0;i<lvwKurv.getItems().size();i++){
-            if(varer.containsKey(lvwKurv.getItems().get(i))){
-                varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i))+1);
-            } else {
-                varer.put(lvwKurv.getItems().get(i), 1);
+            //Hashmap af alle vores vare.
+            HashMap<Vare, Integer> varer = new HashMap<>();
+            for (int i = 0; i < lvwKurv.getItems().size(); i++) {
+                if (varer.containsKey(lvwKurv.getItems().get(i))) {
+                    varer.put(lvwKurv.getItems().get(i), varer.get(lvwKurv.getItems().get(i)) + 1);
+                } else {
+                    varer.put(lvwKurv.getItems().get(i), 1);
+                }
             }
-        }
 //            opdatere totalPris og pant.
-        txfTotalPris.setText(String.valueOf(controller.totalPris(cbbprisgrupper.getSelectionModel().getSelectedItem(),varer)));
-        txfPant.setText(String.valueOf(controller.beregnPant(varer)));
+            txfTotalPris.setText(String.valueOf(controller.totalPris(cbbprisgrupper.getSelectionModel().getSelectedItem(), varer)));
+            txfPant.setText(String.valueOf(controller.beregnPant(varer)));
+        }
     }
 
     private void errorMessageTilføj() {
@@ -371,7 +372,6 @@ public class UdlejningsPane  extends GridPane {
         //Nulstiller listen
         lvwValgteVare.getItems().remove(0, lvwValgteVare.getItems().size());
 
-
         ArrayList<Vare> valgteVare = new ArrayList<>();
         ArrayList<Vare> alleVare = new ArrayList<>(controller.getVarer());
         controller.setActivePrisgruppe(cbbprisgrupper.getSelectionModel().getSelectedItem());
@@ -380,7 +380,6 @@ public class UdlejningsPane  extends GridPane {
                 valgteVare.add(alleVare.get(i));
             }
         }
-
         lvwValgteVare.getItems().addAll(valgteVare);
     }
 

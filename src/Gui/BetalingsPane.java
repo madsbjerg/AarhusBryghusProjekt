@@ -88,4 +88,13 @@ public class BetalingsPane extends GridPane {
         cbbRabat.getItems().add(1, "Procent rabat");
     }
 
+
+
+
+
+
+
+
+
+
 }
