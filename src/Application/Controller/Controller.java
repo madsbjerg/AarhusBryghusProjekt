@@ -207,7 +207,7 @@ public class Controller {
         }
         return sum;
     }
-
+                                        //Varen, Antallet af den vare.
     public double totalUdlejning(HashMap<Vare, Integer> varer, HashMap<Vare, Integer> returnerede){
         double sumVarer = 0;
         double sumPant = 0;

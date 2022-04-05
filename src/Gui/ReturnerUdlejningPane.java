@@ -1,18 +1,18 @@
 package Gui;
 
 import Application.Controller.Controller;
-import Application.Models.Salg;
-import Application.Models.Udlejning;
-import Application.Models.Udlejningsvare;
-import Application.Models.Vare;
+import Application.Models.*;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ReturnerUdlejningPane extends GridPane {
     private Controller controller = Controller.getController();
@@ -51,6 +51,10 @@ public class ReturnerUdlejningPane extends GridPane {
         lblTotalPris = new Label("Total pris");
         lblTotalPrisEfterRabat = new Label("Total pris rabat");
 
+        VBox prisBox = new VBox();
+        prisBox.getChildren().add(lblTotalPris);
+        prisBox.getChildren().add(lblTotalPrisEfterRabat);
+
         btnTilføjVare = new Button("Tilføj til returliste.");
         btnFærdiggør = new Button("Færdiggør udlejning.");
 
@@ -65,17 +69,47 @@ public class ReturnerUdlejningPane extends GridPane {
             }
         }
 
+        // PANE ADD
+
         pane.add(lblUdlejninger, 0,0);
         pane.add(lvwUdlejninger, 0,1);
         pane.add(lblUdlejedeVarer, 0,2);
         pane.add(lvwUdlejedeVarer, 0,3);
         pane.add(lblReturneredeVarer,1,2);
         pane.add(lvwReturneredeVarer, 1,3);
-        pane.add(lblTotalPris, 2,3);
-        pane.add(lblTotalPrisEfterRabat, 2,4);
+        pane.add(prisBox, 2,3);
         pane.add(btnTilføjVare, 0,4);
-        pane.add(btnFærdiggør, 1,4);
+        pane.add(btnFærdiggør, 2,4);
+
+
+        // ACTIONS
+        ChangeListener<Udlejning> udlejningChangeListener = (ov, oldUdlejning, newUdlejning) -> this.udlejningSelectedAction();
+        lvwUdlejninger.getSelectionModel().selectedItemProperty().addListener(udlejningChangeListener);
+
+        //ChangeListener<Udlejningsvare> vareChangedListener = (ov, oldUdlejning, newUdlejning) -> this.vareSelectedAction();
+        //lvwUdlejedeVarer.getSelectionModel().selectedItemProperty().addListener(vareChangedListener);
+
+        btnTilføjVare.setOnAction(event -> addVareAction());
+
+
     }
 
+    private void addVareAction() {
+        Udlejningsvare vare = lvwUdlejedeVarer.getSelectionModel().getSelectedItem();
+        if(vare != null){
+            lvwReturneredeVarer.getItems().add(vare);
+            HashMap<Vare, Integer> returVare = new HashMap<>();
+            lblTotalPris.setText(""+controller.totalUdlejning(lvwUdlejninger.getSelectionModel().getSelectedItem().getVarer(), returVare));
+            Rabat rabat = lvwUdlejninger.getSelectionModel().getSelectedItem().getRabat();
+            double totalEfterRabat = rabat != null ? rabat.beregnRabat(Double.parseDouble(lblTotalPris.getText())) : 0.0;
+            lblTotalPrisEfterRabat.setText("" + totalEfterRabat);
+        }
+    }
 
+    private void udlejningSelectedAction() {
+        Udlejning u = lvwUdlejninger.getSelectionModel().getSelectedItem();
+        if(u != null){
+            lvwUdlejedeVarer.getItems().addAll((Udlejningsvare) u.getVarer().keySet());
+        }
+    }
 }
