@@ -212,7 +212,7 @@ public class Controller {
         }
         return sum;
     }
-
+                                        //Varen, Antallet af den vare.
     public double totalUdlejning(HashMap<Vare, Integer> varer, HashMap<Vare, Integer> returnerede){
         double sumVarer = 0;
         double sumPant = 0;
@@ -261,26 +261,29 @@ public class Controller {
 
     public  void loadStorageFromFile(){
         try{
-            FileInputStream fs_in = new FileInputStream("bryghus.ser");
-            ObjectInputStream os_in = new ObjectInputStream(fs_in);
-            boolean isNotDone = true;
-            while(isNotDone){
-                Object obj = os_in.readObject();
-                if(obj == null){
-                    isNotDone = false;
+            File f = new File("bryghus.ser");
+            if(f.exists()){
+                FileInputStream fs_in = new FileInputStream(f);
+                ObjectInputStream os_in = new ObjectInputStream(fs_in);
+                boolean isNotDone = true;
+                while(fs_in.available() > 0){
+                    Object obj = os_in.readObject();
+                    if(obj instanceof Vare){
+                        Storage.getStorage().addVare((Vare)obj);
+                    }
+                    else if(obj instanceof Salg){
+                        Storage.getStorage().addSalg((Salg)obj);
+                    }
                 }
-                else if(obj instanceof Vare){
-                    Storage.getStorage().addVare((Vare)obj);
-                }
-                else if(obj instanceof Salg){
-                    Storage.getStorage().addSalg((Salg)obj);
-                }
+                os_in.close();
+                fs_in.close();
             }
-            os_in.close();
-            fs_in.close();
+            else{
+                this.initStorage();
+            }
 
         }catch(IOException | ClassNotFoundException ex){
-            System.out.println(ex.getMessage() + " " + ex.getStackTrace());
+            System.out.println(ex.getMessage() + " " + ex.getStackTrace() + ex);
         }
     }
 

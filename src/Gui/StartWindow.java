@@ -21,7 +21,7 @@ public class StartWindow extends Application {
 
     @Override
     public void init() {
-        Controller.getController().initStorage();
+        Controller.getController().loadStorageFromFile();
     }
 
     @Override
@@ -68,12 +68,17 @@ private void initContent(BorderPane pane) {
         BetalingsPane betalingsPane = new BetalingsPane();
         tabBetaling.setContent(betalingsPane);
 
+
         AnchorPane.setTopAnchor(tabs, 5.0);
         AnchorPane.setLeftAnchor(tabs, 5.0);
         AnchorPane.setRightAnchor(tabs, 5.0);
         AnchorPane.setTopAnchor(btnAdminAccess, 10.0);
         AnchorPane.setRightAnchor(btnAdminAccess, 10.0);
 
+        ReturnerUdlejningPane returPane = new ReturnerUdlejningPane();
+        Tab tabRetur = new Tab("Returnér");
+        tabRetur.setContent(returPane);
+        tabs.getTabs().add(tabRetur);
 
         tabs.setStyle("-fx-padding: 2 0 0 50;");
         anchorPane.getChildren().addAll(tabs,btnAdminAccess);

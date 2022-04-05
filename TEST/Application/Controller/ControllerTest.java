@@ -291,7 +291,8 @@ class ControllerTest {
         // Assert
         //assertFalse(u.)
         // TODO: Svær at teste siden flowet ikke er færdiggjort for udlejning så der er lidt hiccups - Mads Bjerg 3/4/2022
-
+        // TODO: Test totalPris udlejning og beregnPant metoder også.
+        
         // Assert exceptional arguments
         Exception ex = assertThrows(IllegalArgumentException.class, () -> c.createUdlejning(varer, 100, LocalDate.of(1999, 1,1), LocalDate.of(1999, 1, 1),Betalingsform.KONTANT, null));
         assertEquals("Startdato skal være før slutdato.", ex.getMessage());
