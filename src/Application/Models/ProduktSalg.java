@@ -39,8 +39,4 @@ public class ProduktSalg extends Salg {
     public HashMap<Vare,Integer> getVare(){
         return varer;
     }
-
-    public Rabat getRabat(){
-        return rabat;
-    }
 }

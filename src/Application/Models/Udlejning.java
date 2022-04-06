@@ -11,6 +11,7 @@ public class Udlejning extends Salg{
     private LocalDate startDato;
     private LocalDate slutDato;
     private boolean betalt;
+    private HashMap<Vare, Integer> returVarer;
 
     public Udlejning(HashMap<Vare, Integer> varer, double pantBeloeb, LocalDate startDato, LocalDate slutDato,
                      Betalingsform betalingsform, Rabat rabat){
@@ -28,6 +29,7 @@ public class Udlejning extends Salg{
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.betalt = false;
+        returVarer = new HashMap<>();
     }
 
     public double getPantBeloeb(){
@@ -44,6 +46,10 @@ public class Udlejning extends Salg{
 
     public void setBetalt(boolean betalt){
         this.betalt = betalt;
+    }
+
+    public void setReturVarer(HashMap<Vare, Integer> retur){
+        this.returVarer = retur;
     }
 
 }

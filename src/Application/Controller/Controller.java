@@ -85,6 +85,12 @@ public class Controller {
         Storage.getStorage().addVare(k);
         return k;
     }
+
+    public Klippekort createKlippekort(){
+        Klippekort k = new Klippekort();
+        Storage.getStorage().addVare(k);
+        return k;
+    }
     public  ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, Betalingsform bform, double beloeb, Rabat rabat){
 
         ProduktSalg p1 = new ProduktSalg(varer, beloeb, bform, rabat);
@@ -163,6 +169,17 @@ public class Controller {
     }
 
 
+    public ArrayList<Salg> getRegninger (){
+
+        ArrayList<Salg> regninger = new ArrayList<>();
+        for(Salg s : Storage.getStorage().getSalg()){
+            if(s instanceof Regning){
+                regninger.add(s);
+            }
+        }
+        return regninger;
+    }
+
 
     public ArrayList<Prisgruppe> getPrisgrupper(){
         ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
@@ -212,7 +229,7 @@ public class Controller {
         }
         return sum;
     }
-
+                                        //Varen, Antallet af den vare.
     public double totalUdlejning(HashMap<Vare, Integer> varer, HashMap<Vare, Integer> returnerede){
         double sumVarer = 0;
         double sumPant = 0;
@@ -261,26 +278,29 @@ public class Controller {
 
     public  void loadStorageFromFile(){
         try{
-            FileInputStream fs_in = new FileInputStream("bryghus.ser");
-            ObjectInputStream os_in = new ObjectInputStream(fs_in);
-            boolean isNotDone = true;
-            while(isNotDone){
-                Object obj = os_in.readObject();
-                if(obj == null){
-                    isNotDone = false;
+            File f = new File("bryghus.ser");
+            if(f.exists()){
+                FileInputStream fs_in = new FileInputStream(f);
+                ObjectInputStream os_in = new ObjectInputStream(fs_in);
+                boolean isNotDone = true;
+                while(fs_in.available() > 0){
+                    Object obj = os_in.readObject();
+                    if(obj instanceof Vare){
+                        Storage.getStorage().addVare((Vare)obj);
+                    }
+                    else if(obj instanceof Salg){
+                        Storage.getStorage().addSalg((Salg)obj);
+                    }
                 }
-                else if(obj instanceof Vare){
-                    Storage.getStorage().addVare((Vare)obj);
-                }
-                else if(obj instanceof Salg){
-                    Storage.getStorage().addSalg((Salg)obj);
-                }
+                os_in.close();
+                fs_in.close();
             }
-            os_in.close();
-            fs_in.close();
+            else{
+                this.initStorage();
+            }
 
         }catch(IOException | ClassNotFoundException ex){
-            System.out.println(ex.getMessage() + " " + ex.getStackTrace());
+            System.out.println(ex.getMessage() + " " + ex.getStackTrace() + ex);
         }
     }
 
@@ -579,11 +599,31 @@ public class Controller {
         u.addPrisgruppe(pgKulsyreButik400);
 
 
+        // ---- Opret regninger --------------------------------
+
+        HashMap<Vare, Integer> regninger = new HashMap<>();
+        Rabat rb1 = new FastRabat(0);
+        Drikkevare regningObj1 = controller.createFlaske("Bov", 0);
+        Drikkevare regningsObj2 = controller.createFlaske("Hov", 0);
+        regninger.put(regningObj1, 0);
+        regninger.put(regningsObj2, 1);
+
+        Regning regning = controller.createRegning(regninger, Betalingsform.REGNING, rb1, 1500.00, "Thomas the train engine");
+
+
+
         //---- Opret klippekort --------------------------------
         controller.createKlippekort("hans");
         controller.createKlippekort("gert");
         controller.createKlippekort("Jens");
         controller.createKlippekort("Mads");
+
+        //Klippekort objektet til salg af klippekort
+        Klippekort klippekort = controller.createKlippekort();
+        Prisgruppe prisgruppeButik  = new Prisgruppe(130, "Butik");
+        Prisgruppe prisgruppeFredagsbar = new Prisgruppe(130, "Fredagsbar");
+        klippekort.addPrisgruppe(prisgruppeButik);
+        klippekort.addPrisgruppe(prisgruppeFredagsbar);
 
         controller.saveStorageToFile();
 

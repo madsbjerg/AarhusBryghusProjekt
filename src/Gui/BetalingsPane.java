@@ -7,6 +7,7 @@ import Application.Models.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -30,18 +31,30 @@ public class BetalingsPane extends GridPane {
 
         // kald create på elementer
 
+        createTextfields(this);
         createLabels(this);
         createButtons(this);
         createListViews(this);
         createVbox(this);
+        createComboBox(this);
 
-        updateRegningerAction();
-
-
+        updateRegninger();
     }
 
     // create elementer
 
+    private void createTextfields(BetalingsPane betalingsPane){
+
+        txfTotal = new TextField("");
+        txfTotal.setEditable(false);
+        //this.add(txfTotal);
+
+        txfRabat = new TextField();
+        txfRabat.setEditable(true);
+        this.add(txfRabat, 4, 1);
+
+
+    }
 
     private void createLabels(BetalingsPane betalingsPane){
         lblTotal = new Label("Total");
@@ -56,11 +69,10 @@ public class BetalingsPane extends GridPane {
         lvwRegninger = new ListView<>();
         this.add(lvwRegninger, 0, 1);
 
+
     }
 
     private void createVbox (BetalingsPane betalingsPane){
-
-        // Vbox til betalingsform
         vboxBetalingform = new VBox();
         this.add(vboxBetalingform, 3, 1);
         Betalingsform[] betalingsform = Betalingsform.values();
@@ -89,11 +101,20 @@ public class BetalingsPane extends GridPane {
         vboxRegningInform.getChildren().add(txfTotal);
 
 
+    private void createComboBox(BetalingsPane betalingsPane){
+        cbbRabat = new ComboBox<>();
+        this.add(cbbRabat, 3, 1);
+        cbbRabat.getItems().add(0, "Fast rabat");
+        cbbRabat.getItems().add(1, "Procent rabat");
     }
 
+    public void updateRegninger(){
+        // Skal nok bruge en if statement til at determine om det er en ubetalt regning.
+        // Ved ikke om vi skal have en boolean på den.
 
-
-
-
-
+        ArrayList<Salg> regninger = controller.getRegninger();
+        for(Salg s : regninger){
+            lvwRegninger.getItems().add((Regning)s);
+        }
+    }
 }

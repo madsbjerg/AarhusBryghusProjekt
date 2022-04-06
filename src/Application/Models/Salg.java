@@ -19,6 +19,14 @@ public abstract class Salg implements Serializable {
 
     }
 
+    public Rabat getRabat(){
+        return this.rabat;
+    }
+
+    public HashMap<Vare, Integer> getVarer(){
+        return this.varer;
+    }
+
     public double totalPris(int prisgruppe){
       throw new  UnsupportedOperationException();
     }

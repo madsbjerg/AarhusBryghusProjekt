@@ -291,7 +291,8 @@ class ControllerTest {
         // Assert
         //assertFalse(u.)
         // TODO: Svær at teste siden flowet ikke er færdiggjort for udlejning så der er lidt hiccups - Mads Bjerg 3/4/2022
-
+        // TODO: Test totalPris udlejning og beregnPant metoder også.
+        
         // Assert exceptional arguments
         Exception ex = assertThrows(IllegalArgumentException.class, () -> c.createUdlejning(varer, 100, LocalDate.of(1999, 1,1), LocalDate.of(1999, 1, 1),Betalingsform.KONTANT, null));
         assertEquals("Startdato skal være før slutdato.", ex.getMessage());
@@ -352,11 +353,11 @@ class ControllerTest {
     void beregnPant(){
         Controller c = new Controller();
 
-        Vare testVare = new Udlejningsvare("testVare", 100, Varetype.FUSTAGE);
+        Vare testVare = new Udlejningsvare("testVare", 200, Varetype.FUSTAGE);
         Vare vare = new Udlejningsvare("6 kg", 1000, Varetype.KULSYRE);
         HashMap<Vare, Integer> varer = new HashMap<>();
         HashMap<Vare, Integer> vareIntegerHashMap = new HashMap<>();
-        varer.put(testVare, 3);
+        varer.put(testVare, 2);
         vareIntegerHashMap.put(vare, 2);
 
 
@@ -366,7 +367,7 @@ class ControllerTest {
 
 
         //asserts
-        assertEquals(300, c.beregnPant(varer));
+        assertEquals(400, c.beregnPant(varer));
         assertEquals(2000, c.beregnPant(vareIntegerHashMap));
 
 
@@ -378,9 +379,23 @@ class ControllerTest {
     void totalUdlejning(){
         Controller c = new Controller();
 
+        Vare udlejning = new Udlejningsvare("Klosterbryg", 3000, Varetype.FUSTAGE);
+        Vare u = new Udlejningsvare("6 kg",200, Varetype.KULSYRE);
 
+        Prisgruppe pg = new Prisgruppe(775, "pgtest1");
+        udlejning.addPrisgruppe(pg);
+        Prisgruppe pg1 = new Prisgruppe(400, "pgtest2");
+        u.addPrisgruppe(pg1);
 
+        HashMap<Vare, Integer> vareHashMap = new HashMap<>();
+        HashMap<Vare, Integer> vareIntegerHashMap = new HashMap<>();
 
+        vareHashMap.put(udlejning, 1);
+        vareIntegerHashMap.put(u,1);
+
+        //asserts
+        assertEquals(575, c.totalUdlejning(vareHashMap, vareIntegerHashMap));
+        
     }
 
     @Test
