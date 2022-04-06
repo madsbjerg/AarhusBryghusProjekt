@@ -22,7 +22,6 @@ public class DagsopgørelsesPane extends GridPane {
         private ListView<Salg> lvwsalg;
         private Button btnUpdate,btnSerundvisninger;
         private TextArea txaRundvisning;
-        private Rundvisning rundvisningDatepicker;
 
     public DagsopgørelsesPane(){
         this.setPadding(new Insets(20));
@@ -104,13 +103,12 @@ public class DagsopgørelsesPane extends GridPane {
     }
 
     private void updateTxaAction(DatePicker da, ArrayList<Rundvisning> rundvisning) {
+        ArrayList<Rundvisning> rundvisningDatepicker = new ArrayList<>();
         for(int i =0;i<rundvisning.size();i++){
             if(rundvisning.get(i).getTidspunkt().toLocalDate().isEqual(da.getValue())){
-                rundvisningDatepicker = rundvisning.get(i);
+                rundvisningDatepicker.add(rundvisning.get(i));
             }
         }
-
-
         txaRundvisning.setText(rundvisningDatepicker.toString());
     }
 
