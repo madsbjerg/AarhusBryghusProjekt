@@ -27,6 +27,28 @@ public class Regning extends Salg{
         return betalt;
     }
 
+    @Override
+    public String toString(){
+        String navn = "Regning lavet den. " + salgsDato + "\n" + "Navn på kunde: " + navnKunde
+                + "\n" + varer;
+        if(rabat != null){
+            navn += "\n" + rabat;
+        }
+        navn +="\n" + "Total pris " +beloebTotal;
+        if(rabat != null){
+            navn += "\n" + "Med rabat: " + rabat.beregnRabat(beloebTotal);
+        }
+
+        if(isBetalt()){
+            navn += "\n" + "Varen er betalt";
+            navn += "\n" + "Betalt med: " + betalingsform;
+        } else {
+            navn += "\n" + "Ikke betalt";
+        }
+
+        return navn;
+    }
+
 
 
 }
