@@ -52,4 +52,9 @@ public class Udlejning extends Salg{
         this.returVarer = retur;
     }
 
+    @Override
+    public String toString(){
+        return "" + slutDato;
+    }
+
 }
