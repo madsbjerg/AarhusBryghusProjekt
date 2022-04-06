@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -100,44 +101,47 @@ public class ReturnerUdlejningPane extends GridPane {
     }
 
     private void opdaterListeAction() {
-        
+        lvwUdlejninger.getItems().clear();
+        lvwUdlejedeVarer.getItems().clear();
+        lvwReturneredeVarer.getItems().clear();
+        ArrayList<Salg> ul = controller.getUdlejninger();
+        for(Salg s : ul){
+            if(!((Udlejning) s).isBetalt()){
+                lvwUdlejninger.getItems().add((Udlejning)s);
+            }
+        }
     }
 
     private void færdiggørUdlejningAction() {
         Udlejning u = lvwUdlejninger.getSelectionModel().getSelectedItem();
         if(u != null){
-            HashMap<Vare, Integer> returVare = new HashMap<>();
-            int count = 0;
-            for(Udlejningsvare uv : lvwReturneredeVarer.getItems()){
-                count = returVare.get(uv) != null ? returVare.get(uv) : 0;
-                returVare.put(uv, count);
-                count++;
-            }
             u.setReturVarer(returVare);
             u.setBetalt(true);
             lvwUdlejninger.getItems().removeAll();
-            ArrayList<Salg> ul = controller.getUdlejninger();
-            for(Salg s : ul){
-                if(!((Udlejning) s).isBetalt()){
-                    lvwUdlejninger.getItems().add((Udlejning)s);
-                }
-            }
+            opdaterListeAction();
             controller.saveStorageToFile();
+            udlejningAfleveretMessage();
         }
+    }
+
+    private void udlejningAfleveretMessage() {
+        String message = "Udlejning sat som betalt og returneret i systemet.";
+        JOptionPane.showMessageDialog(new JFrame(), message,"Oprettet",JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void addVareAction() {
         Udlejningsvare vare = lvwUdlejedeVarer.getSelectionModel().getSelectedItem();
         if(vare != null){
             lvwReturneredeVarer.getItems().add(vare);
+
             int count;
             count = returVare.get(vare) != null ? returVare.get(vare) : 0;
-            System.out.println(returVare.get(vare));
             count++;
+
             returVare.put(vare, count);
             lblTotalPris.setText(""+controller.totalUdlejning(lvwUdlejninger.getSelectionModel().getSelectedItem().getVarer(), returVare));
             Rabat rabat = lvwUdlejninger.getSelectionModel().getSelectedItem().getRabat();
-            double totalEfterRabat = rabat != null ? rabat.beregnRabat(Double.parseDouble(lblTotalPris.getText())) : 0.0;
+            double totalEfterRabat = rabat != null ? rabat.beregnRabat(Double.parseDouble(lblTotalPris.getText())) : Double.parseDouble(lblTotalPris.getText());
             lblTotalPrisEfterRabat.setText("" + totalEfterRabat);
         }
     }

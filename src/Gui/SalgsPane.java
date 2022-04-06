@@ -334,7 +334,12 @@ public class SalgsPane extends GridPane {
         vbox = new VBox();
         vbox.getChildren().add(cbbKlippekort);
         this.add(vbox, 2, 4);
-        cbbKlippekort.getItems().addAll(controller.getKlippekort());
+        //ArrayList<Klippekort> alKlip = new ArrayList<>();
+        for(Vare k : controller.getKlippekort()){
+            if(((Klippekort) k).getNavnKunde() != null){
+                cbbKlippekort.getItems().add(k);
+            }
+        }
         cbbKlippekort.setDisable(true);
         cbbKlippekort.setPromptText("Vælg klippekort");
     }
@@ -355,10 +360,17 @@ public class SalgsPane extends GridPane {
         ArrayList<Vare> valgteVare = new ArrayList<>();
         ArrayList<Vare> alleVare = new ArrayList<>(controller.getVarer());
         controller.setActivePrisgruppe(cbbprisgrupper.getSelectionModel().getSelectedItem());
-        for(int i =0;i< alleVare.size();i++) {
+        if(cbbVareType.getValue().equals(Varetype.KLIPPEKORT)){
+            valgteVare.add(new Klippekort());
+        }
+        else{
+            for(int i =0;i< alleVare.size();i++) {
                 if (alleVare.get(i).getVaretype() == cbbVareType.getValue() && !alleVare.get(i).toString().contains("NaN")) {
-                    valgteVare.add(alleVare.get(i));
+                    if(!(alleVare.get(i) instanceof Klippekort)) {
+                        valgteVare.add(alleVare.get(i));
+                    }
                 }
+            }
         }
 
         lvwValgteVare.getItems().addAll(valgteVare);

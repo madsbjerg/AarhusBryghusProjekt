@@ -35,8 +35,18 @@ public class Klippekort extends Vare{
         return antalKlip;
     }
 
+    public String getNavnKunde(){
+        return navnKunde;
+    }
     public String toString (){
-        return navnKunde + " \nAntal klip tilbage: " + getAntalKlip();
+        String returnString;
+        if(navnKunde != null){
+            returnString = navnKunde + " \nAntal klip tilbage: " + getAntalKlip();
+        }
+        else{
+            returnString = "Køb klippekort 4-klip.";
+        }
+        return returnString;
     }
 
 
