@@ -266,7 +266,7 @@ public class SalgsPane extends GridPane {
     }
 
     private void købKlippekortAction() {
-        if(!txfKlippekortNavn.getText().equals("Navn på ejer af nyt kort") || !txfKlippekortNavn.getText().equalsIgnoreCase("")){
+        if(txfKlippekortNavn.getText().equals("Navn på ejer af nyt kort") || txfKlippekortNavn.getText().equalsIgnoreCase("")){
             String message = "Du skal indtaste navn i tekstfeltet.";
             JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
         }
@@ -283,6 +283,7 @@ public class SalgsPane extends GridPane {
             controller.saveStorageToFile();
             txfKlippekortNavn.setDisable(true);
             btnKøbKlippekort.setDisable(true);
+            salgOprettetMessage();
         }
     }
 
