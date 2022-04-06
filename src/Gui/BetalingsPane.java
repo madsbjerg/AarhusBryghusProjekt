@@ -6,6 +6,8 @@ import Application.Controller.Controller;
 import Application.Models.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import javax.swing.*;
 import java.lang.reflect.Array;
@@ -50,12 +52,15 @@ public class BetalingsPane extends GridPane {
     private void createLabels(BetalingsPane betalingsPane) {
         lblRegninger = new Label("Regninger");
         this.add(lblRegninger, 1, 0);
+        lblRegninger.setFont(Font.font("",FontWeight.BOLD, 12));
 
         lblvarer = new Label("Varer i salg");
         this.add(lblvarer, 2,0);
+        lblvarer.setFont(Font.font("",FontWeight.BOLD, 12));
 
-        lblRegningInfo = new Label("Informationer");
+        lblRegningInfo = new Label("Salgsinformationer");
         this.add(lblRegningInfo, 3, 0);
+        lblRegningInfo.setFont(Font.font("",FontWeight.BOLD, 12));
     }
 
     private void createListViewRegning(BetalingsPane betalingsPane) {
@@ -95,11 +100,11 @@ public class BetalingsPane extends GridPane {
         vboxLblInfo = new VBox();
         vboxLblInfo.setSpacing(10.0);
         this.add(vboxLblInfo, 3, 2);
-        lblKundeNavn = new Label("Kunde navn");
+        lblKundeNavn = new Label("Kunde navn:");
         vboxLblInfo.getChildren().add(lblKundeNavn);
-        lblRabat = new Label("Rabat");
+        lblRabat = new Label("Rabat:");
         vboxLblInfo.getChildren().add(lblRabat);
-        lblTotal = new Label("Total pris");
+        lblTotal = new Label("Total pris:");
         vboxLblInfo.getChildren().add(lblTotal);
     }
 
