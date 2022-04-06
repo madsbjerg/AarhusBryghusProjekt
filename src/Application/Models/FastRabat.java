@@ -15,6 +15,6 @@ public class FastRabat implements Rabat, Serializable {
 
     @Override
     public double beregnRabat(double sum) {
-        return sum - beloeb;
+        return sum - beloeb;   
     }
 }
