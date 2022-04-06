@@ -123,15 +123,9 @@ public class BetalingsPane extends GridPane {
     private void regningSelectedAction(){
         Regning valgtRegning = lvwVarerIRegning.getSelectionModel().getSelectedItem();
 
-
-
         // set text
 
-
-
     }
-
-
 
     private void afslutRegningAction(){
         // Skal vi skifte boolean isBetalt??
