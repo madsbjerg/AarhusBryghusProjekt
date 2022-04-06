@@ -25,11 +25,8 @@ public class BetalingsPane extends GridPane {
     private TextField txfTotal, txfRabat, txfNavnKunde;
     private ListView<Regning> lvwRegninger, lvwVarerIRegning;
     private Button btnBetal;
-    //private RadioButton radBtnBetalingsform;
-    private Label lblTotal, lblRegninger, lblRegningInfo, lblRabat, lblBetalingsform, lblKundeNavn, lblvarer;
-    private VBox vboxBetalingform, vboxRegningInform, vboxRabat, vboxBetalBtn, vboxLblInfo;
-    private ToggleGroup groupBetalingsform = new ToggleGroup();
-    private ComboBox<String> cbbRabat;
+    private Label lblTotal, lblRegninger, lblRegningInfo, lblRabat, lblKundeNavn, lblvarer;
+    private VBox vboxRegningInform, vboxBetalBtn, vboxLblInfo;
 
     public BetalingsPane() {
         this.setPadding(new Insets(20));
@@ -37,42 +34,33 @@ public class BetalingsPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        // kald create på elementer
+        // ---- initialize ------------------------------------
 
         createLabels(this);
         createListViewRegning(this);
         createVbox(this);
         createListViewVarer(this);
-        updateRegninger();
+        updateRegningerAction();
+
     }
 
-    // create elementer
+
+    // ---- Create elementer ----------------------------------
 
     private void createLabels(BetalingsPane betalingsPane) {
         lblRegninger = new Label("Regninger");
         this.add(lblRegninger, 1, 0);
 
-        lblvarer = new Label("Varer");
+        lblvarer = new Label("Varer i salg");
         this.add(lblvarer, 2,0);
 
         lblRegningInfo = new Label("Informationer");
         this.add(lblRegningInfo, 3, 0);
-
-        lblBetalingsform = new Label("Betalingsform");
-        this.add(lblBetalingsform, 6, 0);
-
     }
 
-
     private void createListViewRegning(BetalingsPane betalingsPane) {
-
         lvwRegninger = new ListView<>();
         this.add(lvwRegninger, 1, 2);
-
-        ArrayList<Salg> regninger = controller.getRegninger();
-        for (Salg s : regninger) {
-            lvwRegninger.getItems().add((Regning) s);
-        }
     }
 
     private void createListViewVarer(BetalingsPane betalingsPane){
@@ -80,29 +68,15 @@ public class BetalingsPane extends GridPane {
         this.add(lvwVarerIRegning, 2, 2);
     }
 
-
-
     private void createVbox(BetalingsPane betalingsPane) {
-        vboxBetalingform = new VBox();
-        this.add(vboxBetalingform, 6, 2);
-        Betalingsform[] betalingsform = Betalingsform.values();
-
-        for (int i = 0; i < betalingsform.length; i++) {
-            RadioButton rb = new RadioButton();
-            vboxBetalingform.getChildren().add(rb);
-            rb.setText(betalingsform[i].toString());
-            rb.setUserData(betalingsform[i]);
-            rb.setToggleGroup(groupBetalingsform);
-        }
 
         // Vbox med informationer fra salget.
-        txfNavnKunde = new TextField(); // get fra valgte regning
+        txfNavnKunde = new TextField();
         txfNavnKunde.setEditable(false);
         txfRabat = new TextField();
         txfRabat.setEditable(false);
         txfTotal = new TextField();
         txfTotal.setEditable(false);
-
 
         vboxRegningInform = new VBox();
         this.add(vboxRegningInform, 4, 2);
@@ -110,13 +84,12 @@ public class BetalingsPane extends GridPane {
         vboxRegningInform.getChildren().add(txfRabat);
         vboxRegningInform.getChildren().add(txfTotal);
 
-
         // Vbox betalings-button
         vboxBetalBtn = new VBox();
         this.add(vboxBetalBtn, 7, 2);
-        btnBetal = new Button("Betal");
+        btnBetal = new Button("Regning betalt");
         vboxBetalBtn.getChildren().add(btnBetal);
-        btnBetal.setOnAction(event -> lavBetalingAction());
+        btnBetal.setOnAction(event -> afslutRegningAction());
 
         // Vbox til infolabels.
         vboxLblInfo = new VBox();
@@ -128,27 +101,54 @@ public class BetalingsPane extends GridPane {
         vboxLblInfo.getChildren().add(lblRabat);
         lblTotal = new Label("Total pris");
         vboxLblInfo.getChildren().add(lblTotal);
+    }
+
+
+    // ---- Actions ---------------------------------
+
+    private void updateRegningerAction () {
+        ArrayList<Salg> regninger = controller.getRegninger();
+        for (Salg s : regninger) {
+            if(!((Regning)s).isBetalt()){
+                lvwRegninger.getItems().add((Regning) s);
+            }
+        }
+    }
+
+    private void regningSelectedAction(){
+        Regning valgtRegning = lvwVarerIRegning.getSelectionModel().getSelectedItem();
+
+
+
+        // set text
 
 
 
     }
 
-    private void updateRegninger () {
 
-    }
 
-    private void lavBetalingAction(){
-
-        bekraeftBetalingMessage();
+    private void afslutRegningAction(){
+        // Skal vi skifte boolean isBetalt??
+        Regning valgtRegning = lvwRegninger.getSelectionModel().getSelectedItem();
+        if(valgtRegning == null){
+            valgErrorMessage();
+        }
+        else{
+            lvwRegninger.getItems().remove(valgtRegning);
+            bekraeftBetalingMessage();
+        }
     }
 
     private void bekraeftBetalingMessage(){
-        String message = "Betalingen er gennemført";
-        JOptionPane.showMessageDialog(new JFrame(), message, "Betaling", JOptionPane.INFORMATION_MESSAGE);
+        String message = "Regningen er blevet afsluttet";
+        JOptionPane.showMessageDialog(new JFrame(), message, "Afslut regning", JOptionPane.INFORMATION_MESSAGE);
     }
 
-
-
+    private void valgErrorMessage(){
+        String message = "Ingen regning er valgt";
+        JOptionPane.showMessageDialog(new JFrame(), message, "Fejl", JOptionPane.ERROR_MESSAGE);
+    }
 
 
 }
