@@ -29,6 +29,7 @@ public class ReturnerUdlejningPane extends GridPane {
     private Button btnTilføjVare;                                   // Knap til tilføjelse af vare.
     private HashMap<Vare, Integer> returVare;
     private Button btnOpdaterListe;
+    private Label lblAntalAfVare;
     public ReturnerUdlejningPane(){
         this.setPadding(new Insets(20));
         this.setHgap(20);
@@ -49,6 +50,8 @@ public class ReturnerUdlejningPane extends GridPane {
         lvwReturneredeVarer = new ListView<>();
         lblUdlejedeVarer = new Label("Varer i udlejning");
         lvwUdlejedeVarer = new ListView<>();
+
+        lblAntalAfVare = new Label("");
 
         lblTotalPris = new Label("Total pris");
         lblTotalPrisEfterRabat = new Label("Total pris rabat");
@@ -90,14 +93,21 @@ public class ReturnerUdlejningPane extends GridPane {
         ChangeListener<Udlejning> udlejningChangeListener = (ov, oldUdlejning, newUdlejning) -> this.udlejningSelectedAction();
         lvwUdlejninger.getSelectionModel().selectedItemProperty().addListener(udlejningChangeListener);
 
-        //ChangeListener<Udlejningsvare> vareChangedListener = (ov, oldUdlejning, newUdlejning) -> this.vareSelectedAction();
-        //lvwUdlejedeVarer.getSelectionModel().selectedItemProperty().addListener(vareChangedListener);
+        ChangeListener<Udlejningsvare> vareChangedListener = (ov, oldUdlejning, newUdlejning) -> this.vareSelectedAction();
+        lvwUdlejedeVarer.getSelectionModel().selectedItemProperty().addListener(vareChangedListener);
 
         btnTilføjVare.setOnAction(event -> addVareAction());
 
         btnFærdiggør.setOnAction(event -> færdiggørUdlejningAction());
 
         btnOpdaterListe.setOnAction(eveent -> opdaterListeAction());
+    }
+
+    private void vareSelectedAction() {
+        Udlejning u = lvwUdlejninger.getSelectionModel().getSelectedItem();
+        if(u != null){
+            lblAntalAfVare.setText("" + u.getVarer().get(lvwUdlejedeVarer.getSelectionModel().getSelectedItem()));
+        }
     }
 
     private void opdaterListeAction() {
