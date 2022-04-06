@@ -20,5 +20,9 @@ public class ProcentRabat implements Rabat, Serializable {
     public double getProcentSats() {
         return procentSats;
     }
+    @Override
+    public String toString(){
+        return "Procent Rabat" + " Sats:" + getProcentSats();
+    }
 }
 //
