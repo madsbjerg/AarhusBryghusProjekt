@@ -153,6 +153,11 @@ public class Controller {
         return rl;
     }
 
+    public ArrayList<Salg> getSlag(){
+        ArrayList<Salg> salg = new ArrayList<>(Storage.getStorage().getSalg());
+        return salg;
+    }
+
     public ArrayList<Vare> getRundvisninger(){
         Storage s = Storage.getStorage();
         ArrayList<Vare> rl = new ArrayList<>();
