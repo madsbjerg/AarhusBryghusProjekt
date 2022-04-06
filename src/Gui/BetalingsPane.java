@@ -64,7 +64,6 @@ public class BetalingsPane extends GridPane {
         lvwRegninger = new ListView<>();
         this.add(lvwRegninger, 0, 1);
 
-
     }
 
     private void createVbox (BetalingsPane betalingsPane){
