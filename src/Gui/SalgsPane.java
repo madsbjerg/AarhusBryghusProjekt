@@ -27,6 +27,9 @@ public class SalgsPane extends GridPane {
     private Button btnTilføj,btnRemove,  btnLavSalg;
     private VBox vbox;
     private RadioButton rbklippekort;
+    private Button btnKøbKlippekort;
+    private TextField txfKlippekortNavn;
+    private Button btnOpretklippekort;
 
     public SalgsPane(){
         this.setPadding(new Insets(20));
@@ -51,6 +54,8 @@ public class SalgsPane extends GridPane {
         createComboboxPrisgruppe(this);
 
         createTextfields(this);
+
+        createKøbKlippekortGUI();
 
     }
 
@@ -241,6 +246,46 @@ public class SalgsPane extends GridPane {
         JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
     }
 
+    private void createKøbKlippekortGUI(){
+        btnOpretklippekort = new Button("Opret nyt klippekort.");
+        btnKøbKlippekort = new Button("Køb klippekort.");
+        txfKlippekortNavn = new TextField("Navn på ejer af nyt kort");
+        this.add(btnOpretklippekort, 0,5);
+        this.add(txfKlippekortNavn, 1,5);
+        this.add(btnKøbKlippekort, 2,5);
+        btnOpretklippekort.setOnAction(event -> opretKlippekortAction());
+        btnKøbKlippekort.setOnAction(event -> købKlippekortAction());
+        txfKlippekortNavn.setDisable(true);
+        btnKøbKlippekort.setDisable(true);
+    }
+
+    private void opretKlippekortAction() {
+        txfKlippekortNavn.setDisable(false);
+        btnKøbKlippekort.setDisable(false);
+        txfTotalPris.setText("130");
+    }
+
+    private void købKlippekortAction() {
+        if(!txfKlippekortNavn.getText().equals("Navn på ejer af nyt kort") || !txfKlippekortNavn.getText().equalsIgnoreCase("")){
+            String message = "Du skal indtaste navn i tekstfeltet.";
+            JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
+        }
+        else if(groupBetalingsform.getSelectedToggle() == null){
+            String message = "Vælg betalingsform.";
+            JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            Klippekort k = controller.createKlippekort(txfKlippekortNavn.getText());
+            HashMap<Vare, Integer> varer = new HashMap<>();
+            varer.put(k, 1);
+            Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
+            controller.createProduktSalg(varer, bform, Double.parseDouble(txfTotalPris.getText()), null);
+            controller.saveStorageToFile();
+            txfKlippekortNavn.setDisable(true);
+            btnKøbKlippekort.setDisable(true);
+        }
+    }
+
     private void createListviewKurv(SalgsPane salgsPane) {
         lvwKurv = new ListView<>();
         this.add(lvwKurv, 3, 1);
@@ -366,7 +411,7 @@ public class SalgsPane extends GridPane {
         else{
             for(int i =0;i< alleVare.size();i++) {
                 if (alleVare.get(i).getVaretype() == cbbVareType.getValue() && !alleVare.get(i).toString().contains("NaN")) {
-                    if(!(alleVare.get(i) instanceof Klippekort)) {
+                    if(!(alleVare.get(i) instanceof Klippekort) || !(alleVare.get(i) instanceof Udlejningsvare)) {
                         valgteVare.add(alleVare.get(i));
                     }
                 }
