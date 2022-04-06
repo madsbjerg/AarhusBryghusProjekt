@@ -18,12 +18,12 @@ public class BetalingsPane extends GridPane {
     private ListView<Regning> lvwRegninger;
     private Button btnBetal;
     //private RadioButton radBtnBetalingsform;
-    private Label lblTotal;
-    private VBox vboxBetalingform, vboxRegningInform;
+    private Label lblTotal, lblRegninger, lblRegningInfo, lblRabat, lblBetalingsform;
+    private VBox vboxBetalingform, vboxRegningInform, vboxRabat, vboxBetalBtn;
     private ToggleGroup groupBetalingsform = new ToggleGroup();
     private ComboBox<String> cbbRabat;
 
-    public BetalingsPane(){
+    public BetalingsPane() {
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
@@ -36,48 +36,61 @@ public class BetalingsPane extends GridPane {
         createButtons(this);
         createListViews(this);
         createVbox(this);
-        createComboBox(this);
 
         updateRegninger();
     }
 
     // create elementer
 
-    private void createTextfields(BetalingsPane betalingsPane){
+    private void createTextfields(BetalingsPane betalingsPane) {
 
-        txfTotal = new TextField("");
-        txfTotal.setEditable(false);
-        //this.add(txfTotal);
+//        txfTotal = new TextField("");
+//        txfTotal.setEditable(false);
+//        //this.add(txfTotal);
 
-        txfRabat = new TextField();
-        txfRabat.setEditable(true);
-        this.add(txfRabat, 4, 1);
+
 
 
     }
 
-    private void createLabels(BetalingsPane betalingsPane){
-        lblTotal = new Label("Total");
+    private void createLabels(BetalingsPane betalingsPane) {
+        lblRegninger = new Label("Regninger");
+        this.add(lblRegninger, 1, 1);
+
+        lblRegningInfo = new Label("Informationer");
+        this.add(lblRegningInfo, 2, 1);
+
+        lblRabat = new Label("Rabat");
+        this.add(lblRabat, 3, 1);
+
+        lblBetalingsform = new Label("Betalingsform");
+        this.add(lblBetalingsform, 4, 1);
+
     }
 
 
-    private void createButtons(BetalingsPane betalingsPane){
-        btnBetal = new Button();
+    private void createButtons(BetalingsPane betalingsPane) {
+
     }
 
-    private void createListViews(BetalingsPane betalingsPane){
+    private void createListViews(BetalingsPane betalingsPane) {
+
         lvwRegninger = new ListView<>();
-        this.add(lvwRegninger, 0, 1);
+        this.add(lvwRegninger, 1, 2);
 
-
+        ArrayList<Salg> regninger = controller.getRegninger();
+        for (Salg s : regninger) {
+            lvwRegninger.getItems().add((Regning) s);
+        }
     }
 
-    private void createVbox (BetalingsPane betalingsPane){
+
+    private void createVbox(BetalingsPane betalingsPane) {
         vboxBetalingform = new VBox();
-        this.add(vboxBetalingform, 3, 1);
+        this.add(vboxBetalingform, 4, 2);
         Betalingsform[] betalingsform = Betalingsform.values();
 
-        for(int i = 0; i < betalingsform.length; i++){
+        for (int i = 0; i < betalingsform.length; i++) {
             RadioButton rb = new RadioButton();
             vboxBetalingform.getChildren().add(rb);
             rb.setText(betalingsform[i].toString());
@@ -86,7 +99,6 @@ public class BetalingsPane extends GridPane {
         }
 
         // Vbox med informationer fra salget.
-
         txfNavnKunde = new TextField(); // get fra valgte regning
         txfNavnKunde.setEditable(false);
         txfRabat = new TextField();
@@ -95,26 +107,30 @@ public class BetalingsPane extends GridPane {
         txfTotal.setEditable(false);
 
         vboxRegningInform = new VBox();
-        this.add( vboxRegningInform,2, 1);
+        this.add(vboxRegningInform, 2, 2);
         vboxRegningInform.getChildren().add(txfNavnKunde);
         vboxRegningInform.getChildren().add(txfRabat);
         vboxRegningInform.getChildren().add(txfTotal);
 
+        // Vbox rabat
+        txfRabat = new TextField();
+        txfRabat.setEditable(false);
+        vboxRabat = new VBox();
+        this.add(vboxRabat, 3, 2);
+        vboxRabat.getChildren().add(txfRabat);
 
-    private void createComboBox(BetalingsPane betalingsPane){
-        cbbRabat = new ComboBox<>();
-        this.add(cbbRabat, 3, 1);
-        cbbRabat.getItems().add(0, "Fast rabat");
-        cbbRabat.getItems().add(1, "Procent rabat");
+        // Vbox betalings-button
+        vboxBetalBtn = new VBox();
+        this.add(vboxBetalBtn, 5, 2);
+        btnBetal = new Button("Betal");
+        vboxBetalBtn.getChildren().add(btnBetal);
+
+
     }
 
-    public void updateRegninger(){
-        // Skal nok bruge en if statement til at determine om det er en ubetalt regning.
-        // Ved ikke om vi skal have en boolean på den.
+    private void updateRegninger () {
 
-        ArrayList<Salg> regninger = controller.getRegninger();
-        for(Salg s : regninger){
-            lvwRegninger.getItems().add((Regning)s);
-        }
     }
+
+
 }
