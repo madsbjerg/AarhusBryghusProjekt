@@ -43,7 +43,7 @@ public class Regning extends Salg{
             navn += "\n" + "Varen er betalt";
             navn += "\n" + "Betalt med: " + betalingsform;
         } else {
-            navn += "\n" + "Ikke betalt";
+            navn += "\n" + "Ikke betalt" +"\n";
         }
 
         return navn;

@@ -39,7 +39,7 @@ public class Controller {
 
     public  Rundvisning createRundvisning(String navn, int antalPersoner, LocalDateTime tidspunkt){
         if(LocalDateTime.now().plusDays(13).isBefore(tidspunkt)) throw new IllegalArgumentException("Tidspunkt er efter 14 dage af oprettelse af rundvisning.");
-        Rundvisning r = new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
+        Rundvisning r = new Rundvisning(navn, antalPersoner, tidspunkt);
         Storage.getStorage().addVare(r);
         return r;
     }
@@ -158,12 +158,12 @@ public class Controller {
         return salg;
     }
 
-    public ArrayList<Vare> getRundvisninger(){
+    public ArrayList<Rundvisning> getRundvisninger(){
         Storage s = Storage.getStorage();
-        ArrayList<Vare> rl = new ArrayList<>();
+        ArrayList<Rundvisning> rl = new ArrayList<>();
         for(Vare v : s.getVarer()){
             if(v.getVaretype() == Varetype.RUNDVISNING){
-                rl.add(v);
+                rl.add((Rundvisning) v);
             }
         }
         return rl;
