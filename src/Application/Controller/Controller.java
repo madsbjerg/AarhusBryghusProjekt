@@ -169,6 +169,17 @@ public class Controller {
     }
 
 
+    public ArrayList<Salg> getRegninger (){
+
+        ArrayList<Salg> regninger = new ArrayList<>();
+        for(Salg s : Storage.getStorage().getSalg()){
+            if(s instanceof Regning){
+                regninger.add(s);
+            }
+        }
+        return regninger;
+    }
+
 
     public ArrayList<Prisgruppe> getPrisgrupper(){
         ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
@@ -588,6 +599,19 @@ public class Controller {
         u.addPrisgruppe(pgKulsyreButik400);
 
 
+        // ---- Opret regninger --------------------------------
+
+        HashMap<Vare, Integer> regninger = new HashMap<>();
+        Rabat rb1 = new FastRabat(0);
+        Drikkevare regningObj1 = controller.createFlaske("Bov", 0);
+        Drikkevare regningsObj2 = controller.createFlaske("Hov", 0);
+        regninger.put(regningObj1, 0);
+        regninger.put(regningsObj2, 1);
+
+        Regning regning = controller.createRegning(regninger, Betalingsform.REGNING, rb1, 1500.00, "Thomas the train engine");
+
+
+
         //---- Opret klippekort --------------------------------
         controller.createKlippekort("hans");
         controller.createKlippekort("gert");
@@ -602,6 +626,7 @@ public class Controller {
         klippekort.addPrisgruppe(prisgruppeFredagsbar);
 
         controller.saveStorageToFile();
+
     }
 
 }
