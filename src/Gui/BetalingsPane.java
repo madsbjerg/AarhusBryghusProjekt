@@ -1,5 +1,6 @@
 package Gui;
 
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import Application.Controller.Controller;
@@ -12,6 +13,7 @@ import javafx.scene.text.FontWeight;
 import javax.swing.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
 Enten skal regning fjernes fra radiobuttons eller også skal vi tolke regninger,
@@ -111,6 +113,8 @@ public class BetalingsPane extends GridPane {
 
     // ---- Actions ---------------------------------
 
+    ChangeListener<Regning> regningChangeListener = (ov, oldRegning, newRegning) -> this.regningSelectedAction();
+
     private void updateRegningerAction () {
         ArrayList<Salg> regninger = controller.getRegninger();
         for (Salg s : regninger) {
@@ -121,9 +125,24 @@ public class BetalingsPane extends GridPane {
     }
 
     private void regningSelectedAction(){
-        Regning valgtRegning = lvwVarerIRegning.getSelectionModel().getSelectedItem();
+
+        // jeg er lidt i tvivl om jeg skal bruge hashmap eller arraylist.
+        // i need help.
+
+        Regning valgtRegning = lvwRegninger.getSelectionModel().getSelectedItem();
+
+        if(valgtRegning != null){
+            ArrayList<Vare> varerISalg = new ArrayList<>();
+            for(int i = 0; i < lvwVarerIRegning.getItems().size(); i++){
+
+            }
+
+        }
+
 
         // set text
+
+
 
     }
 
