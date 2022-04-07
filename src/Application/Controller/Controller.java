@@ -608,13 +608,12 @@ public class Controller {
 
         HashMap<Vare, Integer> varer = new HashMap<>();
         Rabat rb1 = new FastRabat(0);
-        Drikkevare regningObj1 = controller.createFlaske("Bov", 0);
-        Drikkevare regningsObj2 = controller.createFlaske("Hov", 0);
+        Drikkevare regningObj1 = controller.createFlaske("Klosterbryg", 0);
+        Drikkevare regningsObj2 = controller.createFlaske("Juletønden", 0);
         varer.put(regningObj1, 0);
         varer.put(regningsObj2, 1);
 
         Regning regning = controller.createRegning(varer, Betalingsform.REGNING, rb1, 1500.00, "Thomas the train engine");
-
 
 
         //---- Opret klippekort --------------------------------
