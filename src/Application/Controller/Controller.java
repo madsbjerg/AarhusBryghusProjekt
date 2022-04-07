@@ -337,6 +337,7 @@ public class Controller {
         Sampakning s3 = controller.createSampakning("Trækasse 6 øl", 6, 0);
         Sampakning s4 = controller.createSampakning("Gavekurv 6 øl, 2 glas", 6, 2);
         Sampakning s5 = controller.createSampakning("Trækasse 6 øl, 6 glas", 6, 6);
+        Sampakning s6 = controller.createSampakning("Trækasse 12 øl", 12, 0);
 
         //prisgrupper til regninger
         Prisgruppe pgSampakningFredagsbar = new Prisgruppe(110, "Fredagsbar");
@@ -364,6 +365,11 @@ public class Controller {
         s5.addPrisgruppe(pgSampakning5Fredagsbar);
         Prisgruppe pgSampakning5Butik = new Prisgruppe(350, "Butik");
         s5.addPrisgruppe(pgSampakning5Butik);
+
+        Prisgruppe pgSampakning6Fredagsbar = new Prisgruppe(410, "Fredagsbar");
+        s6.addPrisgruppe(pgSampakning6Fredagsbar);
+        Prisgruppe pgSampakning6Butik = new Prisgruppe(410, "Butik");
+        s6.addPrisgruppe(pgSampakning6Butik);
 
 
 
