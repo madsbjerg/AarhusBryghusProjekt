@@ -173,6 +173,8 @@ public class SalgsPane extends GridPane {
                   }
                 controller.saveStorageToFile();
                 salgOprettetMessage();
+                resetTotalPris();
+                lvwKurv.getItems().clear();
             }
         } else {
             errormessageBetalingform();
@@ -226,6 +228,10 @@ public class SalgsPane extends GridPane {
     private void errorMessageRemove() {
         String message = "Du skal vælge en vare først i ''Kurv'' listen";
         JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void resetTotalPris(){
+        txfTotalPris.setText("" + 0);
     }
 
     private void updateKurvAction() {
