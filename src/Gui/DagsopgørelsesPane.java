@@ -13,6 +13,7 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,33 +70,39 @@ public class DagsopgørelsesPane extends GridPane {
 
     private void opdaterKlipListe() {
         HashMap<Vare, Integer> vareKlipMap = new HashMap<>();
-        for(Salg s : controller.getProduktSalg()){
-            if(((ProduktSalg) s).getBetalingsform().equals(Betalingsform.KLIPPEKORT)){
-                if(s.getSalgsDato().isBefore(dpSlutPeriode.getValue()) || s.getSalgsDato().isAfter(dpStartPeriode.getValue())){
-                    HashMap<Vare, Integer> varerMap = s.getVarer();
-                    for(Vare v : varerMap.keySet())
-                    {
-                        int currentAmount = 0;
-                        if(vareKlipMap.get(v) == null) {
-                            vareKlipMap.put(v, currentAmount + (int)v.getPris("FredagsbarKlip"));
-                        }
-                        else{
-                            currentAmount = vareKlipMap.get(v);
-                            vareKlipMap.put(v, currentAmount + (int)v.getPris("FredagsbarKlip"));
+        if(!(dpSlutPeriode.getValue() == null) || !(dpStartPeriode.getValue() == null)){
+            for(Salg s : controller.getProduktSalg()){
+                if(((ProduktSalg) s).getBetalingsform().equals(Betalingsform.KLIPPEKORT)){
+                    if(s.getSalgsDato().isBefore(dpSlutPeriode.getValue()) || s.getSalgsDato().isAfter(dpStartPeriode.getValue())){
+                        HashMap<Vare, Integer> varerMap = s.getVarer();
+                        for(Vare v : varerMap.keySet())
+                        {
+                            int currentAmount = 0;
+                            if(vareKlipMap.get(v) == null) {
+                                vareKlipMap.put(v, currentAmount + (int)v.getPris("FredagsbarKlip"));
+                            }
+                            else{
+                                currentAmount = vareKlipMap.get(v);
+                                vareKlipMap.put(v, currentAmount + (int)v.getPris("FredagsbarKlip"));
+                            }
                         }
                     }
                 }
             }
-        }
 
-        lvwVarerKøbtPåKlip.getItems().clear();
-        int sumKlip = 0;
-        for(Vare v : vareKlipMap.keySet()){
-            int klip = vareKlipMap.get(v);
-            lvwVarerKøbtPåKlip.getItems().add(v.getNavn() + " klip: " + klip);
-            sumKlip += klip;
+            lvwVarerKøbtPåKlip.getItems().clear();
+            int sumKlip = 0;
+            for(Vare v : vareKlipMap.keySet()){
+                int klip = vareKlipMap.get(v);
+                lvwVarerKøbtPåKlip.getItems().add(v.getNavn() + " klip: " + klip);
+                sumKlip += klip;
+            }
+            lblKlipBrugtIPeriode.setText("Total: "+sumKlip);
         }
-        lblKlipBrugtIPeriode.setText("Total: "+sumKlip);
+        else{
+            String message = "Husk at indsætte datoer";
+            JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 
