@@ -81,7 +81,7 @@ public class DagsopgørelsesPane extends GridPane {
             new DateCell() {
             @Override public void updateItem(LocalDate item, boolean empty){
                 super.updateItem(item, empty);
-                    if(empty || datoer.contains(it  em) ){
+                    if(empty || datoer.contains(item) ){
                         setText(item.toString());
                     } else {
                         setText(null);
