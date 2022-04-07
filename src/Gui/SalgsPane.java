@@ -130,15 +130,15 @@ public class SalgsPane extends GridPane {
             Betalingsform bform = Betalingsform.valueOf(groupBetalingsform.getSelectedToggle().getUserData().toString());
             double total = Double.parseDouble(txfTotalPris.getText());
 
-              if(groupRabat.getSelectedToggle() != null){
-                  //laver rabat objekt.
-                  if(groupRabat.getSelectedToggle().getUserData().toString().contains("FastRabat")){
-                   Rabat rabat = controller.createFastRabat(Double.parseDouble(txfFastRabat.getText()));
-                   if(Objects.equals(bform.toString(), "REGNING")){
-                       controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
-                   } else {
+            if(groupRabat.getSelectedToggle() != null){
+                //laver rabat objekt.
+                if(groupRabat.getSelectedToggle().getUserData().toString().contains("FastRabat")){
+                    Rabat rabat = controller.createFastRabat(Double.parseDouble(txfFastRabat.getText()));
+                    if(Objects.equals(bform.toString(), "REGNING")){
+                        controller.createRegning(varer, bform, rabat, total, txfRegning.getText());
+                    } else {
                        controller.createProduktSalg(varer, bform, total, rabat);
-                   }
+                    }
                     salgOprettetMedRabatMessage(rabat);
                 } else if (groupRabat.getSelectedToggle().getUserData().toString().contains("ProcentRabat")){
                     Rabat rabat = controller.createProcentRabat(Double.parseDouble(txfprocentRabat.getText()));
@@ -153,6 +153,20 @@ public class SalgsPane extends GridPane {
             } else {
                   if(Objects.equals(bform.toString(), "REGNING")){
                       controller.createRegning(varer, bform, null, total, txfRegning.getText());
+                  }
+                  else if(bform.equals(Betalingsform.KLIPPEKORT)){
+                      Klippekort k = (Klippekort) cbbKlippekort.getSelectionModel().getSelectedItem();
+                      try{
+                          k.brugKlip(Double.parseDouble(""+total));
+                          controller.createProduktSalg(varer, bform, total, null);
+                          cbbKlippekort.getItems().clear();
+                          cbbKlippekort.getItems().addAll(controller.getKlippekort());
+
+                      }catch (IllegalArgumentException ex){
+                          String message = ex.getMessage();
+                          JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
+                      }
+
                   }
                   else {
                       controller.createProduktSalg(varer, bform, total, null);

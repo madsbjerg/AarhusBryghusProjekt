@@ -3,7 +3,7 @@ package Application.Models;
 import java.util.InputMismatchException;
 
 public class Klippekort extends Vare{
-    private int antalKlip =4;
+    private double antalKlip =4;
     private String navnKunde;
 
     public Klippekort( String navnKunde) {
@@ -20,7 +20,7 @@ public class Klippekort extends Vare{
      * Tjekker om der er nok klip på kortet, hvis nej kaster metoden en illegalArguementException.
      * @param klipPris = hvor mange klip der skal bruges
      */
-    public void brugKlip(int klipPris){
+    public void brugKlip(double klipPris){
         if(klipPris <=0){
             throw new IllegalArgumentException("klipPris skal være 1 eller højere.");
         }
@@ -31,7 +31,7 @@ public class Klippekort extends Vare{
             throw new IllegalArgumentException("Du forsøger at bruge flere klip end der er på kortet");
         }
     }
-    public int getAntalKlip(){
+    public double getAntalKlip(){
         return antalKlip;
     }
 
