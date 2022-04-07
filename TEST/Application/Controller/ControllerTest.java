@@ -304,7 +304,7 @@ class ControllerTest {
     @Test
     void createRundvisning() {
         Controller c = new Controller();
-        Rundvisning rundvisning = new Rundvisning("Mads", Varetype.RUNDVISNING, 4, LocalDateTime.of(2022, 4, 4,12, 10 ));
+        Rundvisning rundvisning = new Rundvisning("Mads", 4, LocalDateTime.of(2022, 4, 4,12, 10 ));
         Prisgruppe prisgruppe = new Prisgruppe(400, "Butik");
 
         rundvisning.addPrisgruppe(prisgruppe);

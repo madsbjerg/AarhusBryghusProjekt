@@ -39,7 +39,7 @@ public class Controller {
 
     public  Rundvisning createRundvisning(String navn, int antalPersoner, LocalDateTime tidspunkt){
         if(LocalDateTime.now().plusDays(13).isBefore(tidspunkt)) throw new IllegalArgumentException("Tidspunkt er efter 14 dage af oprettelse af rundvisning.");
-        Rundvisning r = new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
+        Rundvisning r = new Rundvisning(navn, antalPersoner, tidspunkt);
         Storage.getStorage().addVare(r);
         return r;
     }
@@ -153,12 +153,17 @@ public class Controller {
         return rl;
     }
 
-    public ArrayList<Vare> getRundvisninger(){
+    public ArrayList<Salg> getSlag(){
+        ArrayList<Salg> salg = new ArrayList<>(Storage.getStorage().getSalg());
+        return salg;
+    }
+
+    public ArrayList<Rundvisning> getRundvisninger(){
         Storage s = Storage.getStorage();
-        ArrayList<Vare> rl = new ArrayList<>();
+        ArrayList<Rundvisning> rl = new ArrayList<>();
         for(Vare v : s.getVarer()){
             if(v.getVaretype() == Varetype.RUNDVISNING){
-                rl.add(v);
+                rl.add((Rundvisning) v);
             }
         }
         return rl;
@@ -168,6 +173,17 @@ public class Controller {
         return Storage.getStorage().getVarer();
     }
 
+
+    public ArrayList<Salg> getRegninger (){
+
+        ArrayList<Salg> regninger = new ArrayList<>();
+        for(Salg s : Storage.getStorage().getSalg()){
+            if(s instanceof Regning){
+                regninger.add(s);
+            }
+        }
+        return regninger;
+    }
 
 
     public ArrayList<Prisgruppe> getPrisgrupper(){
@@ -588,6 +604,19 @@ public class Controller {
         u.addPrisgruppe(pgKulsyreButik400);
 
 
+        // ---- Opret regninger --------------------------------
+
+        HashMap<Vare, Integer> varer = new HashMap<>();
+        Rabat rb1 = new FastRabat(0);
+        Drikkevare regningObj1 = controller.createFlaske("Bov", 0);
+        Drikkevare regningsObj2 = controller.createFlaske("Hov", 0);
+        varer.put(regningObj1, 0);
+        varer.put(regningsObj2, 1);
+
+        Regning regning = controller.createRegning(varer, Betalingsform.REGNING, rb1, 1500.00, "Thomas the train engine");
+
+
+
         //---- Opret klippekort --------------------------------
         controller.createKlippekort("hans");
         controller.createKlippekort("gert");
@@ -602,6 +631,7 @@ public class Controller {
         klippekort.addPrisgruppe(prisgruppeFredagsbar);
 
         controller.saveStorageToFile();
+
     }
 
 }

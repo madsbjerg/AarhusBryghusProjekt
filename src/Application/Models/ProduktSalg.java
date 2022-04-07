@@ -39,4 +39,20 @@ public class ProduktSalg extends Salg {
     public HashMap<Vare,Integer> getVare(){
         return varer;
     }
+
+    @Override
+    public String toString(){
+        String navn =  "Salg lavet den. " + salgsDato +
+                "\n"
+                + varer;
+        if(rabat != null){
+            navn +="\n" +rabat;
+        }
+        navn += "\n" + "Total pris: " + Beloeb;
+        if(rabat != null){
+            navn += "\n"+ "Med rabat: " + rabat.beregnRabat(Beloeb);
+        }
+        navn +="\n" + "Betalt med: " + betalingsform +"\n";
+        return navn;
+    }
 }

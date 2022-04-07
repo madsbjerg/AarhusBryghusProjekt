@@ -17,4 +17,9 @@ public class FastRabat implements Rabat, Serializable {
     public double beregnRabat(double sum) {
         return sum - beloeb;
     }
+
+    @Override
+    public String toString(){
+        return "Fast Rabat: " + beloeb;
+    }
 }

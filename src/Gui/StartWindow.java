@@ -66,10 +66,15 @@ private void initContent(BorderPane pane) {
         UdlejningsPane udlejningsPane = new UdlejningsPane();
         tabUdlejning.setContent(udlejningsPane);
 
-        Tab tabBetaling = new Tab("Betaling");
+        Tab tabBetaling = new Tab("Regninger");
         tabs.getTabs().add(tabBetaling);
         BetalingsPane betalingsPane = new BetalingsPane();
         tabBetaling.setContent(betalingsPane);
+
+        Tab tabDagsopgørelse = new Tab("Dagsopgørelse");
+        tabs.getTabs().add(tabDagsopgørelse);
+        DagsopgørelsesPane dagsopgørelsesPane = new DagsopgørelsesPane();
+        tabDagsopgørelse.setContent(dagsopgørelsesPane);
 
 
         AnchorPane.setTopAnchor(tabs, 5.0);
