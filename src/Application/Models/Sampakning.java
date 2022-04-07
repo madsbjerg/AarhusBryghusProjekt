@@ -1,8 +1,6 @@
 package Application.Models;
 public class Sampakning extends Vare{
-
-    private String æsketype;
-    private int antalOel; 
+    private int antalOel;
     private int antalGlas;
     private Drikkevare[] drikkevarer;
     private int antalFyldt;                    // Hjælpe attribut til array.
@@ -10,19 +8,14 @@ public class Sampakning extends Vare{
     //private final ArrayList<Drikkevare> drikkevarer = new ArrayList<>();
 
 
-    public Sampakning(String navn, int pant, String æsketype, int antalOel, int antalGlas){
-        super(navn, pant, Varetype.SAMPAKNING);
-        this.æsketype = æsketype;
+    public Sampakning(String navn,int antalOel, int antalGlas){
+        super(navn, 0, Varetype.SAMPAKNING);
         this.antalOel = antalOel;
         this.antalGlas = antalGlas;
         if(antalOel > 12) drikkevarer = new Drikkevare[12];
         else if (antalOel < 2) drikkevarer = new Drikkevare[2];
         else drikkevarer = new Drikkevare[antalOel];
         antalFyldt = 0;
-    }
-
-    public String getÆsketype() {
-        return æsketype;
     }
 
     public int getAntalOel() {
@@ -55,6 +48,8 @@ public class Sampakning extends Vare{
         if(drikkevarer.length > antalFyldt){
             drikkevarer[antalFyldt] = drikkevare;
             antalFyldt++;
+        } else {
+            throw new IllegalArgumentException("Du prøver at fylde flere drikkevare i sampakningen, end der er plads til");
         }
     }
 }

@@ -86,11 +86,12 @@ public class Controller {
         return k;
     }
 
-    public Klippekort createKlippekort(){
+    /*public Klippekort createKlippekort(){
         Klippekort k = new Klippekort();
         Storage.getStorage().addVare(k);
         return k;
-    }
+    }*/
+
     public  ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, Betalingsform bform, double beloeb, Rabat rabat){
 
         ProduktSalg p1 = new ProduktSalg(varer, beloeb, bform, rabat);
@@ -126,6 +127,12 @@ public class Controller {
         }
     }
 
+    public Sampakning createSampakning (String navn, int antalOel, int antalGas){
+            Sampakning sampakning = new Sampakning(navn, antalOel,antalGas);
+            Storage.getStorage().addVare(sampakning);
+            return sampakning;
+    }
+
     public ArrayList<Vare> getKlippekort(){
         Storage s = Storage.getStorage();
         ArrayList<Vare> rl = new ArrayList<>();
@@ -135,6 +142,10 @@ public class Controller {
             }
         }
         return rl;
+    }
+
+    public Drikkevare[] getDrikkevareSampakning(Sampakning sampakning){
+        return sampakning.getDrikkevarer();
     }
 
     public int brugKlippekort(Klippekort klippekort, int klipPris){
@@ -312,13 +323,41 @@ public class Controller {
 
 
     public void initStorage(){
-        Sampakning s1 = new Sampakning("2 øl & 2 glas i gaveæske", 0, "Gaveæske", 2, 2);
-        Sampakning s5 = new Sampakning("4 øl i gaveæske", 0, "Gaveæske", 4, 0);
-        Sampakning s2 = new Sampakning("6 øl i trækasse ", 0, "Trækasse", 6, 0);
-        Sampakning s3 = new Sampakning("6 øl & 2 glas i gavekurv", 0, "Gavekurv", 2, 4);
-        Sampakning s6 = new Sampakning("6 øl & 6 glas i trækasse ", 0, "Trækasse", 6, 6);
-        Sampakning s7 = new Sampakning("12 øl i Trækassse", 0, "Trækasse", 12, 0);
-        Sampakning s4 = new Sampakning("12 øl i papkasse", 0, "Papkasse", 12, 0);
+        Sampakning s1 = controller.createSampakning("Gaveæske 2 øl, 2 glas", 2, 2);
+        Sampakning s2 = controller.createSampakning("Gaveæske 4 øl", 4, 0);
+        Sampakning s3 = controller.createSampakning("Trækasse 6 øl", 6, 0);
+        Sampakning s4 = controller.createSampakning("Gavekurv 6 øl, 2 glas", 6, 2);
+        Sampakning s5 = controller.createSampakning("Trækasse 6 øl, 6 glas", 6, 6);
+
+        //prisgrupper til regninger
+        Prisgruppe pgSampakningFredagsbar = new Prisgruppe(110, "Fredagsbar");
+        s1.addPrisgruppe(pgSampakningFredagsbar);
+        Prisgruppe pgSampakningButik = new Prisgruppe(110, "Butik");
+        s1.addPrisgruppe(pgSampakningButik);
+
+        Prisgruppe pgSampakning2Fredagsbar = new Prisgruppe(140, "Fredagsbar");
+        s2.addPrisgruppe(pgSampakning2Fredagsbar);
+        Prisgruppe pgSampakning2Butik = new Prisgruppe(140, "Butik");
+        s2.addPrisgruppe(pgSampakning2Butik);
+
+
+        Prisgruppe pgSampakning3Fredagsbar = new Prisgruppe(260, "Fredagsbar");
+        s3.addPrisgruppe(pgSampakning3Fredagsbar);
+        Prisgruppe pgSampakning3Butik = new Prisgruppe(260, "Butik");
+        s3.addPrisgruppe(pgSampakning3Butik);
+
+        Prisgruppe pgSampakning4Fredagsbar = new Prisgruppe(260, "Fredagsbar");
+        s4.addPrisgruppe(pgSampakning4Fredagsbar);
+        Prisgruppe pgSampakning4Butik = new Prisgruppe(260, "Butik");
+        s4.addPrisgruppe(pgSampakning4Butik);
+
+        Prisgruppe pgSampakning5Fredagsbar = new Prisgruppe(350, "Fredagsbar");
+        s5.addPrisgruppe(pgSampakning5Fredagsbar);
+        Prisgruppe pgSampakning5Butik = new Prisgruppe(350, "Butik");
+        s5.addPrisgruppe(pgSampakning5Butik);
+
+
+
 
         // ---- Opret fadøl objekter ------ ----------------------
 
@@ -624,11 +663,11 @@ public class Controller {
         controller.createKlippekort("Mads");
 
         //Klippekort objektet til salg af klippekort
-        Klippekort klippekort = controller.createKlippekort();
+        //Klippekort klippekort = controller.createKlippekort();
         Prisgruppe prisgruppeButik  = new Prisgruppe(130, "Butik");
         Prisgruppe prisgruppeFredagsbar = new Prisgruppe(130, "Fredagsbar");
-        klippekort.addPrisgruppe(prisgruppeButik);
-        klippekort.addPrisgruppe(prisgruppeFredagsbar);
+        //klippekort.addPrisgruppe(prisgruppeButik);
+        //klippekort.addPrisgruppe(prisgruppeFredagsbar);
 
         controller.saveStorageToFile();
 
