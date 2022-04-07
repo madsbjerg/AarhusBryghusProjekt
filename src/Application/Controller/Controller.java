@@ -184,6 +184,14 @@ public class Controller {
         return produktSalg;
     }
 
+    public void setUdlejningBetaling(Udlejning u, boolean betalt){
+        u.setBetalt(true);
+    }
+
+    public void setReturVarer(Udlejning u, HashMap<Vare, Integer> vare){
+        u.setReturVarer(vare);
+    }
+
     public ArrayList<Salg> getRegninger (){
 
         ArrayList<Salg> regninger = new ArrayList<>();
