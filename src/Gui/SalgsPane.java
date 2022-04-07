@@ -283,6 +283,8 @@ public class SalgsPane extends GridPane {
             controller.saveStorageToFile();
             txfKlippekortNavn.setDisable(true);
             btnKøbKlippekort.setDisable(true);
+            cbbKlippekort.getItems().clear();
+            cbbKlippekort.getItems().addAll(controller.getKlippekort());
             salgOprettetMessage();
         }
     }
@@ -406,15 +408,10 @@ public class SalgsPane extends GridPane {
         ArrayList<Vare> valgteVare = new ArrayList<>();
         ArrayList<Vare> alleVare = new ArrayList<>(controller.getVarer());
         controller.setActivePrisgruppe(cbbprisgrupper.getSelectionModel().getSelectedItem());
-        if(cbbVareType.getValue().equals(Varetype.KLIPPEKORT)){
-            valgteVare.add(new Klippekort());
-        }
-        else{
-            for(int i =0;i< alleVare.size();i++) {
-                if (alleVare.get(i).getVaretype() == cbbVareType.getValue() && !alleVare.get(i).toString().contains("NaN")) {
-                    if(!(alleVare.get(i) instanceof Klippekort) || !(alleVare.get(i) instanceof Udlejningsvare)) {
-                        valgteVare.add(alleVare.get(i));
-                    }
+        for(int i =0;i< alleVare.size();i++) {
+            if (alleVare.get(i).getVaretype() == cbbVareType.getValue() && !alleVare.get(i).toString().contains("NaN")) {
+                if(!(alleVare.get(i) instanceof Klippekort) || !(alleVare.get(i) instanceof Udlejningsvare)) {
+                    valgteVare.add(alleVare.get(i));
                 }
             }
         }

@@ -40,12 +40,7 @@ public class Klippekort extends Vare{
     }
     public String toString (){
         String returnString;
-        if(navnKunde != null){
-            returnString = navnKunde + " \nAntal klip tilbage: " + getAntalKlip();
-        }
-        else{
-            returnString = "Køb klippekort 4-klip.";
-        }
+        returnString = navnKunde + " \nAntal klip tilbage: " + getAntalKlip();
         return returnString;
     }
 
