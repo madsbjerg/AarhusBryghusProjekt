@@ -377,7 +377,7 @@ class ControllerTest {
 
     @Test
     void totalUdlejning(){
-        Controller c = new Controller();
+        Controller c = new Controller();  
 
         Vare udlejning = new Udlejningsvare("Klosterbryg", 3000, Varetype.FUSTAGE);
         Vare u = new Udlejningsvare("6 kg",200, Varetype.KULSYRE);
