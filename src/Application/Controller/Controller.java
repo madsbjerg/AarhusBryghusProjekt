@@ -86,11 +86,12 @@ public class Controller {
         return k;
     }
 
-    public Klippekort createKlippekort(){
+    /*public Klippekort createKlippekort(){
         Klippekort k = new Klippekort();
         Storage.getStorage().addVare(k);
         return k;
-    }
+    }*/
+
     public  ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, Betalingsform bform, double beloeb, Rabat rabat){
 
         ProduktSalg p1 = new ProduktSalg(varer, beloeb, bform, rabat);
@@ -624,11 +625,11 @@ public class Controller {
         controller.createKlippekort("Mads");
 
         //Klippekort objektet til salg af klippekort
-        Klippekort klippekort = controller.createKlippekort();
+        //Klippekort klippekort = controller.createKlippekort();
         Prisgruppe prisgruppeButik  = new Prisgruppe(130, "Butik");
         Prisgruppe prisgruppeFredagsbar = new Prisgruppe(130, "Fredagsbar");
-        klippekort.addPrisgruppe(prisgruppeButik);
-        klippekort.addPrisgruppe(prisgruppeFredagsbar);
+        //klippekort.addPrisgruppe(prisgruppeButik);
+        //klippekort.addPrisgruppe(prisgruppeFredagsbar);
 
         controller.saveStorageToFile();
 
