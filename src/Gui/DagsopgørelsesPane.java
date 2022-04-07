@@ -111,7 +111,6 @@ public class DagsopgørelsesPane extends GridPane {
         }
         txaRundvisning.setText(rundvisningDatepicker.toString());
     }
-
     private void updateSalgAction() {
         lvwsalg.getItems().remove(0,lvwsalg.getItems().size());
         lvwsalg.getItems().addAll(Controller.getController().getSlag());

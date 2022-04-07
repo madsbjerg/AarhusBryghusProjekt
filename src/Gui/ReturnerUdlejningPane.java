@@ -29,6 +29,7 @@ public class ReturnerUdlejningPane extends GridPane {
     private Button btnTilføjVare;                                   // Knap til tilføjelse af vare.
     private HashMap<Vare, Integer> returVare;
     private Button btnOpdaterListe;
+    private Label lblAntalAfVare;
     public ReturnerUdlejningPane(){
         this.setPadding(new Insets(20));
         this.setHgap(20);
@@ -49,6 +50,8 @@ public class ReturnerUdlejningPane extends GridPane {
         lvwReturneredeVarer = new ListView<>();
         lblUdlejedeVarer = new Label("Varer i udlejning");
         lvwUdlejedeVarer = new ListView<>();
+
+        lblAntalAfVare = new Label("");
 
         lblTotalPris = new Label("Total pris");
         lblTotalPrisEfterRabat = new Label("Total pris rabat");
@@ -79,25 +82,33 @@ public class ReturnerUdlejningPane extends GridPane {
         pane.add(lvwUdlejninger, 0,1);
         pane.add(lblUdlejedeVarer, 0,2);
         pane.add(lvwUdlejedeVarer, 0,3);
+        pane.add(lblAntalAfVare, 0,4);
         pane.add(lblReturneredeVarer,1,2);
         pane.add(lvwReturneredeVarer, 1,3);
         pane.add(prisBox, 2,3);
-        pane.add(btnTilføjVare, 0,4);
-        pane.add(btnFærdiggør, 2,4);
+        pane.add(btnTilføjVare, 0,5);
+        pane.add(btnFærdiggør, 2,5);
         pane.add(btnOpdaterListe, 1,0);
 
         // ACTIONS
         ChangeListener<Udlejning> udlejningChangeListener = (ov, oldUdlejning, newUdlejning) -> this.udlejningSelectedAction();
         lvwUdlejninger.getSelectionModel().selectedItemProperty().addListener(udlejningChangeListener);
 
-        //ChangeListener<Udlejningsvare> vareChangedListener = (ov, oldUdlejning, newUdlejning) -> this.vareSelectedAction();
-        //lvwUdlejedeVarer.getSelectionModel().selectedItemProperty().addListener(vareChangedListener);
+        ChangeListener<Udlejningsvare> vareChangedListener = (ov, oldUdlejning, newUdlejning) -> this.vareSelectedAction();
+        lvwUdlejedeVarer.getSelectionModel().selectedItemProperty().addListener(vareChangedListener);
 
         btnTilføjVare.setOnAction(event -> addVareAction());
 
         btnFærdiggør.setOnAction(event -> færdiggørUdlejningAction());
 
         btnOpdaterListe.setOnAction(eveent -> opdaterListeAction());
+    }
+
+    private void vareSelectedAction() {
+        Udlejning u = lvwUdlejninger.getSelectionModel().getSelectedItem();
+        if(u != null){
+            lblAntalAfVare.setText("" + u.getVarer().get(lvwUdlejedeVarer.getSelectionModel().getSelectedItem()));
+        }
     }
 
     private void opdaterListeAction() {

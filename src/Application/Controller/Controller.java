@@ -81,7 +81,7 @@ public class Controller {
     }
 
     public  Klippekort createKlippekort(String navnKunde){
-        Klippekort k = new Klippekort("hans");
+        Klippekort k = new Klippekort(navnKunde);
         Storage.getStorage().addVare(k);
         return k;
     }
@@ -137,7 +137,7 @@ public class Controller {
         return rl;
     }
 
-    public int brugKlippekort(Klippekort klippekort, int klipPris){
+    public double brugKlippekort(Klippekort klippekort, double klipPris){
         klippekort.brugKlip(klipPris);
         return klippekort.getAntalKlip();
     }
