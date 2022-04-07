@@ -135,6 +135,7 @@ public class BetalingsPane extends GridPane {
 
     private void updateRegninger () {
 
+
     }
 
     private void lavBetalingAction(){
