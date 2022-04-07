@@ -81,7 +81,7 @@ public class Controller {
     }
 
     public  Klippekort createKlippekort(String navnKunde){
-        Klippekort k = new Klippekort("hans");
+        Klippekort k = new Klippekort(navnKunde);
         Storage.getStorage().addVare(k);
         return k;
     }
