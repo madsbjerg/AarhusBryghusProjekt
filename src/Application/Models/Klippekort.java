@@ -31,6 +31,7 @@ public class Klippekort extends Vare{
             throw new IllegalArgumentException("Du forsøger at bruge flere klip end der er på kortet");
         }
     }
+
     public double getAntalKlip(){
         return antalKlip;
     }

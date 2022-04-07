@@ -148,7 +148,7 @@ public class Controller {
         return sampakning.getDrikkevarer();
     }
 
-    public int brugKlippekort(Klippekort klippekort, int klipPris){
+    public double brugKlippekort(Klippekort klippekort, int klipPris){
         klippekort.brugKlip(klipPris);
         return klippekort.getAntalKlip();
     }
