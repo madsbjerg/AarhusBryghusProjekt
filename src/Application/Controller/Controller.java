@@ -174,6 +174,15 @@ public class Controller {
         return Storage.getStorage().getVarer();
     }
 
+    public ArrayList<Salg> getProduktSalg(){
+        ArrayList<Salg> produktSalg = new ArrayList<>();
+        for(Salg s : Storage.getStorage().getSalg()){
+            if(s instanceof ProduktSalg){
+                produktSalg.add(s);
+            }
+        }
+        return produktSalg;
+    }
 
     public ArrayList<Salg> getRegninger (){
 
