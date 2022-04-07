@@ -39,7 +39,7 @@ public class Controller {
 
     public  Rundvisning createRundvisning(String navn, int antalPersoner, LocalDateTime tidspunkt){
         if(LocalDateTime.now().plusDays(13).isBefore(tidspunkt)) throw new IllegalArgumentException("Tidspunkt er efter 14 dage af oprettelse af rundvisning.");
-        Rundvisning r = new Rundvisning(navn, Varetype.RUNDVISNING, antalPersoner, tidspunkt);
+        Rundvisning r = new Rundvisning(navn, antalPersoner, tidspunkt);
         Storage.getStorage().addVare(r);
         return r;
     }
@@ -81,7 +81,7 @@ public class Controller {
     }
 
     public  Klippekort createKlippekort(String navnKunde){
-        Klippekort k = new Klippekort("hans");
+        Klippekort k = new Klippekort(navnKunde);
         Storage.getStorage().addVare(k);
         return k;
     }
@@ -158,12 +158,12 @@ public class Controller {
         return salg;
     }
 
-    public ArrayList<Vare> getRundvisninger(){
+    public ArrayList<Rundvisning> getRundvisninger(){
         Storage s = Storage.getStorage();
-        ArrayList<Vare> rl = new ArrayList<>();
+        ArrayList<Rundvisning> rl = new ArrayList<>();
         for(Vare v : s.getVarer()){
             if(v.getVaretype() == Varetype.RUNDVISNING){
-                rl.add(v);
+                rl.add((Rundvisning) v);
             }
         }
         return rl;
@@ -606,14 +606,14 @@ public class Controller {
 
         // ---- Opret regninger --------------------------------
 
-        HashMap<Vare, Integer> regninger = new HashMap<>();
+        HashMap<Vare, Integer> varer = new HashMap<>();
         Rabat rb1 = new FastRabat(0);
         Drikkevare regningObj1 = controller.createFlaske("Bov", 0);
         Drikkevare regningsObj2 = controller.createFlaske("Hov", 0);
-        regninger.put(regningObj1, 0);
-        regninger.put(regningsObj2, 1);
+        varer.put(regningObj1, 0);
+        varer.put(regningsObj2, 1);
 
-        Regning regning = controller.createRegning(regninger, Betalingsform.REGNING, rb1, 1500.00, "Thomas the train engine");
+        Regning regning = controller.createRegning(varer, Betalingsform.REGNING, rb1, 1500.00, "Thomas the train engine");
 
 
 

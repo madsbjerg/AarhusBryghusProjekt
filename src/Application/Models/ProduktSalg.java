@@ -52,7 +52,7 @@ public class ProduktSalg extends Salg {
         if(rabat != null){
             navn += "\n"+ "Med rabat: " + rabat.beregnRabat(Beloeb);
         }
-        navn +="\n" + "Betalt med: " + betalingsform;
+        navn +="\n" + "Betalt med: " + betalingsform +"\n";
         return navn;
     }
 }
