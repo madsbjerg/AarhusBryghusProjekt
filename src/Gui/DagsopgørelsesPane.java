@@ -1,39 +1,110 @@
 package Gui;
 
 import Application.Controller.Controller;
-import Application.Models.Rundvisning;
-import Application.Models.Salg;
-import Application.Models.Vare;
+import Application.Models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class DagsopgørelsesPane extends GridPane {
 
         private ListView<Salg> lvwsalg;
-        private Button btnUpdate,btnSerundvisninger;
+        private Button btnUpdate,btnSerundvisninger, btnUpdateKlip;
         private TextArea txaRundvisning;
-
+        private Label lblKlipStatistik, lblStartPeriode, lblSlutPeriode, lblKlipBrugtIPeriode;
+        private ListView<String> lvwVarerKøbtPåKlip;
+        private DatePicker dpStartPeriode, dpSlutPeriode;
+        private Controller controller;
     public DagsopgørelsesPane(){
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
 
-        
+        controller = Controller.getController();
         createListview(this);
         createButton(this);
         createLabel(this);
+        createKlipStatistikGui();
         
     }
+
+    private void createKlipStatistikGui() {
+        int heightScale = 4;
+        lvwVarerKøbtPåKlip = new ListView<>();
+        lblKlipStatistik = new Label("Statistik over klip.");
+        lblStartPeriode = new Label("Start periode.");
+        lblSlutPeriode = new Label("Slut periode.");
+        lblKlipBrugtIPeriode = new Label("0");
+        dpStartPeriode = new DatePicker();
+        dpSlutPeriode = new DatePicker();
+        lvwVarerKøbtPåKlip.setPrefHeight(Screen.getPrimary().getBounds().getMaxY() / heightScale);
+        btnUpdateKlip = new Button("Update");
+
+        HBox hbox = new HBox();
+        this.add(lblKlipStatistik, 1,0);
+        this.add(lvwVarerKøbtPåKlip,1,1);
+        this.add(lblStartPeriode,1,2);
+        this.add(lblSlutPeriode,1,4);
+        hbox.getChildren().add(dpStartPeriode);
+        hbox.getChildren().add(lblKlipBrugtIPeriode);
+        hbox.setPrefWidth(lvwVarerKøbtPåKlip.getWidth());
+        hbox.setSpacing(50);
+        this.add(hbox,1,3);
+        this.add(dpSlutPeriode,1,5);
+        this.add(btnUpdateKlip,1,6);
+        btnUpdateKlip.setOnAction(event -> opdaterKlipListe());
+    }
+
+    private void opdaterKlipListe() {
+        HashMap<Vare, Integer> vareKlipMap = new HashMap<>();
+        if(!(dpSlutPeriode.getValue() == null) || !(dpStartPeriode.getValue() == null)){
+            for(Salg s : controller.getProduktSalg()){
+                if(((ProduktSalg) s).getBetalingsform().equals(Betalingsform.KLIPPEKORT)){
+                    if(s.getSalgsDato().isBefore(dpSlutPeriode.getValue()) || s.getSalgsDato().isAfter(dpStartPeriode.getValue())){
+                        HashMap<Vare, Integer> varerMap = s.getVarer();
+                        for(Vare v : varerMap.keySet())
+                        {
+                            int currentAmount = 0;
+                            if(vareKlipMap.get(v) == null) {
+                                vareKlipMap.put(v, currentAmount + (int)v.getPris("FredagsbarKlip"));
+                            }
+                            else{
+                                currentAmount = vareKlipMap.get(v);
+                                vareKlipMap.put(v, currentAmount + (int)v.getPris("FredagsbarKlip"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            lvwVarerKøbtPåKlip.getItems().clear();
+            int sumKlip = 0;
+            for(Vare v : vareKlipMap.keySet()){
+                int klip = vareKlipMap.get(v);
+                lvwVarerKøbtPåKlip.getItems().add(v.getNavn() + " klip: " + klip);
+                sumKlip += klip;
+            }
+            lblKlipBrugtIPeriode.setText("Total: "+sumKlip);
+        }
+        else{
+            String message = "Husk at indsætte datoer";
+            JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     private void createLabel(DagsopgørelsesPane dagsopgørelsesPane) {
         Label lblDagsopgørsel = new Label("Dagsopgørelse");
