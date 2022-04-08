@@ -31,8 +31,4 @@ public abstract class Salg implements Serializable {
     public LocalDate getSalgsDato(){
         return salgsDato;
     }
-
-    public double totalPris(int prisgruppe) {
-        throw new UnsupportedOperationException();
-    }
 }
