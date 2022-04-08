@@ -38,8 +38,6 @@ public class ReturnerUdlejningPane extends GridPane {
 
         createLayout(this);
 
-
-
     }
 
     private void createLayout(GridPane pane){
@@ -101,7 +99,7 @@ public class ReturnerUdlejningPane extends GridPane {
 
         btnFærdiggør.setOnAction(event -> færdiggørUdlejningAction());
 
-        btnOpdaterListe.setOnAction(eveent -> opdaterListeAction());
+        btnOpdaterListe.setOnAction(event -> opdaterListeAction());
     }
 
     private void vareSelectedAction() {
@@ -126,8 +124,8 @@ public class ReturnerUdlejningPane extends GridPane {
     private void færdiggørUdlejningAction() {
         Udlejning u = lvwUdlejninger.getSelectionModel().getSelectedItem();
         if(u != null){
-            u.setReturVarer(returVare);
-            u.setBetalt(true);
+            controller.setReturVarer(u,returVare);
+            controller.setUdlejningBetaling(u, true);
             lvwUdlejninger.getItems().removeAll();
             opdaterListeAction();
             controller.saveStorageToFile();

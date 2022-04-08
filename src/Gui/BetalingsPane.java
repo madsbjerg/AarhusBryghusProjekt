@@ -26,10 +26,11 @@ som at det kun gælder faste kunder der har en konto.
 public class BetalingsPane extends GridPane {
 
     private Controller controller = Controller.getController();
-    private TextField txfTotal, txfRabat, txfNavnKunde;
-    private ListView<Regning> lvwRegninger, lvwVarerIRegning;
+    private TextField txfTotal, txfRabat, txfNavnKunde, txfDato;
+    private ListView<Regning> lvwRegninger;
+    private ListView<String> lvwVarerIRegning;
     private Button btnBetal;
-    private Label lblTotal, lblRegninger, lblRegningInfo, lblRabat, lblKundeNavn, lblvarer;
+    private Label lblTotal, lblRegninger, lblRegningInfo, lblRabat, lblKundeNavn, lblvarer, lblDato;
     private VBox vboxRegningInform, vboxBetalBtn, vboxLblInfo;
 
     public BetalingsPane() {
@@ -68,6 +69,8 @@ public class BetalingsPane extends GridPane {
     private void createListViewRegning(BetalingsPane betalingsPane) {
         lvwRegninger = new ListView<>();
         this.add(lvwRegninger, 1, 2);
+        ChangeListener<Regning> regningChangeListener = (ov, oldRegning, newRegning) -> this.regningSelectedAction();
+        lvwRegninger.getSelectionModel().selectedItemProperty().addListener(regningChangeListener);
     }
 
     private void createListViewVarer(BetalingsPane betalingsPane){
@@ -84,12 +87,15 @@ public class BetalingsPane extends GridPane {
         txfRabat.setEditable(false);
         txfTotal = new TextField();
         txfTotal.setEditable(false);
+        txfDato = new TextField();
+        txfDato.setEditable(false);
 
         vboxRegningInform = new VBox();
         this.add(vboxRegningInform, 4, 2);
         vboxRegningInform.getChildren().add(txfNavnKunde);
         vboxRegningInform.getChildren().add(txfRabat);
         vboxRegningInform.getChildren().add(txfTotal);
+        vboxRegningInform.getChildren().add(txfDato);
 
         // Vbox betalings-button
         vboxBetalBtn = new VBox();
@@ -104,6 +110,8 @@ public class BetalingsPane extends GridPane {
         this.add(vboxLblInfo, 3, 2);
         lblKundeNavn = new Label("Kunde navn:");
         vboxLblInfo.getChildren().add(lblKundeNavn);
+        lblDato = new Label("Salgsdato:");
+        vboxLblInfo.getChildren().add(lblDato);
         lblRabat = new Label("Rabat:");
         vboxLblInfo.getChildren().add(lblRabat);
         lblTotal = new Label("Total pris:");
@@ -132,16 +140,15 @@ public class BetalingsPane extends GridPane {
         Regning valgtRegning = lvwRegninger.getSelectionModel().getSelectedItem();
 
         if(valgtRegning != null){
-            ArrayList<Vare> varerISalg = new ArrayList<>();
-            for(int i = 0; i < lvwVarerIRegning.getItems().size(); i++){
-
+            for(Vare v : valgtRegning.getVarer().keySet()){
+                lvwVarerIRegning.getItems().add(v.getNavn()+ " " + valgtRegning.getVarer().get(v));
             }
 
         }
 
 
         // set text
-   
+
 
 
     }
@@ -154,7 +161,9 @@ public class BetalingsPane extends GridPane {
         }
         else{
             lvwRegninger.getItems().remove(valgtRegning);
+            valgtRegning.setBetalt(true);
             bekraeftBetalingMessage();
+            lvwVarerIRegning.getItems().clear();
         }
     }
 
