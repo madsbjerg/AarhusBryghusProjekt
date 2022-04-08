@@ -188,6 +188,14 @@ public class Controller {
         return produktSalg;
     }
 
+    public void setUdlejningBetaling(Udlejning u, boolean betalt){
+        u.setBetalt(true);
+    }
+
+    public void setReturVarer(Udlejning u, HashMap<Vare, Integer> vare){
+        u.setReturVarer(vare);
+    }
+
     public ArrayList<Salg> getRegninger (){
 
         ArrayList<Salg> regninger = new ArrayList<>();
@@ -286,7 +294,6 @@ public class Controller {
             if(f.exists()){
                 FileInputStream fs_in = new FileInputStream(f);
                 ObjectInputStream os_in = new ObjectInputStream(fs_in);
-                boolean isNotDone = true;
                 while(fs_in.available() > 0){
                     Object obj = os_in.readObject();
                     if(obj instanceof Vare){
