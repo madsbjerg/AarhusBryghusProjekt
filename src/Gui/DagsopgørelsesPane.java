@@ -2,8 +2,6 @@ package Gui;
 
 import Application.Controller.Controller;
 import Application.Models.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -116,12 +114,12 @@ public class DagsopgørelsesPane extends GridPane {
         lvwsalg = new ListView<>();
         this.add(lvwsalg, 0, 1);
         ArrayList<Salg> dagsSalg = new ArrayList<>();
-        for(int i =0;i<Controller.getController().getSlag().size();i++){
-            if(Objects.equals(Controller.getController().getSlag().get(i).getSalgsDato(), LocalDate.now())){
-                dagsSalg.add(Controller.getController().getSlag().get(i));
+        for(int i = 0; i<Controller.getController().getSalg().size(); i++){
+            if(Objects.equals(Controller.getController().getSalg().get(i).getSalgsDato(), LocalDate.now())){
+                dagsSalg.add(Controller.getController().getSalg().get(i));
             }
         }
-        lvwsalg.getItems().addAll(Controller.getController().getSlag());
+        lvwsalg.getItems().addAll(Controller.getController().getSalg());
     }
 
     private void createButton(DagsopgørelsesPane dagsopgørelsesPane){
@@ -184,6 +182,6 @@ public class DagsopgørelsesPane extends GridPane {
     }
     private void updateSalgAction() {
         lvwsalg.getItems().remove(0,lvwsalg.getItems().size());
-        lvwsalg.getItems().addAll(Controller.getController().getSlag());
+        lvwsalg.getItems().addAll(Controller.getController().getSalg());
     }
 }
