@@ -61,9 +61,6 @@ public class BetalingsPane extends GridPane {
         this.add(lblvarer, 2,0);
         lblvarer.setFont(Font.font("",FontWeight.BOLD, 12));
 
-        lblRegningInfo = new Label("Salgsinformationer");
-        this.add(lblRegningInfo, 3, 0);
-        lblRegningInfo.setFont(Font.font("",FontWeight.BOLD, 12));
     }
 
     private void createListViewRegning(BetalingsPane betalingsPane) {
@@ -80,42 +77,12 @@ public class BetalingsPane extends GridPane {
 
     private void createVbox(BetalingsPane betalingsPane) {
 
-        // Vbox med informationer fra salget.
-        txfNavnKunde = new TextField();
-        txfNavnKunde.setEditable(false);
-        txfRabat = new TextField();
-        txfRabat.setEditable(false);
-        txfTotal = new TextField();
-        txfTotal.setEditable(false);
-        txfDato = new TextField();
-        txfDato.setEditable(false);
-
-        vboxRegningInform = new VBox();
-        this.add(vboxRegningInform, 4, 2);
-        vboxRegningInform.getChildren().add(txfNavnKunde);
-        vboxRegningInform.getChildren().add(txfRabat);
-        vboxRegningInform.getChildren().add(txfTotal);
-        vboxRegningInform.getChildren().add(txfDato);
-
         // Vbox betalings-button
         vboxBetalBtn = new VBox();
         this.add(vboxBetalBtn, 7, 2);
         btnBetal = new Button("Regning betalt");
         vboxBetalBtn.getChildren().add(btnBetal);
         btnBetal.setOnAction(event -> afslutRegningAction());
-
-        // Vbox til infolabels.
-        vboxLblInfo = new VBox();
-        vboxLblInfo.setSpacing(10.0);
-        this.add(vboxLblInfo, 3, 2);
-        lblKundeNavn = new Label("Kunde navn:");
-        vboxLblInfo.getChildren().add(lblKundeNavn);
-        lblDato = new Label("Salgsdato:");
-        vboxLblInfo.getChildren().add(lblDato);
-        lblRabat = new Label("Rabat:");
-        vboxLblInfo.getChildren().add(lblRabat);
-        lblTotal = new Label("Total pris:");
-        vboxLblInfo.getChildren().add(lblTotal);
     }
 
 
@@ -134,8 +101,6 @@ public class BetalingsPane extends GridPane {
 
     private void regningSelectedAction(){
 
-        // wut?!-_-
-
         Regning valgtRegning = lvwRegninger.getSelectionModel().getSelectedItem();
 
         if(valgtRegning != null){
@@ -143,12 +108,6 @@ public class BetalingsPane extends GridPane {
                 lvwVarerIRegning.getItems().add(v.getNavn()+ " " + valgtRegning.getVarer().get(v));
             }
         }
-
-        //--- set text
-        // if FastRabat "Fast" + "rabat"
-        // if ProcentRabat "rabat" + "%"
-        //txfNavnKunde.setText(String.);
-
     }
 
     private void afslutRegningAction(){
@@ -173,6 +132,4 @@ public class BetalingsPane extends GridPane {
         String message = "Ingen regning er valgt";
         JOptionPane.showMessageDialog(new JFrame(), message, "Fejl", JOptionPane.ERROR_MESSAGE);
     }
-
-
 }
