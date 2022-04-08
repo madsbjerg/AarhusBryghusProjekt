@@ -86,12 +86,6 @@ public class Controller {
         return k;
     }
 
-    /*public Klippekort createKlippekort(){
-        Klippekort k = new Klippekort();
-        Storage.getStorage().addVare(k);
-        return k;
-    }*/
-
     public  ProduktSalg createProduktSalg(HashMap<Vare, Integer> varer, Betalingsform bform, double beloeb, Rabat rabat){
 
         ProduktSalg p1 = new ProduktSalg(varer, beloeb, bform, rabat);
@@ -144,9 +138,9 @@ public class Controller {
         return rl;
     }
 
-    public Drikkevare[] getDrikkevareSampakning(Sampakning sampakning){
-        return sampakning.getDrikkevarer();
-    }
+//    public Drikkevare[] getDrikkevareSampakning(Sampakning sampakning){
+//        return sampakning.getDrikkevarer();
+//    }
 
     public double brugKlippekort(Klippekort klippekort, int klipPris){
         klippekort.brugKlip(klipPris);
@@ -164,7 +158,7 @@ public class Controller {
         return rl;
     }
 
-    public ArrayList<Salg> getSlag(){
+    public ArrayList<Salg> getSalg(){
         ArrayList<Salg> salg = new ArrayList<>(Storage.getStorage().getSalg());
         return salg;
     }
@@ -206,17 +200,6 @@ public class Controller {
     }
 
 
-    public ArrayList<Prisgruppe> getPrisgrupper(){
-        ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
-        for(Vare v : Storage.getStorage().getVarer()){
-            for(Prisgruppe pg : v.getPrisgrupper()){
-                if(!prisgrupper.contains(pg)){
-                    prisgrupper.add(pg);
-                }
-            }
-        }
-        return prisgrupper;
-    }
 
     // TODO: Mike brug den her i stedet pls: Author Mads
     public ArrayList<String> getPrisgrupperByName(){
@@ -278,10 +261,6 @@ public class Controller {
             totalPant += vare.getPant() * varer.get(vare);
         }
         return totalPant;
-    }
-
-    public void setBetaltUdlejning(Udlejning udlejning){
-        udlejning.setBetalt(true);
     }
 
     public void saveStorageToFile(){

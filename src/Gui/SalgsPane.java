@@ -413,7 +413,6 @@ public class SalgsPane extends GridPane {
         vbox = new VBox();
         vbox.getChildren().add(cbbKlippekort);
         this.add(vbox, 2, 4);
-        //ArrayList<Klippekort> alKlip = new ArrayList<>();
         for(Vare k : controller.getKlippekort()){
             if(((Klippekort) k).getNavnKunde() != null){
                 cbbKlippekort.getItems().add(k);
@@ -478,8 +477,7 @@ public class SalgsPane extends GridPane {
 
         Label lblFlaskeøl = new Label("Vælg øl til sampakning");
         r.add(lblFlaskeøl, 0, 0);
-
-        Sampakning sampakning1 = new Sampakning(sampakning.getNavn(), sampakning.getAntalOel(), sampakning.getAntalGlas());
+        Sampakning sampakning1 = controller.createSampakning(sampakning.getNavn(), sampakning.getAntalOel(), sampakning.getAntalGlas());
         int beercount = sampakning1.getAntalOel();
         Label lblAntalØltilbage = new Label();
         r.add(lblAntalØltilbage, 0, 4);
