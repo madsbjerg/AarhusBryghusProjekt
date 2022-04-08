@@ -62,6 +62,17 @@ public class Sampakning extends Vare {
         if (drikkevarer[0] != null) {
             navn += "\n" + Arrays.toString(getDrikkevarer());
         }
+        try{
+            Prisgruppe aktivPg = null;
+            for(Prisgruppe pg : super.getPrisgrupper()){
+                if(pg.getNavn().equalsIgnoreCase(super.getAktivPrisgruppe())){
+                    aktivPg = pg;
+                }
+            }
+            navn += " " + aktivPg.getPris();
+        }catch(NullPointerException ex){
+            navn += "  NaN";
+        }
         return navn;
     }
 }

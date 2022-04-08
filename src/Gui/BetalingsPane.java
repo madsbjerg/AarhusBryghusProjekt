@@ -61,9 +61,6 @@ public class BetalingsPane extends GridPane {
         this.add(lblvarer, 2,0);
         lblvarer.setFont(Font.font("",FontWeight.BOLD, 12));
 
-        lblRegningInfo = new Label("Salgsinformationer");
-        this.add(lblRegningInfo, 3, 0);
-        lblRegningInfo.setFont(Font.font("",FontWeight.BOLD, 12));
     }
 
     private void createListViewRegning(BetalingsPane betalingsPane) {
@@ -121,7 +118,7 @@ public class BetalingsPane extends GridPane {
 
     // ---- Actions ---------------------------------
 
-    ChangeListener<Regning> regningChangeListener = (ov, oldRegning, newRegning) -> this.regningSelectedAction();
+
 
     private void updateRegningerAction () {
         ArrayList<Salg> regninger = controller.getRegninger();
@@ -176,6 +173,4 @@ public class BetalingsPane extends GridPane {
         String message = "Ingen regning er valgt";
         JOptionPane.showMessageDialog(new JFrame(), message, "Fejl", JOptionPane.ERROR_MESSAGE);
     }
-
-
 }

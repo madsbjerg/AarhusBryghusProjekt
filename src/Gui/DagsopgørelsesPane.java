@@ -95,7 +95,7 @@ public class DagsopgørelsesPane extends GridPane {
                 lvwVarerKøbtPåKlip.getItems().add(v.getNavn() + " klip: " + klip);
                 sumKlip += klip;
             }
-            lblKlipBrugtIPeriode.setText("Total: "+sumKlip);
+            lblKlipBrugtIPeriode.setText(""+sumKlip);
         }
         else{
             String message = "Husk at indsætte datoer";
