@@ -141,7 +141,7 @@ public class BetalingsPane extends GridPane {
 
 
         // set text
-
+   
 
 
     }
