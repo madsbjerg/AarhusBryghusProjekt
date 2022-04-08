@@ -173,6 +173,8 @@ public class SalgsPane extends GridPane {
                   }
                 controller.saveStorageToFile();
                 salgOprettetMessage();
+                resetTotalPris();
+                lvwKurv.getItems().clear();
             }
         } else {
             errormessageBetalingform();
@@ -228,6 +230,10 @@ public class SalgsPane extends GridPane {
         JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
     }
 
+    private void resetTotalPris(){
+        txfTotalPris.setText("" + 0);
+    }
+
     private void updateKurvAction() {
             Vare ValgtVare = lvwValgteVare.getSelectionModel().getSelectedItem();
         if (ValgtVare == null) {
@@ -238,7 +244,8 @@ public class SalgsPane extends GridPane {
 
             // Hvis man vælger sampakning, kommer man ind i sampakning GUI
             if(ValgtVare.getVaretype().equals(Varetype.SAMPAKNING)){
-                createSampakningAction((Sampakning) ValgtVare);
+               Sampakning sampakning = createSampakningAction((Sampakning) ValgtVare);
+               lvwKurv.getItems().add(sampakning);
             }
                 //Hvis man vælger klippekort, og den ikke er tom
 
@@ -246,7 +253,10 @@ public class SalgsPane extends GridPane {
                        createKlippekortAction();
                    }
 
-                lvwKurv.getItems().add(ValgtVare);
+                   //Tilføjer ikke her, da den bliver tilføjet ovenover.
+                   if(!lvwValgteVare.getSelectionModel().getSelectedItem().getVaretype().equals(Varetype.SAMPAKNING)) {
+                       lvwKurv.getItems().add(ValgtVare);
+                   }
 
                 //Hashmap af alle vores vare.
                 HashMap<Vare, Integer> varer = new HashMap<>();
@@ -403,7 +413,6 @@ public class SalgsPane extends GridPane {
         vbox = new VBox();
         vbox.getChildren().add(cbbKlippekort);
         this.add(vbox, 2, 4);
-        //ArrayList<Klippekort> alKlip = new ArrayList<>();
         for(Vare k : controller.getKlippekort()){
             if(((Klippekort) k).getNavnKunde() != null){
                 cbbKlippekort.getItems().add(k);
@@ -460,7 +469,7 @@ public class SalgsPane extends GridPane {
         this.add(lblTotalPris, 4, 0);
     }
 
-    public void createSampakningAction(Sampakning sampakning){
+    public Sampakning createSampakningAction(Sampakning sampakning){
         Stage stage = new Stage();
         stage.setTitle("Lav sampakning");
         GridPane r = new GridPane();
@@ -468,6 +477,11 @@ public class SalgsPane extends GridPane {
 
         Label lblFlaskeøl = new Label("Vælg øl til sampakning");
         r.add(lblFlaskeøl, 0, 0);
+        Sampakning sampakning1 = controller.createSampakning(sampakning.getNavn(), sampakning.getAntalOel(), sampakning.getAntalGlas());
+        int beercount = sampakning1.getAntalOel();
+        Label lblAntalØltilbage = new Label();
+        r.add(lblAntalØltilbage, 0, 4);
+        lblAntalØltilbage.setText(String.valueOf(beercount));
 
         ListView<Drikkevare> lvwValgteøl = new ListView<>();
         r.add(lvwValgteøl, 1, 1);
@@ -484,46 +498,88 @@ public class SalgsPane extends GridPane {
 
         Button btnTilføjSampakning = new Button("Tilføj øl til sampakning");
         r.add(btnTilføjSampakning, 0, 3);
-        btnTilføjSampakning.setOnAction(event -> tilføjTilSampakningAction(sampakning, lvwFlaskeøl, lvwValgteøl));
+        btnTilføjSampakning.setOnAction(event -> tilføjTilSampakningAction(sampakning1, lvwFlaskeøl, lvwValgteøl, lblAntalØltilbage));
 
         Button btnRemoveSampakning = new Button("Fjern fra sampakning");
         r.add(btnRemoveSampakning, 1, 3);
-        btnRemoveSampakning.setOnAction(event -> removeFraSampakningAction(sampakning, lvwValgteøl,lvwFlaskeøl));
+        btnRemoveSampakning.setOnAction(event -> removeFraSampakningAction(sampakning1, lvwValgteøl,lblFlaskeøl));
 
         Label lblSampakning = new Label("Øl i sampakning");
         r.add(lblSampakning, 1,0);
 
+        Button btnOk = new Button("Lav sampakning");
+        r.add(btnOk,1 , 4);
+        btnOk.setOnAction(event -> stage.close());
 
-
-
-
+        if(Objects.equals(cbbprisgrupper.getSelectionModel().getSelectedItem(), "Fredagsbar")){
+            if(sampakning1.getAntalOel() ==2){
+                Prisgruppe p = new Prisgruppe(110, "Fredagsbar");
+                sampakning1.addPrisgruppe(p);
+            } else if (sampakning1.getAntalOel() == 4){
+                Prisgruppe p = new Prisgruppe(140, "Fredagsbar");
+                sampakning1.addPrisgruppe(p);
+            } else if (sampakning1.getAntalOel() ==6 && sampakning1.getAntalGlas() <2){
+                Prisgruppe p = new Prisgruppe(260, "Fredagsbar");
+                sampakning1.addPrisgruppe(p);
+            } else if(sampakning1.getAntalOel() ==6 && sampakning1.getAntalGlas() <6){
+                Prisgruppe p = new Prisgruppe(260, "Fredagsbar");
+                sampakning1.addPrisgruppe(p);
+            } else if(sampakning1.getAntalOel() ==6 && sampakning1.getAntalGlas() ==6){
+                Prisgruppe p = new Prisgruppe(350, "Fredagsbar");
+                sampakning1.addPrisgruppe(p);
+            } else if(sampakning1.getAntalOel() == 12){
+                Prisgruppe p = new Prisgruppe(410, "Fredagsbar");
+                sampakning1.addPrisgruppe(p);
+            }
+        }
+        if(Objects.equals(cbbprisgrupper.getSelectionModel().getSelectedItem(), "Butik")){
+            if(sampakning1.getAntalOel() ==2){
+                Prisgruppe p = new Prisgruppe(110, "Butik");
+                sampakning1.addPrisgruppe(p);
+            } else if (sampakning1.getAntalOel() == 4){
+                Prisgruppe p = new Prisgruppe(140, "Butik");
+                sampakning1.addPrisgruppe(p);
+            } else if (sampakning1.getAntalOel() ==6 && sampakning1.getAntalGlas() <2){
+                Prisgruppe p = new Prisgruppe(260, "Butik");
+                sampakning1.addPrisgruppe(p);
+            } else if(sampakning1.getAntalOel() ==6 && sampakning1.getAntalGlas() <6){
+                Prisgruppe p = new Prisgruppe(260, "Butik");
+                sampakning1.addPrisgruppe(p);
+            } else if(sampakning1.getAntalOel() ==6 && sampakning1.getAntalGlas() ==6){
+                Prisgruppe p = new Prisgruppe(350, "Butik");
+                sampakning1.addPrisgruppe(p);
+            } else if(sampakning1.getAntalOel() == 12){
+                Prisgruppe p = new Prisgruppe(410, "Butik");
+                sampakning1.addPrisgruppe(p);
+            }
+        }
 
         stage.setScene(sc);
         stage.showAndWait();
 
+        return sampakning1;
+
     }
 
-    private void removeFraSampakningAction(Sampakning sampakning, ListView<Drikkevare> lvwValgteøl, ListView<Drikkevare> lvwFlaskeøl) {
+    private void removeFraSampakningAction(Sampakning sampakning, ListView<Drikkevare> lvwValgteøl, Label lbl) {
         if(lvwValgteøl.getSelectionModel().getSelectedItem() != null){
             Drikkevare valgteøl = lvwValgteøl.getSelectionModel().getSelectedItem();
             sampakning.removeDrikkevare(valgteøl);
             lvwValgteøl.getItems().remove(valgteøl );
+
+            lbl.setText("Øl tilbage: " + (sampakning.getAntalOel() - lvwValgteøl.getItems().size()));
         } else {
             errorMessageRemove();
         }
     }
 
-    private void updatelistView(ListView<Drikkevare> lvwValgteøl) {
-
-    }
-
-    private void tilføjTilSampakningAction(Sampakning sampakning, ListView<Drikkevare> lvwFlaskeøl, ListView<Drikkevare> lvwValgteøl) {
+    private void tilføjTilSampakningAction(Sampakning sampakning, ListView<Drikkevare> lvwFlaskeøl, ListView<Drikkevare> lvwValgteøl, Label lbl) {
         if(lvwFlaskeøl.getSelectionModel().getSelectedItem() != null) {
             Drikkevare valgteøl = lvwFlaskeøl.getSelectionModel().getSelectedItem();
             sampakning.addDrikkevare(valgteøl);
-
             lvwValgteøl.getItems().add(valgteøl);
 
+            lbl.setText("Øl tilbage: " + (sampakning.getAntalOel() - lvwValgteøl.getItems().size()));
         } else {
             errorMessageTilføj();
         }
