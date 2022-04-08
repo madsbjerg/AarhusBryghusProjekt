@@ -305,7 +305,6 @@ public class Controller {
             if(f.exists()){
                 FileInputStream fs_in = new FileInputStream(f);
                 ObjectInputStream os_in = new ObjectInputStream(fs_in);
-                boolean isNotDone = true;
                 while(fs_in.available() > 0){
                     Object obj = os_in.readObject();
                     if(obj instanceof Vare){
