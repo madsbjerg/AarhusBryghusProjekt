@@ -66,7 +66,7 @@ class ControllerTest {
         varer2.put(testvare2, 0);
 
         double TC1 = testController.totalPris(pgTest.getNavn(), varer);
-        double TC2 = testController.totalPris(pgTest2.getNavn(),varer2);
+        double TC2 = testController.totalPris(pgTest2.getNavn(), varer2);
         
         assertEquals(200, TC1);
         assertEquals(0, TC2);
@@ -357,8 +357,8 @@ class ControllerTest {
         Vare vare = new Udlejningsvare("6 kg", 1000, Varetype.KULSYRE);
         HashMap<Vare, Integer> varer = new HashMap<>();
         HashMap<Vare, Integer> vareIntegerHashMap = new HashMap<>();
-        varer.put(testVare, 2);
-        vareIntegerHashMap.put(vare, 2);
+        varer.put(testVare, 1);
+        vareIntegerHashMap.put(vare, 1);
 
 
         //act
@@ -367,8 +367,8 @@ class ControllerTest {
 
 
         //asserts
-        assertEquals(400, c.beregnPant(varer));
-        assertEquals(2000, c.beregnPant(vareIntegerHashMap));
+        assertEquals(200, c.beregnPant(varer));
+        assertEquals(1000, c.beregnPant(vareIntegerHashMap));
 
 
 
