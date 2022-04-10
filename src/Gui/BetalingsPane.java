@@ -6,6 +6,7 @@ import javafx.scene.layout.GridPane;
 import Application.Controller.Controller;
 import Application.Models.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -26,12 +27,11 @@ som at det kun gælder faste kunder der har en konto.
 public class BetalingsPane extends GridPane {
 
     private Controller controller = Controller.getController();
-    private TextField txfTotal, txfRabat, txfNavnKunde, txfDato;
     private ListView<Regning> lvwRegninger;
     private ListView<String> lvwVarerIRegning;
-    private Button btnBetal;
-    private Label lblTotal, lblRegninger, lblRegningInfo, lblRabat, lblKundeNavn, lblvarer, lblDato;
-    private VBox vboxRegningInform, vboxBetalBtn, vboxLblInfo;
+    private Button btnBetal, btnUpdate;
+    private Label lblRegninger, lblvarer;
+    private HBox hBoxBtns;
 
     public BetalingsPane() {
         this.setPadding(new Insets(20));
@@ -43,7 +43,7 @@ public class BetalingsPane extends GridPane {
 
         createLabels(this);
         createListViewRegning(this);
-        createVbox(this);
+        createBoxes(this);
         createListViewVarer(this);
         updateRegningerAction();
 
@@ -75,13 +75,16 @@ public class BetalingsPane extends GridPane {
         this.add(lvwVarerIRegning, 2, 2);
     }
 
-    private void createVbox(BetalingsPane betalingsPane) {
+    private void createBoxes(BetalingsPane betalingsPane) {
 
-        // Vbox betalings-button
-        vboxBetalBtn = new VBox();
-        this.add(vboxBetalBtn, 7, 2);
+        // Hbox-buttons
+        hBoxBtns = new HBox();
+        this.add(hBoxBtns, 1, 3);
+        btnUpdate = new Button("Opdater");
+        hBoxBtns.getChildren().add(btnUpdate);
+        btnUpdate.setOnAction(event -> updateRegningerAction());
         btnBetal = new Button("Regning betalt");
-        vboxBetalBtn.getChildren().add(btnBetal);
+        hBoxBtns.getChildren().add(btnBetal);
         btnBetal.setOnAction(event -> afslutRegningAction());
     }
 
@@ -91,6 +94,8 @@ public class BetalingsPane extends GridPane {
 
 
     private void updateRegningerAction () {
+        lvwRegninger.getItems().clear();
+
         ArrayList<Salg> regninger = controller.getRegninger();
         for (Salg s : regninger) {
             if(!((Regning)s).isBetalt()){
@@ -132,4 +137,5 @@ public class BetalingsPane extends GridPane {
         String message = "Ingen regning er valgt";
         JOptionPane.showMessageDialog(new JFrame(), message, "Fejl", JOptionPane.ERROR_MESSAGE);
     }
+
 }
