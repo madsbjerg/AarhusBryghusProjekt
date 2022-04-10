@@ -302,28 +302,6 @@ class ControllerTest {
         //
     }
 
-    @Test
-    void createRundvisning() {
-        Controller c = new Controller();
-        Rundvisning rundvisning = new Rundvisning("Mads", 4, LocalDateTime.of(2022, 4, 4,12, 10 ));
-        Prisgruppe prisgruppe = new Prisgruppe(400, "Butik");
-
-        rundvisning.addPrisgruppe(prisgruppe);
-
-        HashMap<Vare, Integer> varer = new HashMap<>();
-        varer.put(rundvisning, 1);
-
-        //act
-        Rundvisning r = c.createRundvisning("Mads", 4, LocalDateTime.of(2022, 4, 8, 12, 10));
-
-
-
-        // Assert exceptional arguments
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> c.createRundvisning("Mads", 1, LocalDateTime.of(2022, 4, 25, 12, 10)));
-        assertEquals("Tidspunkt er efter 14 dage af oprettelse af rundvisning.", ex.getMessage());
-
-
-    }
 
     @Test
     void testResetPrisgrupper() {
