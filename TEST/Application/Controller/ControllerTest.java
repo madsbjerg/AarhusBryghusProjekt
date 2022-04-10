@@ -149,6 +149,7 @@ class ControllerTest {
         // salg med varer
         ProduktSalg produktSalg = testController.createProduktSalg(varer, Betalingsform.KREDITKORT,  0,   null);
         assertSame(varer, produktSalg.getVare());
+
     }
 
     @Test
