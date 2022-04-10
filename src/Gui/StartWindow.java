@@ -71,7 +71,7 @@ private void initContent(BorderPane pane) {
         BetalingsPane betalingsPane = new BetalingsPane();
         tabBetaling.setContent(betalingsPane);
 
-        Tab tabDagsopgørelse = new Tab("Statestik");
+        Tab tabDagsopgørelse = new Tab("Statistik");
         tabs.getTabs().add(tabDagsopgørelse);
         DagsopgørelsesPane dagsopgørelsesPane = new DagsopgørelsesPane();
         tabDagsopgørelse.setContent(dagsopgørelsesPane);
