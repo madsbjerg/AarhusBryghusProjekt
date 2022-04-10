@@ -416,7 +416,5 @@ class ControllerTest {
         //1 klip tilbage. 2 forsøgt forbrugt (1-2) <0
         Exception exception1 = assertThrows(IllegalArgumentException.class, () -> testController.brugKlippekort(klippekort1, 2));
 
-
-
     }
 }

@@ -13,9 +13,9 @@ public abstract class Salg implements Serializable {
     LocalDate salgsDato;
 
     Salg(HashMap<Vare, Integer> varer, Betalingsform betalingsform, Rabat rabat) {
+        this.rabat = rabat;
         this.varer = varer;
         this.betalingsform = betalingsform;
-        this.rabat = rabat;
         salgsDato = LocalDate.now();
 
     }

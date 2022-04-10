@@ -44,7 +44,7 @@ private void initContent(BorderPane pane) {
 
     private void initAnchorPane(AnchorPane anchorPane) {
         final TabPane tabs = new TabPane();
-        final Button btnAdminAccess = new Button("ADMIN");
+        final Button btnAdminAccess = new Button("");
         btnAdminAccess.setPrefWidth(70);
         btnAdminAccess.setPrefHeight(15);
 
@@ -71,7 +71,7 @@ private void initContent(BorderPane pane) {
         BetalingsPane betalingsPane = new BetalingsPane();
         tabBetaling.setContent(betalingsPane);
 
-        Tab tabDagsopgørelse = new Tab("Dagsopgørelse");
+        Tab tabDagsopgørelse = new Tab("Statestik");
         tabs.getTabs().add(tabDagsopgørelse);
         DagsopgørelsesPane dagsopgørelsesPane = new DagsopgørelsesPane();
         tabDagsopgørelse.setContent(dagsopgørelsesPane);
@@ -94,57 +94,7 @@ private void initContent(BorderPane pane) {
 
     }
 
-    private boolean passwordAction(){
-        final boolean[] passwordCorrect = {false};
-        Stage password = new Stage();
-        password.initModality(Modality.APPLICATION_MODAL);
-        password.setTitle("SKRIV PASSWORD");
 
-        TilePane r = new TilePane();
-
-        Scene sc = new Scene(r,300,200);
-
-        final Label message = new Label("");
-        r.getChildren().add(message);
-        VBox vb = new VBox();
-        vb.setPadding(new Insets(10, 0, 0, 10));
-        vb.setSpacing(10);
-        r.getChildren().add(vb);
-        HBox hb = new HBox();
-        hb.setSpacing(10);
-        hb.setAlignment(Pos.CENTER_LEFT);
-        r.getChildren().add(hb);
-
-        Label label = new Label("Password");
-        r.getChildren().add(label);
-        final PasswordField pb = new PasswordField();
-        r.getChildren().add(pb);
-
-
-        pb.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (!pb.getText().equals("admin")) {
-                    message.setText("Your password is incorrect!");
-                    message.setTextFill(Color.rgb(210, 39, 30));
-                } else {
-                    message.setText("Your password has been confirmed");
-                    message.setTextFill(Color.rgb(21, 117, 84));
-                    passwordCorrect[0] = true;
-                    String message = "Du kan lukke vinduet nu";
-                    JOptionPane.showMessageDialog(new JFrame(), message, "Password Korrekt",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
-                pb.clear();
-            }
-        });
-        hb.getChildren().addAll(label, pb);
-        vb.getChildren().addAll(hb, message);
-        password.setScene(sc);
-        password.showAndWait();
-
-        return passwordCorrect[0];
-    }
 
 
 

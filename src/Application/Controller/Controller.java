@@ -653,7 +653,6 @@ public class Controller {
         varer.put(regningObj1, 0);
         varer.put(regningsObj2, 1);
 
-        Regning regning = controller.createRegning(varer, Betalingsform.REGNING, rb1, 1500.00, "Thomas the train engine");
 
 
         //---- Opret klippekort --------------------------------
