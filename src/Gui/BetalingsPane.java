@@ -26,12 +26,12 @@ som at det kun gælder faste kunder der har en konto.
 public class BetalingsPane extends GridPane {
 
     private Controller controller = Controller.getController();
-    private TextField txfTotal, txfRabat, txfNavnKunde, txfDato;
+
     private ListView<Regning> lvwRegninger;
     private ListView<String> lvwVarerIRegning;
     private Button btnBetal;
-    private Label lblTotal, lblRegninger, lblRegningInfo, lblRabat, lblKundeNavn, lblvarer, lblDato;
-    private VBox vboxRegningInform, vboxBetalBtn, vboxLblInfo;
+    private Label  lblRegninger ,lblvarer;
+    private VBox vboxBetalBtn;
 
     public BetalingsPane() {
         this.setPadding(new Insets(20));

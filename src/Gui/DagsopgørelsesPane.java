@@ -136,7 +136,6 @@ public class DagsopgørelsesPane extends GridPane {
     private void launchKalenderAction() {
         ArrayList<Rundvisning> rundvisninger = new ArrayList<>(Controller.getController().getRundvisninger());
         ArrayList<LocalDate> datoer = new ArrayList<>();
-
         for(int i =0;i<rundvisninger.size();i++){
             datoer.add(rundvisninger.get(i).getTidspunkt().toLocalDate());
         }
@@ -150,9 +149,9 @@ public class DagsopgørelsesPane extends GridPane {
             new DateCell() {
             @Override public void updateItem(LocalDate item, boolean empty){
                 super.updateItem(item, empty);
-                    if(empty || datoer.contains(item) ){
+                    if( datoer.contains(item) ){
                         setText(item.toString());
-                    } else {
+                    } else if (!empty) {
                         setText(null);
                         setDisable(true);
                     }}});
@@ -163,14 +162,9 @@ public class DagsopgørelsesPane extends GridPane {
         Button btnOk = new Button("ok");
         r.getChildren().add(btnOk);
         btnOk.setOnAction(event -> stage.close());
-
         stage.setScene(sc);
-
         stage.showAndWait();
-
-
     }
-
     private void updateTxaAction(DatePicker da, ArrayList<Rundvisning> rundvisning) {
         ArrayList<Rundvisning> rundvisningDatepicker = new ArrayList<>();
         for(int i =0;i<rundvisning.size();i++){
