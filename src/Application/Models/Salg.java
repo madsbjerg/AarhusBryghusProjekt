@@ -13,9 +13,9 @@ public abstract class Salg implements Serializable {
     LocalDate salgsDato;
 
     Salg(HashMap<Vare, Integer> varer, Betalingsform betalingsform, Rabat rabat) {
+        this.rabat = rabat;
         this.varer = varer;
         this.betalingsform = betalingsform;
-        this.rabat = rabat;
         salgsDato = LocalDate.now();
 
     }
@@ -30,9 +30,5 @@ public abstract class Salg implements Serializable {
 
     public LocalDate getSalgsDato(){
         return salgsDato;
-    }
-
-    public double totalPris(int prisgruppe) {
-        throw new UnsupportedOperationException();
     }
 }

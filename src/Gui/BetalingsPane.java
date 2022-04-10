@@ -137,5 +137,4 @@ public class BetalingsPane extends GridPane {
         String message = "Ingen regning er valgt";
         JOptionPane.showMessageDialog(new JFrame(), message, "Fejl", JOptionPane.ERROR_MESSAGE);
     }
-
 }

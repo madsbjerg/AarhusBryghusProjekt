@@ -19,7 +19,7 @@ public class Controller {
         return controller;
     }
 
-    public  Drikkevare createFadøl(String navn,double alkoholProcent){
+    public Drikkevare createFadøl(String navn,double alkoholProcent){
         Drikkevare d1 = new Drikkevare(navn, 0, Varetype.FADØL, alkoholProcent);
         Storage.getStorage().addVare(d1);
         return d1;
@@ -189,7 +189,7 @@ public class Controller {
     }
 
     public void setUdlejningBetaling(Udlejning u, boolean betalt){
-        u.setBetalt(true);
+        u.setBetalt(betalt);
     }
 
     public void setReturVarer(Udlejning u, HashMap<Vare, Integer> vare){
@@ -238,7 +238,7 @@ public class Controller {
         }
     }
 
-    public  double totalPris(String pgnavn, HashMap<Vare, Integer> varer){
+    public double totalPris(String pgnavn, HashMap<Vare, Integer> varer){
         double sum = 0;
         for(Vare vare : varer.keySet()){
             sum += vare.getPris(pgnavn) * varer.get(vare);
@@ -288,7 +288,7 @@ public class Controller {
         }
     }
 
-    public  void loadStorageFromFile(){
+    public void loadStorageFromFile(){
         try{
             File f = new File("bryghus.ser");
             if(f.exists()){
@@ -653,7 +653,6 @@ public class Controller {
         varer.put(regningObj1, 0);
         varer.put(regningsObj2, 1);
 
-        Regning regning = controller.createRegning(varer, Betalingsform.REGNING, rb1, 1500.00, "Thomas the train engine");
 
 
         //---- Opret klippekort --------------------------------
