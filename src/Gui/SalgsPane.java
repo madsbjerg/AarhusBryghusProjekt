@@ -166,7 +166,6 @@ public class SalgsPane extends GridPane {
                           String message = ex.getMessage();
                           JOptionPane.showMessageDialog(new JFrame(), message,"Fejl",JOptionPane.ERROR_MESSAGE);
                       }
-
                   }
                   else {
                       controller.createProduktSalg(varer, bform, total, null);
